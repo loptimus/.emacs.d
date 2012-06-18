@@ -1,0 +1,13 @@
+-define(SYNTAX_SCHEMA,
+	[{root, [], [{file, file}]},
+	 {file, record_info(fields, file), [{form, form}]},
+	 {clause, record_info(fields, clause),
+	  [{body, expr}, {guard, expr}, {name, expr},
+	   {pattern, expr}, {tmout, expr}]},
+	 {expr, record_info(fields, expr),
+	  [{aftercl, clause}, {catchcl, clause}, {esub, expr},
+	   {exprcl, clause}, {headcl, clause}]},
+	 {form, record_info(fields, form),
+	  [{eattr, expr}, {funcl, clause}, {tattr, typexp}]},
+	 {typexp, record_info(fields, typexp),
+	  [{texpr, expr}, {tsub, typexp}]}]).
