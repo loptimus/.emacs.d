@@ -3,61 +3,61 @@
 (provide 'base_config)
 
 
-;; ¹Ø±ÕÏÔÊ¾»­Ãæ
+;; å…³é—­æ˜¾ç¤ºç”»é¢
 ;(setq inhibit-startup-message t)
 
 
-;²»ÒªÉú³ÉÁÙÊ±ÎÄ¼ş
+;ä¸è¦ç”Ÿæˆä¸´æ—¶æ–‡ä»¶
 (setq-default make-backup-files nil)
 
-;ÓÃy/n´úÌæyes/no
+;ç”¨y/nä»£æ›¿yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
 
 
-;;ĞŞ¸ÄEMACSÅäÉ«·½°¸
+;;ä¿®æ”¹EMACSé…è‰²æ–¹æ¡ˆ
 ;(setq default-frame-alist  '((top . 50) (left . 100) (width . 100) (height . 35)(cursor-color . "blue" )  (cursor-type . box)  (foreground-color . "green" )  (background-color . "black" )))  
 (show-paren-mode)  
 (global-font-lock-mode t) 
 
 
-;;;; ´°¿Ú¼äÇĞ»»
+;;;; çª—å£é—´åˆ‡æ¢
 (global-set-key [M-left] 'windmove-left)
 (global-set-key [M-right] 'windmove-right)
 (global-set-key [M-up] 'windmove-up)
 (global-set-key [M-down] 'windmove-down)
 
 
-;; ÏÔÊ¾Ê±¼ä
+;; æ˜¾ç¤ºæ—¶é—´
 (display-time-mode 1)
 (setq display-time-24hr-format  t)
 (setq display-time-day-and-date  t)
 (setq display-time-format  "%a(%V) %m.%d/%H:%M")
 (display-time)
 
-;;ÏÔÊ¾ĞĞºÅ
+;;æ˜¾ç¤ºè¡Œå·
 (require 'linum) 
 (global-linum-mode t)
 
-;;ÉèÖÃĞĞ¾à
+;;è®¾ç½®è¡Œè·
 ;(setq defaule-line-spaceing 4)
 
-;;Ò³¿í
+;;é¡µå®½
 ;(setq default-fill-column 60)
 
 
-;;¿ªÆôÓï·¨¸ßÁÁ
+;;å¼€å¯è¯­æ³•é«˜äº®
 ;(global-font-lock-mode 1)
 
-;;¸ßÁÁÏÔÊ¾ÇøÓò
+;;é«˜äº®æ˜¾ç¤ºåŒºåŸŸ
 ;(transient-mark-mode t)
 
-;;ÉÁÆÁ¾¯±¨
+;;é—ªå±è­¦æŠ¥
 ;(setq visible-bell t)
 
-;;Ëø¶¨ĞĞ¸ß
+;;é”å®šè¡Œé«˜
 ;(setq resize-mini-windows nil)
 
-;;×ÖÌåÉèÖÃ
+;;å­—ä½“è®¾ç½®
 ;(custom-set-faces '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 143 :width normal :foundry "outline" :family "Courier New")))))
 
 
@@ -66,7 +66,7 @@
 (tabbar-mode t) 
 (global-set-key [(meta j)] 'tabbar-backward)
 (global-set-key [(meta k)] 'tabbar-forward)
-;;·Ö×éÑ¡Ôñ
+;;åˆ†ç»„é€‰æ‹©
 (global-set-key [(meta u)] 'tabbar-backward-group)
 (global-set-key [(meta i)] 'tabbar-forward-group)
 
@@ -80,7 +80,7 @@
 ;(set-face-attribute 'tabbar-button-face nil
 ;                    :inherit 'tabbar-default
 ;                    :box '(:line-width 1 :color "yellow")
-; 					)
+;   				)
 ;(set-face-attribute 'tabbar-selected-face nil
 ;                    :inherit 'tabbar-default
 ;                    :foreground "DarkGreen"
@@ -97,7 +97,7 @@
 ;;glass
 ;(global-set-key [(f12)] 'loop-alpha)
 
-;;;Ö÷ÌâÑÕÉ«
+;;;ä¸»é¢˜é¢œè‰²
 (add-to-list 'load-path "~/.emacs.d/base_config/color-theme-6.6.0/")
 (require 'color-theme)
 (color-theme-initialize)
