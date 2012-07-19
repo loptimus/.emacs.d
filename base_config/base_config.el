@@ -15,7 +15,7 @@
 
 
 ;;修改EMACS配色方案
-;(setq default-frame-alist  '((top . 50) (left . 100) (width . 100) (height . 35)(cursor-color . "blue" )  (cursor-type . box)  (foreground-color . "green" )  (background-color . "black" )))  
+(setq default-frame-alist  '((cursor-color . "blue" )  (cursor-type . box)  (foreground-color . "green" )  (background-color . "black" )))  
 (show-paren-mode)  
 (global-font-lock-mode t) 
 
@@ -58,7 +58,7 @@
 ;(setq resize-mini-windows nil)
 
 ;;字体设置
-;(custom-set-faces '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 143 :width normal :foundry "outline" :family "Courier New")))))
+(custom-set-faces '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 143 :width normal :foundry "outline" :family "DejaVu Sans Mono")))))
 
 
 ;; tabbar
@@ -98,10 +98,9 @@
 ;(global-set-key [(f12)] 'loop-alpha)
 
 ;;;主题颜色
-(add-to-list 'load-path "~/.emacs.d/base_config/color-theme-6.6.0/")
-(require 'color-theme)
-(color-theme-initialize)
+;(add-to-list 'load-path "~/.emacs.d/base_config/color-theme-6.6.0/")
+;(require 'color-theme)
+;(color-theme-initialize)
 ;(color-theme-oswald)
 ;(color-theme-charcoal-black)
-(color-theme-deep-blue)
-;(require 'color-theme-ahei)
+;(color-theme-deep-blue)
