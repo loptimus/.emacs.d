@@ -29,3 +29,11 @@
 ;;;=================================PHP configure======================================
 ;(add-to-list 'load-path "~/.emacs.d/phpIDE/")
 ;(require 'php_config)
+
+
+
+
+
+
+
+

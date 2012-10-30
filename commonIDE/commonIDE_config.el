@@ -11,11 +11,44 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/commonIDE/auto-complete-1.3.1/ac-dict")
 (ac-config-default)
+
+(setq-default ac-sources
+		'(ac-source-filename
+ 		ac-source-functions
+ 		ac-source-yasnippet
+ 		ac-source-variables
+ 		ac-source-symbols
+ 		ac-source-features
+ 		ac-source-abbrev
+ 		ac-source-words-in-same-mode-buffers
+ 		ac-source-dictionary)
+     	
+)
+
+
+
+
+
 ;; ======================================ac-complete=================================
 
 
 
 
+;; ====================================flymake=================================
+(autoload 'flymake-find-file-hook "flymake" "" t)
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+(setq flymake-gui-warnings-enabled nil)
+(setq flymake-log-level 0)
+
+
+
+
+
+
+
+
+
+;; ======================================flymake=================================
 
 
 ;; ================================cedet==========================================================
@@ -68,8 +101,9 @@
 
 
 ;;;; ecb自动启动，取消ecb的每日提示
-(setq ecb-auto-activate t
-      ecb-tip-of-the-day nil)
+;(setq ecb-auto-activate t
+;      ecb-tip-of-the-day nil)
+(setq ecb-tip-of-the-day nil)
 
 
  ;;;; 隐藏和显示ecb
@@ -91,8 +125,6 @@
 (custom-set-variables
  '(ecb-options-version "2.40")
  '(ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1)))
-
-
 
 ;; =======================ecb=====================================================
 

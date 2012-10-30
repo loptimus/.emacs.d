@@ -3,62 +3,68 @@
 (provide 'base_config)
 
 
-;; å…³é—­æ˜¾ç¤ºç”»é¢
+;; ¹Ø±ÕÏÔÊ¾»­Ãæ
 ;(setq inhibit-startup-message t)
 
 
-;ä¸è¦ç”Ÿæˆä¸´æ—¶æ–‡ä»¶
+;²»ÒªÉú³ÉÁÙÊ±ÎÄ¼ş
 (setq-default make-backup-files nil)
 
-;ç”¨y/nä»£æ›¿yes/no
+;ÓÃy/n´úÌæyes/no
 (fset 'yes-or-no-p 'y-or-n-p)
 
 
-;;ä¿®æ”¹EMACSé…è‰²æ–¹æ¡ˆ
-(setq default-frame-alist  '((cursor-color . "blue" )  (cursor-type . box)  (foreground-color . "green" )  (background-color . "black" )))  
+;;ĞŞ¸ÄEMACSÅäÉ«·½°¸
+(setq default-frame-alist  '((cursor-color . "blue" )(cursor-type . box)))
 (show-paren-mode)  
-(global-font-lock-mode t) 
+(global-font-lock-mode t)
 
 
-;;;; çª—å£é—´åˆ‡æ¢
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "outline" :family "DejaVu Sans Mono")))))
+
+
+
+;;;; ´°¿Ú¼äÇĞ»»
 (global-set-key [M-left] 'windmove-left)
 (global-set-key [M-right] 'windmove-right)
 (global-set-key [M-up] 'windmove-up)
 (global-set-key [M-down] 'windmove-down)
 
 
-;; æ˜¾ç¤ºæ—¶é—´
+;; ÏÔÊ¾Ê±¼ä
 (display-time-mode 1)
 (setq display-time-24hr-format  t)
 (setq display-time-day-and-date  t)
 (setq display-time-format  "%a(%V) %m.%d/%H:%M")
 (display-time)
 
-;;æ˜¾ç¤ºè¡Œå·
+;;ÏÔÊ¾ĞĞºÅ
 (require 'linum) 
 (global-linum-mode t)
 
-;;è®¾ç½®è¡Œè·
+;;ÉèÖÃĞĞ¾à
 ;(setq defaule-line-spaceing 4)
 
-;;é¡µå®½
+;;Ò³¿í
 ;(setq default-fill-column 60)
 
 
-;;å¼€å¯è¯­æ³•é«˜äº®
+;;¿ªÆôÓï·¨¸ßÁÁ
 ;(global-font-lock-mode 1)
 
-;;é«˜äº®æ˜¾ç¤ºåŒºåŸŸ
+;;¸ßÁÁÏÔÊ¾ÇøÓò
 ;(transient-mark-mode t)
 
-;;é—ªå±è­¦æŠ¥
+;;ÉÁÆÁ¾¯±¨
 ;(setq visible-bell t)
 
-;;é”å®šè¡Œé«˜
+;;Ëø¶¨ĞĞ¸ß
 ;(setq resize-mini-windows nil)
-
-;;å­—ä½“è®¾ç½®
-(custom-set-faces '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 143 :width normal :foundry "outline" :family "DejaVu Sans Mono")))))
 
 
 ;; tabbar
@@ -66,7 +72,7 @@
 (tabbar-mode t) 
 (global-set-key [(meta j)] 'tabbar-backward)
 (global-set-key [(meta k)] 'tabbar-forward)
-;;åˆ†ç»„é€‰æ‹©
+;;·Ö×éÑ¡Ôñ
 (global-set-key [(meta u)] 'tabbar-backward-group)
 (global-set-key [(meta i)] 'tabbar-forward-group)
 
@@ -80,7 +86,7 @@
 ;(set-face-attribute 'tabbar-button-face nil
 ;                    :inherit 'tabbar-default
 ;                    :box '(:line-width 1 :color "yellow")
-;   				)
+; 					)
 ;(set-face-attribute 'tabbar-selected-face nil
 ;                    :inherit 'tabbar-default
 ;                    :foreground "DarkGreen"
@@ -93,14 +99,22 @@
 
 
 
+;»Ö¸´¹¦ÄÜ
+(add-to-list 'load-path "~/.emacs.d/base_config/session/lisp")
+(require 'session)
+(add-hook 'after-init-book 'session-initialize)
+
+
+
 ;(require 'glasses)
 ;;glass
 ;(global-set-key [(f12)] 'loop-alpha)
 
-;;;ä¸»é¢˜é¢œè‰²
+;;;Ö÷ÌâÑÕÉ«
 ;(add-to-list 'load-path "~/.emacs.d/base_config/color-theme-6.6.0/")
 ;(require 'color-theme)
 ;(color-theme-initialize)
 ;(color-theme-oswald)
 ;(color-theme-charcoal-black)
 ;(color-theme-deep-blue)
+;(require 'color-theme-ahei)
