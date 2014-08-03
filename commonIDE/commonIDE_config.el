@@ -25,10 +25,6 @@
      	
 )
 
-
-
-
-
 ;; ======================================ac-complete=================================
 
 
@@ -39,22 +35,14 @@
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 (setq flymake-gui-warnings-enabled nil)
 (setq flymake-log-level 0)
-
-
-
-
-
-
-
-
-
 ;; ======================================flymake=================================
 
 
 ;; ================================cedet==========================================================
 
-;;cedet
-(add-to-list 'load-path "~/.emacs.d/commonIDE/cedet-1.0.1/common")
+;;Switch cedet
+;;(add-to-list 'load-path "~/.emacs.d/commonIDE/cedet-1.0.1/common")
+(add-to-list 'load-path "~/.emacs.d/commonIDE/cedet-1.1/common")
 
 ;(load-file "~/.emacs.d/commonIDE/cedet-1.0.1/common/cedet.el")
 

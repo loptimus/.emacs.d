@@ -63,6 +63,10 @@
 ;;闪屏警报
 ;(setq visible-bell t)
 
+
+;; 取消提示音
+(setq ring-bell-function 'ignore)
+
 ;;锁定行高
 ;(setq resize-mini-windows nil)
 
@@ -109,6 +113,17 @@
 ;(require 'glasses)
 ;;glass
 ;(global-set-key [(f12)] 'loop-alpha)
+
+;; 半透明设置
+(eval-when-compile (require 'cl))
+(defun toggle-transparency ()
+   (interactive)
+     (if (/=
+		         (cadr (frame-parameter nil 'alpha))
+				        100)
+	        (set-frame-parameter nil 'alpha '(100 100))
+			    (set-frame-parameter nil 'alpha '(95 50))))
+(global-set-key (kbd "C-c t") 'toggle-transparency)
 
 ;;;主题颜色
 ;(add-to-list 'load-path "~/.emacs.d/base_config/color-theme-6.6.0/")
