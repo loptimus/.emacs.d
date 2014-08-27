@@ -6,7 +6,7 @@
 
 
 ;; ===============================PHP mode====================================
-(add-to-list 'load-path "~/.emacs.d/phpIDE/")
+(add-to-list 'load-path phpPath)
 (require 'php-mode)
 
 ;; ===============================PHP mode====================================

@@ -3,84 +3,67 @@
 (provide 'base_config)
 
 
-;; ¹Ø±ÕÏÔÊ¾»­Ãæ
+; Disable Startup display (å…³é—­å¯åŠ¨ç”»é¢)
 ;(setq inhibit-startup-message t)
 
 
-;²»ÒªÉú³ÉÁÙÊ±ÎÄ¼ş
+; Disable backup file (ä¸è¦ç”Ÿæˆä¸´æ—¶æ–‡ä»¶)
 (setq-default make-backup-files nil)
 
-;ÓÃy/n´úÌæyes/no
+; y/n instead of yes/no (ç”¨y/nä»£æ›¿yes/no)
 (fset 'yes-or-no-p 'y-or-n-p)
 
 
-;;ĞŞ¸ÄEMACSÅäÉ«·½°¸
+; Set windows color (ä¿®æ”¹EMACSé…è‰²æ–¹æ¡ˆ)
 (setq default-frame-alist  '((cursor-color . "blue" )(cursor-type . box)))
 (show-paren-mode)  
 (global-font-lock-mode t)
-
-
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "outline" :family "DejaVu Sans Mono")))))
+  ;; '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "outline" :family "Consolas")))))
+ '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "outline" :family "Consolas")))))
 
 
-
-;;;; ´°¿Ú¼äÇĞ»»
-(global-set-key [M-left] 'windmove-left)
-(global-set-key [M-right] 'windmove-right)
-(global-set-key [M-up] 'windmove-up)
-(global-set-key [M-down] 'windmove-down)
-
-
-;; ÏÔÊ¾Ê±¼ä
+; Display date and time (æ˜¾ç¤ºæ—¶é—´)
 (display-time-mode 1)
 (setq display-time-24hr-format  t)
 (setq display-time-day-and-date  t)
 (setq display-time-format  "%a(%V) %m.%d/%H:%M")
 (display-time)
 
-;;ÏÔÊ¾ĞĞºÅ
+; Display line number (æ˜¾ç¤ºè¡Œå·)
 (require 'linum) 
 (global-linum-mode t)
 
-;;ÉèÖÃĞĞ¾à
+; Set (è®¾ç½®è¡Œè·)
 ;(setq defaule-line-spaceing 4)
 
-;;Ò³¿í
+; Set (é¡µå®½)
 ;(setq default-fill-column 60)
 
 
-;;¿ªÆôÓï·¨¸ßÁÁ
-;(global-font-lock-mode 1)
 
-;;¸ßÁÁÏÔÊ¾ÇøÓò
+;; é«˜äº®æ˜¾ç¤ºåŒºåŸŸ
 ;(transient-mark-mode t)
 
-;;ÉÁÆÁ¾¯±¨
+;; é—ªå±è­¦æŠ¥
 ;(setq visible-bell t)
 
 
-;; È¡ÏûÌáÊ¾Òô
+;; å–æ¶ˆæç¤ºéŸ³
 (setq ring-bell-function 'ignore)
 
-;;Ëø¶¨ĞĞ¸ß
+;; é”å®šè¡Œé«˜
 ;(setq resize-mini-windows nil)
 
 
 ;; tabbar
 (require 'tabbar)
 (tabbar-mode t) 
-(global-set-key [(meta j)] 'tabbar-backward)
-(global-set-key [(meta k)] 'tabbar-forward)
-;;·Ö×éÑ¡Ôñ
-(global-set-key [(meta u)] 'tabbar-backward-group)
-(global-set-key [(meta i)] 'tabbar-forward-group)
-
-;; set tabbar
+; set tabbar
 ;(set-face-attribute 'tabbar-default-face nil
 ;                    :family "DejaVu Sans Mono"
 ;                    :background "gray80"
@@ -103,7 +86,7 @@
 
 
 
-;»Ö¸´¹¦ÄÜ
+;æ¢å¤åŠŸèƒ½
 (add-to-list 'load-path "~/.emacs.d/base_config/session/lisp")
 (require 'session)
 (add-hook 'after-init-book 'session-initialize)
@@ -114,18 +97,20 @@
 ;;glass
 ;(global-set-key [(f12)] 'loop-alpha)
 
-;; °ëÍ¸Ã÷ÉèÖÃ
-(eval-when-compile (require 'cl))
-(defun toggle-transparency ()
-   (interactive)
-     (if (/=
-		         (cadr (frame-parameter nil 'alpha))
-				        100)
-	        (set-frame-parameter nil 'alpha '(100 100))
-			    (set-frame-parameter nil 'alpha '(95 50))))
-(global-set-key (kbd "C-c t") 'toggle-transparency)
+;; åŠé€æ˜è®¾ç½®
+(setq alpha-list '((80 55) (100 100)))  
+(defun loop-alpha ()  
+  (interactive)  
+  (let ((h (car alpha-list)))                  
+	((lambda (a ab)  
+	   (set-frame-parameter (selected-frame) 'alpha (list a ab))  
+	   (add-to-list 'default-frame-alist (cons 'alpha (list a ab)))  
+	   ) (car h) (car (cdr h)))  
+	(setq alpha-list (cdr (append alpha-list (list h))))  
+	)  
+) 
 
-;;;Ö÷ÌâÑÕÉ«
+;;; ==================== Theme =========================
 ;(add-to-list 'load-path "~/.emacs.d/base_config/color-theme-6.6.0/")
 ;(require 'color-theme)
 ;(color-theme-initialize)
@@ -133,3 +118,4 @@
 ;(color-theme-charcoal-black)
 ;(color-theme-deep-blue)
 ;(require 'color-theme-ahei)
+

@@ -4,111 +4,130 @@
 
 
 
-;; ======================================ac-complete=================================
-
-;(add-to-list 'load-path "~/.emacs.d/commonIDE/auto-complete-1.3.1/")
-;(require 'auto-complete-config)
-;(add-to-list 'ac-dictionary-directories "~/.emacs.d/commonIDE/auto-complete-1.3.1/ac-dict")
-;(ac-config-default)
-;; ======================================ac-complete=================================
+;; CC mode
+(require 'cc-mode)
+(c-set-offset 'inline-open 0)
+(c-set-offset 'friend '-)
+(c-set-offset 'substatement-open 0)
 
 
-;; ================================cedet==========================================================
+;; C 
+(defun my-c-mode-hook()
+  
+  (setq tab-width 4 indent-tabs-mode nil)
 
-;;cedet
-;(require 'cedet)
-;(global-ede-mode t)
+  ;; Code style
+  (c-set-style "k&r")
+  
+  ;; 自动模式，在此种模式下当你键入{时，会自动根据你设置的对齐风格对齐
+  (c-toggle-auto-state)
 
-;;;;  Helper tools.
-;(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-; '(ecb-options-version "2.40")
-; '(semantic-default-submodes (quote (global-semantic-decoration-mode global-semantic-idle-completions-mode global-semantic-idle-scheduler-mode global-semanticdb-minor-mode global-semantic-idle-summary-mode global-semantic-mru-bookmark-mode)))
-; '(semantic-idle-scheduler-idle-time 3))
-;(semantic-mode)
-
-;; smart complitions
-;(require 'semantic/ia)
-;(setq-mode-local c-mode semanticdb-find-default-throttle
-;                 '(project unloaded system recursive))
-;(setq-mode-local c++-mode semanticdb-find-default-throttle
-;                 '(project unloaded system recursive))
-
-;;ecb
-;(require 'semantic/analyze)
-;(provide 'semantic-analyze)
-;(provide 'semantic-ctxt)
-;(provide 'semanticdb)
-;(provide 'semanticdb-find)
-;(provide 'semanticdb-mode)
-;(provide 'semantic-load)
-
-;;=========================cedet==================================================
+  ;; hungry-delete and auto-newline
+  ;(c-toggle-auto-hungry-state 1)
 
 
-;;===========================ecb==================================================
+  ;; 在菜单中加入当前Buffer的函数索引
+  (imenu-add-menubar-index)
 
-;;load ecb
-;(add-to-list 'load-path "~/.emacs.d/commonIDE/ecb-2.40")
-;(require 'ecb)
+  ;; 在状态条上显示当前光标在哪个函数体内部
+  (which-function-mode)
 
-;;;; �Զ�����ecb�����Ҳ���ʾÿ����ʾ
-;(setq ecb-auto-activate t
-;      ecb-tip-of-the-day nil)
+  ;; 按键定义
+  ;(define-key c-mode-base-map [(control \`)] 'hs-toggle-hiding)
+  (define-key c-mode-base-map [(return)] 'newline-and-indent)
+  (define-key c-mode-base-map [(f7)] 'compile)
+  ;(define-key c-mode-base-map [(meta \`)] 'c-indent-command)
+  ;; (define-key c-mode-base-map [(tab)] 'hippie-expand)
+  (define-key c-mode-base-map [(control tab)] 'my-indent-or-complete)
+  ;(define-key c-mode-base-map [(meta ?/)] 'semantic-ia-complete-symbol-menu)
 
-;;;; �����ڼ��л�
-;(global-set-key [M-left] 'windmove-left)
-;(global-set-key [M-right] 'windmove-right)
-;(global-set-key [M-up] 'windmove-up)
-;(global-set-key [M-down] 'windmove-down)
+  ;; 预处理设置
+  (setq c-macro-shrink-window-flag t)
+  (setq c-macro-preprocessor "cpp")
+  (setq c-macro-cppflags " ")
+  (setq c-macro-prompt-flag t)
+  (setq hs-minor-mode t)
+  (setq abbrev-mode t)
+  )
 
- ;;;; ���غ���ʾecb����
-;(define-key global-map [(control f4)] 'ecb-hide-ecb-windows)
-;(define-key global-map [(control f3)] 'ecb-show-ecb-windows)
+(add-hook 'c-mode-hook 'my-c-mode-hook)
 
- ;;;; ʹĳһecb�������
-;(define-key global-map "/C-c1" 'ecb-maximize-window-directories)
-;(define-key global-map "/C-c2" 'ecb-maximize-window-sources)
-;(define-key global-map "/C-c3" 'ecb-maximize-window-methods)
-;(define-key global-map "/C-c4" 'ecb-maximize-window-history)
+;; 我的C++语言编辑策略
+(defun my-c++-mode-hook()
+  (setq tab-width 4 indent-tabs-mode nil)
+  (c-set-style "stroustrup")
 
-;;;; �ָ�ԭʼ���ڲ���
-;(define-key global-map "/C-c`" 'ecb-restore-default-window-sizes)
+    ;; 自动模式，在此种模式下当你键入{时，会自动根据你设置的对齐风格对齐
+  (c-toggle-auto-state)
 
-;; =======================ecb=====================================================
-
-
-
-;; ======================================yasnippet=================================
-
-;;load yasnippet
-;(add-to-list 'load-path "~/.emacs.d/commonIDE/yasnippet")
-;(require 'yasnippet)
-;(setq yas/snippet-dirs '("~/.emacs.d/commonIDE/yasnippet/snippets" 
-;	"~/.emacs.d/commonIDE/yasnippet/extras/imported"))
-;(yas/global-mode 1)
-
-;; ======================================yasnippet =================================
+  ;; hungry-delete and auto-newline
+  ;(c-toggle-auto-hungry-state 1)
 
 
+  ;; 在菜单中加入当前Buffer的函数索引
+  (imenu-add-menubar-index)
 
-;; ======================================someone's config=================================
+  ;; 在状态条上显示当前光标在哪个函数体内部
+  (which-function-mode)
 
-(require 'caole_config)
-;(require 'karotte_config)
+  ;; 按键定义
+  ;(define-key c-mode-base-map [(control \`)] 'hs-toggle-hiding)
+  (define-key c-mode-base-map [(return)] 'newline-and-indent)
+  (define-key c-mode-base-map [(f7)] 'compile)
+  ;(define-key c-mode-base-map [(meta \`)] 'c-indent-command)
+  ;; (define-key c-mode-base-map [(tab)] 'hippie-expand)
+  (define-key c-mode-base-map [(control tab)] 'my-indent-or-complete)
+  ;(define-key c-mode-base-map [(meta ?/)] 'semantic-ia-complete-symbol-menu)
+
+  ;; 预处理设置
+  (setq c-macro-shrink-window-flag t)
+  (setq c-macro-preprocessor "cpp")
+  (setq c-macro-cppflags " ")
+  (setq c-macro-prompt-flag t)
+  (setq hs-minor-mode t)
+  (setq abbrev-mode t)
+  ;;  (define-key c++-mode-map [f3] 'replace-regexp)
+  )
+
+(add-hook 'c++-mode-hook 'my-c++-mode-hook)
+					;'(compile-command "make")
+
+;; gdb-UI设置
+(setq gdb-many-windows t)
+(load-library "multi-gud.el")
+(load-library "multi-gdb-ui.el")
 
 
+;;设置semantic搜索范围
+(setq semanticdb-project-roots (list (expand-file-name "/")))
+
+;;自定义补全命令， 如果单词在中间就补全，否则就tab
+(defun my-indent-or-complete ()
+  (interactive)
+  (if (looking-at "\\>")
+      (hippie-expand nil)
+    (indent-for-tab-command))
+  )
 
 
+;; 补全快捷键， ctrl-tab用senator补全，不显示列表
+; (global-set-key [(control tab)] 'my-indent-or-complete)
 
 
-
-
-
-
-
-
+(setq hippie-expand-try-functions-list
+      '(
+	senator-try-expand-semantic
+	try-expand-dabbrev
+	try-expand-dabbrev-visible
+	try-expand-dabbrev-all-buffers
+	try-expand-dabbrev-from-kill
+	try-expand-list
+	try-expand-list-all-buffers
+	try-expand-line
+	try-expand-line-all-buffers
+	try-complete-file-name-partially
+	try-complete-file-name
+	try-expand-whole-kill
+	)
+)
 

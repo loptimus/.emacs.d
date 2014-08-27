@@ -1,33 +1,30 @@
-;;;=====================ÔÚEmacsÏÂÓÃC/C++±à³Ì  http://blog.csdn.net/karotte/article/details/6990031========================
+;;;=====================åœ¨Emacsä¸‹ç”¨C/C++ç¼–ç¨‹  http://blog.csdn.net/karotte/article/details/6990031========================
 
 
 (provide 'karotte_config)
 
 
 
-;;;gdb-UIÉèÖÃ
-(setq gdb-many-windows t)
-(load-library "multi-gud.el")
-(load-library "multi-gdb-ui.el")
+;;;gdb-UIè®¾ç½®
+;(setq gdb-many-windows t)
+;(load-library "multi-gud.el")
+;(load-library "multi-gdb-ui.el")
 
-;;ÕÛµşºÍ´ò¿ªÕû¸öbufferµÄËùÓĞ´úÂë
+;;æŠ˜å å’Œæ‰“å¼€æ•´ä¸ªbufferçš„æ‰€æœ‰ä»£ç 
 ;(define-key semantic-tag-folding-mode-map (kbd "C--") 'semantic-tag-folding-fold-all)
 ;(define-key semantic-tag-folding-mode-map (kbd "C-=") 'semantic-tag-folding-show-all)
 
-;;ÕÛµşºÍ´ò¿ªµ¥¸öbufferµÄËùÓĞ´úÂë
+;;æŠ˜å å’Œæ‰“å¼€å•ä¸ªbufferçš„æ‰€æœ‰ä»£ç 
 ;(define-key semantic-tag-folding-mode-map (kbd "C-_") 'semantic-tag-folding-fold-block)
 ;(define-key semantic-tag-folding-mode-map (kbd "C-+") 'semantic-tag-folding-fold-block)
 
-;;ecbÅäÖÃ
-;(require 'ecb-autoloads)
-;(setq ecb-tip-of-the-day nil)
 
-;;ÉèÖÃsemanticËÑË÷·¶Î§
+;;è®¾ç½®semanticæœç´¢èŒƒå›´
 (setq semanticdb-project-roots 
       (list
         (expand-file-name "/")))
 
-;;×Ô¶¨Òå²¹È«ÃüÁî£¬ Èç¹ûµ¥´ÊÔÚÖĞ¼ä¾Í²¹È«£¬·ñÔò¾Ítab		
+;;è‡ªå®šä¹‰è¡¥å…¨å‘½ä»¤ï¼Œ å¦‚æœå•è¯åœ¨ä¸­é—´å°±è¡¥å…¨ï¼Œå¦åˆ™å°±tab		
 (defun my-indent-or-complete ()
    (interactive)
    (if (looking-at "\\>")
@@ -35,10 +32,11 @@
       (indent-for-tab-command))
 )
 
- ;;²¹È«¿ì½İ¼ü£¬ ctrl-tabÓÃsenator²¹È«£¬²»ÏÔÊ¾ÁĞ±í
- ;;alt+/²¹È«£¬ÏÔÊ¾ÁĞ±íÈÃÑ¡Ôñ
+ ;;è¡¥å…¨å¿«æ·é”®ï¼Œ ctrl-tabç”¨senatorè¡¥å…¨ï¼Œä¸æ˜¾ç¤ºåˆ—è¡¨
+ ;;alt+/è¡¥å…¨ï¼Œæ˜¾ç¤ºåˆ—è¡¨è®©é€‰æ‹©
 (global-set-key [(control tab)] 'my-indent-or-complete)
 ;(define-key c-mode-base-amp [(meta ?/)] 'semantic-ia-complete-symbol-menu)
+
 (autoload 'senator-try-expand-semantic "senator")
 (setq hippie-expand-try-functions-list
       '(
@@ -57,31 +55,31 @@
         )
 )
 
-;;ÏÔÊ¾°ïÖúÃüÁî
-(global-set-key [f1] 'manual-entry)
-(global-set-key [C-f1] 'info)
+;;æ˜¾ç¤ºå¸®åŠ©å‘½ä»¤
+;(global-set-key [f1] 'manual-entry)
+;(global-set-key [C-f1] 'info)
 
-;;f3Îª²éÕÒ×Ö·û´®£¬alt+f3¹Ø±Õµ±Ç°»º³åÇø
-(global-set-key [f3] 'grep-find)
-(global-set-key [M-f3] 'kill-this-buffer)
+;;f3ä¸ºæŸ¥æ‰¾å­—ç¬¦ä¸²ï¼Œalt+f3å…³é—­å½“å‰ç¼“å†²åŒº
+;(global-set-key [f3] 'grep-find)
+;(global-set-key [M-f3] 'kill-this-buffer)
 
-;;speedbar¿ì½İ¼ü
-(global-set-key [(f4)] 'speedbar-get-focus)
+;;speedbarå¿«æ·é”®
+;(global-set-key [(f4)] 'speedbar-get-focus)
 
-;;ÏÔÊ¾/Òş²Ø¹¤¾ßÀ¸£¬·½±ãµ÷ÊÔ
-(global-set-key [f5] 'tool-bar-mode)
+;;æ˜¾ç¤º/éšè—å·¥å…·æ ï¼Œæ–¹ä¾¿è°ƒè¯•
+;(global-set-key [f5] 'tool-bar-mode)
 
-;;ÏÔÊ¾/Òş²Ø²Ëµ¥À¸ M-x menu-bar-open
-(global-set-key [C-f5] 'menu-bar-mode)
+;;æ˜¾ç¤º/éšè—èœå•æ  M-x menu-bar-open
+;(global-set-key [C-f5] 'menu-bar-mode)
 
-;;gdbµ÷ÊÔ
-(global-set-key [f6] 'gdb)
+;;gdbè°ƒè¯•
+;(global-set-key [f6] 'gdb)
 
-;;ÉèÖÃC-F12¿ìËÙ²é¿´ÈÕ³Ì°²ÅÅ
-;;F12µ÷µ½º¯Êı¶¨Òå
-(global-set-key [f12] 'semantic-ia-fast-jump)
-(global-set-key [C-f12] 'list-bookmarks)
+;;è®¾ç½®C-F12å¿«é€ŸæŸ¥çœ‹æ—¥ç¨‹å®‰æ’
+;;F12è°ƒåˆ°å‡½æ•°å®šä¹‰
+;(global-set-key [f12] 'semantic-ia-fast-jump)
+;(global-set-key [C-f12] 'list-bookmarks)
 
-;;shift-f12µ÷»ØÈ¥
+;;shift-f12è°ƒå›å»
 ;(global-set-key [S-f12])
-;;;=====================ÔÚEmacsÏÂÓÃC/C++±à³Ì  http://blog.csdn.net/karotte/article/details/6990031========================
+;;;=====================åœ¨Emacsä¸‹ç”¨C/C++ç¼–ç¨‹  http://blog.csdn.net/karotte/article/details/6990031========================

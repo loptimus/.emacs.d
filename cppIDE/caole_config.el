@@ -1,4 +1,4 @@
-;;;=====================ÔÚEmacsÏÂÓÃC/C++±à³Ì  http://www.caole.net/diary/emacs_write_cpp.html#sec-4_2========================
+;;;=====================åœ¨Emacsä¸‹ç”¨C/C++ç¼–ç¨‹  http://www.caole.net/diary/emacs_write_cpp.html#sec-4_2========================
 
 (provide 'caole_config)
 
@@ -9,13 +9,13 @@
 (c-set-offset 'friend '-)
 (c-set-offset 'substatement-open 0)
 
-;;;;ÎÒµÄC/C++ÓïÑÔ±à¼­²ßÂÔ
+;;;;æˆ‘çš„C/C++è¯­è¨€ç¼–è¾‘ç­–ç•¥
 
 (defun my-c-mode-common-hook()
   (setq tab-width 4 indent-tabs-mode nil)
   ;;; hungry-delete and auto-newline
   (c-toggle-auto-hungry-state 1)
-  ;;°´¼ü¶¨Òå
+  ;;æŒ‰é”®å®šä¹‰
   (define-key c-mode-base-map [(control \`)] 'hs-toggle-hiding)
   (define-key c-mode-base-map [(return)] 'newline-and-indent)
   (define-key c-mode-base-map [(f7)] 'compile)
@@ -25,7 +25,7 @@
   (define-key c-mode-base-map [(meta ?/)] 'semantic-ia-complete-symbol-menu)
 
   
- ;;Ô¤´¦ÀíÉèÖÃ
+ ;;é¢„å¤„ç†è®¾ç½®
   (setq c-macro-shrink-window-flag t)
   (setq c-macro-preprocessor "cpp")
   (setq c-macro-cppflags " ")
@@ -35,19 +35,19 @@
 )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
-;;;;ÎÒµÄC++ÓïÑÔ±à¼­²ßÂÔ
+;;;;æˆ‘çš„C++è¯­è¨€ç¼–è¾‘ç­–ç•¥
 (defun my-c++-mode-hook()
   (setq tab-width 4 indent-tabs-mode nil)
   (c-set-style "stroustrup")
 ;;  (define-key c++-mode-map [f3] 'replace-regexp)
 ) 
 
-;;ÉèÖÃsemanticËÑË÷·¶Î§
+;;è®¾ç½®semanticæœç´¢èŒƒå›´
 (setq semanticdb-project-roots 
       (list
         (expand-file-name "/")))
 
-;;×Ô¶¨Òå²¹È«ÃüÁî£¬ Èç¹ûµ¥´ÊÔÚÖĞ¼ä¾Í²¹È«£¬·ñÔò¾Ítab		
+;;è‡ªå®šä¹‰è¡¥å…¨å‘½ä»¤ï¼Œ å¦‚æœå•è¯åœ¨ä¸­é—´å°±è¡¥å…¨ï¼Œå¦åˆ™å°±tab		
 (defun my-indent-or-complete ()
    (interactive)
    (if (looking-at "\\>")
@@ -55,8 +55,8 @@
       (indent-for-tab-command))
  )
 
- ;;²¹È«¿ì½İ¼ü£¬ ctrl-tabÓÃsenator²¹È«£¬²»ÏÔÊ¾ÁĞ±í
- ;;alt+/²¹È«£¬ÏÔÊ¾ÁĞ±íÈÃÑ¡Ôñ
+ ;;è¡¥å…¨å¿«æ·é”®ï¼Œ ctrl-tabç”¨senatorè¡¥å…¨ï¼Œä¸æ˜¾ç¤ºåˆ—è¡¨
+ ;;alt+/è¡¥å…¨ï¼Œæ˜¾ç¤ºåˆ—è¡¨è®©é€‰æ‹©
 ;'(global-set-key [(control tab)] 'my-indent-or-complete)
 ;(autoload 'senator-try-expand-semantic "senator")
 ;(setq hippie-expand-try-functions-list
@@ -80,4 +80,4 @@
 (define-key c-mode-base-map [(f7)] 'compile)
 '(compile-command "make")
 
-;;;=====================ÔÚEmacsÏÂÓÃC/C++±à³Ì  http://www.caole.net/diary/emacs_write_cpp.html#sec-4_2========================
+;;;=====================åœ¨Emacsä¸‹ç”¨C/C++ç¼–ç¨‹  http://www.caole.net/diary/emacs_write_cpp.html#sec-4_2========================
