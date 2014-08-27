@@ -7,7 +7,7 @@ Note emacs setup
 	`$ git clone git://github.com/loptimus/.emacs.d.git`  
 3. Copy file .emacs to $HOME Directory.  
 	`$ cp .emacs.d/.emacs ~/`  
-4. Open file .emacs, replace "defvar variable value" with yours. 
+4. Open file .emacs, replace "defvar variable value" with yours.  
 	`(defvar erlangPath "/yourPath/erlang")` 
 5. Optional, you can modify keymap by youself.  
 
