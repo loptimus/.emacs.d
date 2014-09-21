@@ -118,8 +118,8 @@
 
 
 ;; =====================================refactorerl ============================
-(add-to-list 'load-path (concat refactorerlPath "/lib/referl_ui/emacs"))
-(require 'refactorerl)
+;(add-to-list 'load-path (concat refactorerlPath "/lib/referl_ui/emacs"))
+;(require 'refactorerl)
 
 (custom-set-variables '(refactorerl-base-path refactorerlPath))
 
@@ -129,5 +129,5 @@
 
 
 ;; ====================================== wrangler ============================
-(add-to-list 'load-path (concat wranglerPath "/elisp")) 
-(require 'wrangler)
+;(add-to-list 'load-path (concat wranglerPath "/elisp")) 
+;(require 'wrangler)

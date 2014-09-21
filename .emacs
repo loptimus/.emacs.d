@@ -16,8 +16,8 @@
 
 
 ;;;================================= Emacs base configure =================================
-(add-to-list 'load-path "~/.emacs.d/base_config")
-(require 'base_config)
+(add-to-list 'load-path "~/.emacs.d/baseConfig")
+(require 'baseConfig)
 
 
 
@@ -33,14 +33,14 @@
 
 
 ;;;================================= Erlang configure =================================
-;;(add-to-list 'load-path "~/.emacs.d/erlIDE/")
+(add-to-list 'load-path "~/.emacs.d/erlIDE/")
 
 ;; Erlang
-;;(defvar erlangPath "/usr/local/lib/erlang")
-;;(defvar erlangEmacsPath "/usr/local/lib/erlang/lib/tools-2.6.7/emacs")
+(defvar erlangPath "/usr/local/lib/erlang")
+(defvar erlangEmacsPath "/usr/local/lib/erlang/lib/tools-2.6.11/emacs")
 
 ;; Distel
-;;(defvar distelPath "~/.emacs.d/erlIDE/distel-4.03/elisp")
+(defvar distelPath "~/.emacs.d/erlIDE/distel-4.03/elisp")
 
 ;; Refactorerl
 ;; (defvar refactorerlPath "~/.emacs.d/erlIDE/refactorerl-0.9.12.05")
@@ -48,7 +48,7 @@
 ;; Wrangler
 ;;(defvar wranglerPath "/usr/local/share/wrangler")
 
-;;(require 'erlang_config)
+(require 'erlang_config)
 
 
 ;;;================================= C/Cpp configure =================================
