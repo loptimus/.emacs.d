@@ -8,6 +8,6 @@ Note emacs setup
 3. Copy file .emacs to $HOME Directory.  
 	`$ cp .emacs.d/.emacs ~/`  
 4. Open file .emacs, replace "defvar variable value" with yours.  
-	`(defvar erlangPath "/yourPath/erlang")`
+	`(defvar erlangPath "/yourPath/erlang")` 
 5. Optional, you can modify keymap by youself.  
 
