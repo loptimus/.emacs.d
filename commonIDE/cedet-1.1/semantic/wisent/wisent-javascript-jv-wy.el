@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2005-2011 Free Software Foundation, Inc.
 
-;; Author: liwl <loptimus@Nic-MBPR.local>
-;; Created: 2014-08-02 16:17:41+0800
+;; Author:  <jieyou@JIEYOU-PC>
+;; Created: 2014-09-17 09:24:27+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

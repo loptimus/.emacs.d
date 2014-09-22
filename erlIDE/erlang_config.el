@@ -3,7 +3,9 @@
 ;;
 (provide 'erlang_config)
 
-
+;(print erlangEmacsPath)
+;(print distelPath)
+;(print erlangPath)
 
 ;; ===============================Erlang mode====================================
 
@@ -46,29 +48,29 @@
 ;(defvar inferior-erlang-prompt-timeout t)
 
 ;; tell distel to default to that node
-;(setq erl-nodename-cache
-;      (make-symbol
-;       (concat
-;        "emacs@"
+(setq erl-nodename-cache
+      (make-symbol
+       (concat
+        "emacs@"
         ;; Mac OS X uses "name.local" instead of "name", this should work
         ;; pretty much anywhere without having to muck with NetInfo
         ;; ... but I only tested it on Mac OS X.
-;        (car (split-string (shell-command-to-string "hostname"))))))
+        (car (split-string (shell-command-to-string "hostname"))))))
 
 
 
 
 	
 ;; A number of the erlang-extended-mode key bindings are useful in the shell too
-(defconst distel-shell-keys
-  '(("\C-\M-i"   erl-complete)
-    ("\M-?"      erl-complete) 
-    ("\M-."      erl-find-source-under-point)
-    ("\M-,"      erl-find-source-unwind) 
-    ("\M-*"      erl-find-source-unwind) 
-    )
-  "Additional keys to bind when in Erlang shell.")
-  
+;(defconst distel-shell-keys
+;  '(("\C-\M-i"   erl-complete)
+;    ("\M-?"      erl-complete) 
+;    ("\M-."      erl-find-source-under-point)
+;    ("\M-,"      erl-find-source-unwind) 
+;    ("\M-*"      erl-find-source-unwind) 
+;    )
+;  "Additional keys to bind when in Erlang shell.")
+;  
 (add-hook 'erlang-shell-mode-hook
    (lambda ()
      ;; add some Distel bindings to the Erlang shell
@@ -94,17 +96,17 @@
 		     'flymake-create-temp-inplace))
 	 (local-file (file-relative-name temp-file
 		(file-name-directory buffer-file-name))))
-    (list "~/.emacs.d/erlIDE/eflymake/eflymake_linux" (list local-file))))
+    (list "~/.emacs.d/erlIDE/eflymake/eflymake.bat" (list local-file))))
 
 (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
 ;;That's all, and you can either enable flymake globally, with the file open hook
-(add-hook 'find-file-hook 'flymake-find-file-hook)
+;(add-hook 'find-file-hook 'flymake-find-file-hook)
 
 ;;or you can enable flymake mode only for some modes with corresponding hooks:
-;(defun my-erlang-mode-hook ()
-;       (flymake-mode 1))
-;(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
+(defun my-erlang-mode-hook ()
+       (flymake-mode 1))
+(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 ;;=========================================FlymakeErlang=========================================
 
 
@@ -118,10 +120,10 @@
 
 
 ;; =====================================refactorerl ============================
-(add-to-list 'load-path (concat refactorerlPath "/lib/referl_ui/emacs"))
-(require 'refactorerl)
+;(add-to-list 'load-path (concat refactorerlPath "/lib/referl_ui/emacs"))
+;(require 'refactorerl)
 
-(custom-set-variables '(refactorerl-base-path refactorerlPath))
+;(custom-set-variables '(refactorerl-base-path refactorerlPath))
 
 
 ;(add-hook 'erlang-mode-hook 'refactorerl-mode)
@@ -129,5 +131,5 @@
 
 
 ;; ====================================== wrangler ============================
-(add-to-list 'load-path (concat wranglerPath "/elisp")) 
-(require 'wrangler)
+;(add-to-list 'load-path (concat wranglerPath "/elisp")) 
+;(require 'wrangler)
