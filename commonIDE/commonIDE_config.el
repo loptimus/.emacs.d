@@ -32,10 +32,10 @@
 
 
 ;;; ====================================flymake=================================
-(autoload 'flymake-find-file-hook "flymake" "" t)
-(add-hook 'find-file-hook 'flymake-find-file-hook)
-(setq flymake-gui-warnings-enabled nil)
-(setq flymake-log-level 0)
+;(autoload 'flymake-find-file-hook "flymake" "" t)
+;(add-hook 'find-file-hook 'flymake-find-file-hook)
+;(setq flymake-gui-warnings-enabled nil)
+;(setq flymake-log-level 0)
 ;;; ======================================flymake=================================
 
 
@@ -103,12 +103,23 @@
 ; Load yasnippet
 (add-to-list 'load-path yasnippetPath)
 (require 'yasnippet)
-(setq yas/snippet-dirs '((concat yasnippetPath "/snippets") (concat yasnippetPath "/extras/imported")))
+(yas/initialize)
+;(setq yas/snippet-dirs ((concat yasnippetPath "/snippets") (concat yasnippetPath "/extras/imported")))
+(yas/load-directory (concat yasnippetPath "/snippets"))
+;(yas/snippet-dirs (concat yasnippetPath "/snippets"))
 (yas/global-mode 1)
+
+
 
 ;;; ======================================yasnippet =================================
 
 
 
+;;; ======================================cscope=================================
+(print cscopePath)
+(add-to-list 'load-path cscopePath)
+(require 'xcscope)
+(setq cscope-do-not-update-database t)
+;;; ======================================cscope=================================
 
 

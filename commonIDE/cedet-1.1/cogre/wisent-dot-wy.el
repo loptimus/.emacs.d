@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2003, 2004, 2009 Eric M. Ludlam
 
-;; Author: liwl <loptimus@Nic-MBPR.local>
-;; Created: 2014-08-02 16:17:51+0800
+;; Author:  <jieyou@JIEYOU-PC>
+;; Created: 2014-09-17 09:24:31+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

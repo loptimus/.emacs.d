@@ -14,18 +14,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 
-; Set windows color (修改EMACS配色方案)
-(setq default-frame-alist  '((cursor-color . "blue" )(cursor-type . box)))
-(show-paren-mode)  
-(global-font-lock-mode t)
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  ;; '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "outline" :family "Consolas")))))
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "outline" :family "Consolas")))))
-
 
 ; Display date and time (显示时间)
 (display-time-mode 1)
@@ -98,7 +86,7 @@
 ;(global-set-key [(f12)] 'loop-alpha)
 
 ;; 半透明设置
-(setq alpha-list '((80 55) (100 100)))  
+(setq alpha-list '((75 55) (100 100)))  
 (defun loop-alpha ()  
   (interactive)  
   (let ((h (car alpha-list)))                  

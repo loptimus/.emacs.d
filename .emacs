@@ -6,13 +6,24 @@
 ;(defvar Variable (getenv "Environment Variable Name"))
 
 ; Stack trace on error
-(setq stack-trace-on-error t)
+;(setq stack-trace-on-error t)
 
 
 ; Default directory
-(defvar workspace "~/workspace")
-(setq default-directory workspace)
-(cd workspace)
+;(defvar workspace "D:/workspace")
+;(setq default-directory workspace)
+;(cd workspace)
+
+
+;;;================================= Info =================================
+(setq user-full-name "liwenlong")
+(setq user-mail-address "liwenlong@jieyou.com")
+
+
+;(setq tags-file-name "/root/etags/ERL_LIB_TAGS")
+;(setq tags-file-name "D:/workspace/etags/FSGJ_TAGS")
+(setq tags-file-name "D:/workspace/etags/fs_server")
+(setq tags-file-name "D:/workspace/etags/tools_tags")
 
 
 ;;;================================= Emacs base configure =================================
@@ -28,6 +39,7 @@
 (defvar cedetPath "~/.emacs.d/commonIDE/cedet-1.1")
 (defvar ecbPath "~/.emacs.d/commonIDE/ecb-2.40")
 (defvar yasnippetPath "~/.emacs.d/commonIDE/yasnippet")
+(defvar cscopePath "~/.emacs.d/commonIDE/cscope-15.8a")
 (require 'commonIDE_config)
 
 
@@ -64,6 +76,32 @@
 
 
 
+; Set windows color (修改EMACS配色方案)
+(setq default-frame-alist  '((cursor-color . "white" )(cursor-type . box)))
+(show-paren-mode)  
+(global-font-lock-mode t)
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "outline" :family "Consolas")))))
+
+
+;; Only Read default 
+(defun make-some-files-read-only ()
+   "when file opened is of a certain mode, make it read only"
+   (when (memq major-mode '(c-mode c++-mode erlang-mode php-mode python-mode shell-script-mode emacs-lisp-mode))
+     (toggle-read-only 1)))
+(add-hook 'find-file-hooks 'make-some-files-read-only)
+
+
+;;设置默认读入文件编码
+(prefer-coding-system 'utf-8)
+
+;;设置写入文件编码
+(setq default-buffer-file-coding-system 'utf-8)
+
 
 
 ;;;================================= Keymap ======================================
@@ -84,10 +122,10 @@
 
 ; Support mouse action (ECB 支持鼠标动作)
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(display-time-mode t)
  '(ecb-options-version "2.40")
  '(ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1))
@@ -154,7 +192,25 @@
 ;(global-set-key (kbd "C-,") ')
 
 ;设置C-F12快速查看日程安排
-;(global-set-key (kbd "C-<f12>") 'list-bookmarks)
+(global-set-key (kbd "M-8") 'list-bookmarks)
 
 ; (启用透明背景)
-(global-set-key (kbd "s-<f8>") 'loop-alpha)
+(global-set-key (kbd "M-9") 'loop-alpha)
+
+;Etags jump back
+(global-set-key (kbd "M-[") 'find-tag)
+(global-set-key (kbd "M-]") 'pop-tag-mark)
+
+;cscope 
+(global-set-key (kbd "M-;") 'cscope-find-this-symbol)
+(global-set-key (kbd "M-'")  'cscope-find-global-definition)
+(global-set-key (kbd "M-\\")  'cscope-pop-mark)
+;(global-set-key (kbd "M-;") 'cscope-prev-symbol)
+;(global-set-key (kbd "M-'") 'cscope-next-symbol)
+
+;Edit
+(global-set-key (kbd "C-z")  'undo)
+;(global-set-key (kbd "C-Z")  'redo)
+(global-set-key (kbd "<f3>")  'toggle-read-only)
+
+
