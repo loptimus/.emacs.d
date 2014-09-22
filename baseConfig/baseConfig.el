@@ -1,6 +1,6 @@
 ;;;=================================loptimus' base_config=================================
 
-(provide 'base_config)
+(provide 'baseConfig)
 
 
 ; Disable Startup display (关闭启动画面)
@@ -75,7 +75,7 @@
 
 
 ;恢复功能
-(add-to-list 'load-path "~/.emacs.d/base_config/session/lisp")
+(add-to-list 'load-path "~/.emacs.d/baseConfig/session/lisp")
 (require 'session)
 (add-hook 'after-init-book 'session-initialize)
 
