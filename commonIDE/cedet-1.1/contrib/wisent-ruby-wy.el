@@ -2,8 +2,8 @@
 
 ;;; Copyright (C) 2007 Daniel Debertin (debertin@gmail.com)
 
-;; Author:  <jieyou@JIEYOU-PC>
-;; Created: 2014-09-17 09:24:33+0800
+;; Author: liwl <loptimus@Nic-MBPR.local>
+;; Created: 2014-09-24 00:20:36+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002 David Ponce
 
-;; Author:  <jieyou@JIEYOU-PC>
-;; Created: 2014-09-17 09:24:22+0800
+;; Author: liwl <loptimus@Nic-MBPR.local>
+;; Created: 2014-09-24 00:20:17+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
