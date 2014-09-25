@@ -16,14 +16,14 @@
 
 
 ;;;================================= Info =================================
-(setq user-full-name "liwenlong")
-(setq user-mail-address "liwenlong@jieyou.com")
+(setq user-full-name "loptimus")
+(setq user-mail-address "loptimus2510@gmail.com")
 
 
 ;(setq tags-file-name "/root/etags/ERL_LIB_TAGS")
 ;(setq tags-file-name "D:/workspace/etags/FSGJ_TAGS")
-(setq tags-file-name "D:/workspace/etags/fs_server")
-(setq tags-file-name "D:/workspace/etags/tools_tags")
+;(setq tags-file-name "D:/workspace/etags/fs_server")
+;(setq tags-file-name "D:/workspace/etags/tools_tags")
 
 
 ;;;================================= Emacs base configure =================================
