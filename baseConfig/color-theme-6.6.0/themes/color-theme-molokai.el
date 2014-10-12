@@ -12,7 +12,7 @@
   (interactive)
   (color-theme-install
    '(color-theme-molokai
-     ((foreground-color . "#F8F8F2")
+     ((foreground-color . "#A5E22E")
       (background-color . "#1B1D1E")
       (cursor-color . "#F8F8F0")
       (background-mode . dark))
@@ -43,7 +43,7 @@
                                           :box (:line-width 1 :color "#232526")))))
      (mode-line-mousable ((t (:foreground "#BCBCBC" :background "#000000"))))
      (mode-line-mousable-minor-mode ((t (:foreground "#BCBCBC" :background "#000000"))))
-     (font-lock-builtin-face ((t (:foreground "#A6E22E"))))
+     (font-lock-builtin-face ((t (:foreground "#F92672"))))
      (font-lock-comment-face ((t (:foreground "#7E8E91" :slant italic))))
      (font-lock-comment-delimiter-face ((t (:foreground "#7E8E91" :slant italic))))
      (font-lock-constant-face ((t (:foreground "#AE81FF"))))
