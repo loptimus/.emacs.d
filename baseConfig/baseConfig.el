@@ -1,10 +1,16 @@
-;;;=================================loptimus' base_config=================================
+;;;=================================loptimus' baseConfig=================================
 
 (provide 'baseConfig)
 
 
 ; Disable Startup display (关闭启动画面)
 ;(setq inhibit-startup-message t)
+
+
+; (使用4个空格代替Tab)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+;(setq indent-line-function 'insert-tab)
 
 
 ; Disable backup file (不要生成临时文件)
@@ -26,13 +32,20 @@
 (require 'linum) 
 (global-linum-mode t)
 
+; Display line number (使用web-line显示行号)
+;(set-scroll-bar-mode nil)
+;(require 'wb-line-number)
+;(wb-line-number-toggle)
+
+
 ; Set (设置行距)
 ;(setq defaule-line-spaceing 4)
 
 ; Set (页宽)
 ;(setq default-fill-column 60)
 
-
+; 
+(show-paren-mode)
 
 ;; 高亮显示区域
 ;(transient-mark-mode t)
@@ -98,12 +111,19 @@
 	)  
 ) 
 
-;;; ==================== Theme =========================
-;(add-to-list 'load-path "~/.emacs.d/base_config/color-theme-6.6.0/")
-;(require 'color-theme)
-;(color-theme-initialize)
+;;; ==================== Color Theme =========================
+
+; 启用font-lock-mode，在color-theme中会用到 
+(global-font-lock-mode t)
+
+(add-to-list 'load-path "~/.emacs.d/baseConfig/color-theme-6.6.0/")
+(require 'color-theme)
+(color-theme-initialize)
+
+;下列任选一种
 ;(color-theme-oswald)
 ;(color-theme-charcoal-black)
 ;(color-theme-deep-blue)
-;(require 'color-theme-ahei)
+;(color-theme-ahei)
+(color-theme-molokai)
 
