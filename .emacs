@@ -76,33 +76,24 @@
 
 
 
-; Set windows color (修改EMACS配色方案)
-(setq default-frame-alist  '((cursor-color . "white" )(cursor-type . box)))
-(show-paren-mode)  
-(global-font-lock-mode t)
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "outline" :family "Consolas")))))
 
 
 ;; Only Read default 
 (defun make-some-files-read-only ()
-   "when file opened is of a certain mode, make it read only"
-   (when (memq major-mode '(c-mode c++-mode erlang-mode php-mode python-mode shell-script-mode emacs-lisp-mode))
-     (toggle-read-only 1)))
+  "when file opened is of a certain mode, make it read only"
+  (when (memq major-mode '(c-mode c++-mode erlang-mode php-mode python-mode shell-script-mode emacs-lisp-mode))
+    (toggle-read-only 1)))
 (add-hook 'find-file-hooks 'make-some-files-read-only)
 
 
+;;
+;(set-default buffer-file-coding-system 'utf-8-unix)
+;;
+;(set-default-coding-systems 'utf-8-unix)
 ;;设置默认读入文件编码
-(prefer-coding-system 'utf-8)
-
+(prefer-coding-system 'utf-8-unix)
 ;;设置写入文件编码
-(setq default-buffer-file-coding-system 'utf-8)
-
-
+(setq default-buffer-file-coding-system 'utf-8-unix)
 
 ;;;================================= Keymap ======================================
 
@@ -119,17 +110,6 @@
 
 ; Restore ECB dafault windows layout (恢复ECB窗口默认布局)
 ;(define-key global-map "/C-c`" 'ecb-restore-default-window-sizes)
-
-; Support mouse action (ECB 支持鼠标动作)
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(display-time-mode t)
- '(ecb-options-version "2.40")
- '(ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1))
- '(show-paren-mode t))
 
 ;; === Toggle transparency  ===
 ;(global-set-key (kbd "C-c t") 'toggle-transparency)
