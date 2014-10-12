@@ -94,6 +94,17 @@
 ; Cancel ECB Daily Tips (取消ECB的每日提示)
 (setq ecb-tip-of-the-day nil)
 
+; Support mouse action (ECB 支持鼠标动作)
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  '(display-time-mode t)
+  '(ecb-options-version "2.40")
+  '(ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1))
+  '(show-paren-mode t))
+
 ;;; =======================ecb=====================================================
 
 
