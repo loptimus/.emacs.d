@@ -6,7 +6,7 @@
 ;(defvar Variable (getenv "Environment Variable Name"))
 
 ; Stack trace on error
-;(setq stack-trace-on-error t)
+(setq stack-trace-on-error t)
 
 
 ; Default directory
@@ -49,7 +49,7 @@
 
 ;; Erlang
 (defvar erlangPath "/usr/local/lib/erlang")
-(defvar erlangEmacsPath "/usr/local/lib/erlang/lib/tools-2.6.11/emacs")
+(defvar erlangEmacsPath "~/.emacs.d/erlIDE/emacs")
 
 ;; Distel
 (defvar distelPath "~/.emacs.d/erlIDE/distel-4.03/elisp")
@@ -193,4 +193,5 @@
 ;(global-set-key (kbd "C-Z")  'redo)
 (global-set-key (kbd "<f3>")  'toggle-read-only)
 
-
+;Mark set
+(global-set-key (kbd "M-SPC")  'set-mark-command)

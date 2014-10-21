@@ -87,7 +87,7 @@
 
 ;; 官方自带的，在erlang安装目录下/lib/tools<版本号>/emacs下
 (require 'erlang-flymake)
-
+(erlang-flymake-only-on-save)
 
 ;(defun get-erlang-app-dir ()
 ;   (let* ((src-path (file-name-directory (buffer-file-name)))
