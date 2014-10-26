@@ -10,9 +10,20 @@
 
 
 ; Default directory
-(defvar workspace "~/workspace")
-(setq default-directory workspace)
-(cd workspace)
+;(defvar workspace "D:/workspace")
+;(setq default-directory workspace)
+;(cd workspace)
+
+
+;;;================================= Info =================================
+(setq user-full-name "loptimus")
+(setq user-mail-address "loptimus2510@gmail.com")
+
+
+;(setq tags-file-name "/root/etags/ERL_LIB_TAGS")
+;(setq tags-file-name "D:/workspace/etags/FSGJ_TAGS")
+;(setq tags-file-name "D:/workspace/etags/fs_server")
+;(setq tags-file-name "D:/workspace/etags/tools_tags")
 
 
 ;;;================================= Emacs base configure =================================
@@ -28,6 +39,7 @@
 (defvar cedetPath "~/.emacs.d/commonIDE/cedet-1.1")
 (defvar ecbPath "~/.emacs.d/commonIDE/ecb-2.40")
 (defvar yasnippetPath "~/.emacs.d/commonIDE/yasnippet")
+(defvar cscopePath "~/.emacs.d/commonIDE/cscope-15.8a")
 (require 'commonIDE_config)
 
 
@@ -37,7 +49,7 @@
 
 ;; Erlang
 (defvar erlangPath "/usr/local/lib/erlang")
-(defvar erlangEmacsPath "/usr/local/lib/erlang/lib/tools-2.6.11/emacs")
+(defvar erlangEmacsPath "~/.emacs.d/erlIDE/emacs")
 
 ;; Distel
 (defvar distelPath "~/.emacs.d/erlIDE/distel-4.03/elisp")
@@ -66,6 +78,23 @@
 
 
 
+;; Only Read default 
+(defun make-some-files-read-only ()
+  "when file opened is of a certain mode, make it read only"
+  (when (memq major-mode '(c-mode c++-mode erlang-mode php-mode python-mode shell-script-mode emacs-lisp-mode))
+    (toggle-read-only 1)))
+(add-hook 'find-file-hooks 'make-some-files-read-only)
+
+
+;;
+;(set-default buffer-file-coding-system 'utf-8-unix)
+;;
+;(set-default-coding-systems 'utf-8-unix)
+;;设置默认读入文件编码
+(prefer-coding-system 'utf-8-unix)
+;;设置写入文件编码
+(setq default-buffer-file-coding-system 'utf-8-unix)
+
 ;;;================================= Keymap ======================================
 
 ;; === ECB ===
@@ -81,17 +110,6 @@
 
 ; Restore ECB dafault windows layout (恢复ECB窗口默认布局)
 ;(define-key global-map "/C-c`" 'ecb-restore-default-window-sizes)
-
-; Support mouse action (ECB 支持鼠标动作)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(display-time-mode t)
- '(ecb-options-version "2.40")
- '(ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1))
- '(show-paren-mode t))
 
 ;; === Toggle transparency  ===
 ;(global-set-key (kbd "C-c t") 'toggle-transparency)
@@ -154,7 +172,26 @@
 ;(global-set-key (kbd "C-,") ')
 
 ;设置C-F12快速查看日程安排
-;(global-set-key (kbd "C-<f12>") 'list-bookmarks)
+(global-set-key (kbd "M-8") 'list-bookmarks)
 
 ; (启用透明背景)
-(global-set-key (kbd "s-<f8>") 'loop-alpha)
+(global-set-key (kbd "M-9") 'loop-alpha)
+
+;Etags jump back
+(global-set-key (kbd "M-[") 'find-tag)
+(global-set-key (kbd "M-]") 'pop-tag-mark)
+
+;cscope 
+(global-set-key (kbd "M-;") 'cscope-find-this-symbol)
+(global-set-key (kbd "M-'")  'cscope-find-global-definition)
+(global-set-key (kbd "M-\\")  'cscope-pop-mark)
+;(global-set-key (kbd "M-;") 'cscope-prev-symbol)
+;(global-set-key (kbd "M-'") 'cscope-next-symbol)
+
+;Edit
+(global-set-key (kbd "C-z")  'undo)
+;(global-set-key (kbd "C-Z")  'redo)
+(global-set-key (kbd "<f3>")  'toggle-read-only)
+
+;Mark set
+(global-set-key (kbd "M-SPC")  'set-mark-command)

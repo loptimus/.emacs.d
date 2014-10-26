@@ -907,7 +907,7 @@ generate_macro(Macro, File) ->
 write_data(_, undefined, _) ->
     skip;
 
-write_data(Name, Value, File) when integer(Value) ->
+write_data(Name, Value, File) when is_integer(Value) ->
     write_data(Name, integer_to_list(Value), File);
 
 write_data(Name, Value, File) ->
@@ -1061,7 +1061,7 @@ resolve_character_entities(Str) ->
                             0 ->
                                 InnerStr;
                             _ ->
-                                {ok, NewStr, _} = regexp:sub(InnerStr, Entity, Replacement),
+                                {ok, NewStr, _} = re:replace(InnerStr, Entity, Replacement),
                                 NewStr
                         end
                 end,
