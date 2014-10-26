@@ -31,11 +31,7 @@
 (require 'distel)
 (distel-setup)
 
-;; ==============================Distel===========================================
-
-
-
-;; ===================Some Erlang customizations=========================================
+;; ===================Erlang customizations=========================================
 (add-hook 'erlang-mode-hook
   (lambda ()
   ;; when starting an Erlang shell in Emacs, default in the node name
@@ -57,10 +53,6 @@
         ;; ... but I only tested it on Mac OS X.
         (car (split-string (shell-command-to-string "hostname"))))))
 
-
-
-
-	
 ;; A number of the erlang-extended-mode key bindings are useful in the shell too
 ;(defconst distel-shell-keys
 ;  '(("\C-\M-i"   erl-complete)
@@ -76,47 +68,27 @@
      ;; add some Distel bindings to the Erlang shell
      (dolist (spec distel-shell-keys)
        (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
-;; ==================Some Erlang customizations=================================================
 
-
-
-
-
-
-;;===========================================FlymakeErlang语法检查=========================
+;;========================= FlymakeErlang语法检查 =========================
 
 ;; 官方自带的，在erlang安装目录下/lib/tools<版本号>/emacs下
 (require 'erlang-flymake)
+(defun  my-erlang-include-dirs () 
+ (list 
+    "inc"
+    "../inc"
+    "../../inc"
+    "../../../inc"
+    "include"
+    "../include"
+    "../../include"
+    "../../../include"
+ )
+)
+(setq erlang-flymake-get-include-dirs-function 'my-erlang-include-dirs)
 (erlang-flymake-only-on-save)
 
-;(defun get-erlang-app-dir ()
-;   (let* ((src-path (file-name-directory (buffer-file-name)))
-;               (pos (string-match "/src/" src-path)))
-;        (if pos
-;             (substring src-path 0 (+ 1 pos))
-;                   src-path)))
-;(setq erlang-flymake-get-code-path-dirs-function
-;       (lambda ()
-;            (concat (get-erlang-app-dir) "ebin")))
-;(defun erlang-flymake-self-get-include-dirs ()
-;  (list (concat (erlang-flymake-get-app-dir) "inc")
-;        (concat (erlang-flymake-get-app-dir) "../inc")
-;        (concat (erlang-flymake-get-app-dir) "../../inc")
-;  )
-;)
-;(setq erlang-flymake-get-include-dirs-function
-;      'erlang-flymake-self-get-include-dirs)
-
-;(setq erlang-flymake-get-code-include-dirs-function
-;      (lambda ()
-;        (concat (get-erlang-app-dir) "inc")
-;        (concat (get-erlang-app-dir) "../inc")
-;        (concat (get-erlang-app-dir) "../../inc")
-;        ))
-;(require 'erlang-flymake)
-
-
-;; http://www.emacswiki.org/emacs/FlymakeErlang
+;; 另一种方式：http://www.emacswiki.org/emacs/FlymakeErlang
 ;(require 'flymake)
 ;(defun flymake-erlang-init ()
 ;  (let* ((temp-file (flymake-init-create-temp-buffer-copy

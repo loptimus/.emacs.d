@@ -61,15 +61,7 @@ check on newline and when there are no changes)."
 
 (defun erlang-flymake-get-include-dirs ()
   (list (concat (erlang-flymake-get-app-dir) "include")
-        (concat (erlang-flymake-get-app-dir) "../include")
-        (concat (erlang-flymake-get-app-dir) "../../include")
-        (concat (erlang-flymake-get-app-dir) "../../../include")
-        (concat (erlang-flymake-get-app-dir) "inc")
-        (concat (erlang-flymake-get-app-dir) "../inc")
-        (concat (erlang-flymake-get-app-dir) "../../inc")
-        (concat (erlang-flymake-get-app-dir) "../../../inc")
         (concat (erlang-flymake-get-app-dir) "deps"))
-  
 )
 
 (defun erlang-flymake-get-app-dir ()
