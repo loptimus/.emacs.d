@@ -1,6 +1,4 @@
 ;;;================================= loptimus' .emacs =================================
-
-
 ; Environment variable
 ;(setenv "Environment Variable Name" "Environment Variable Value")
 ;(defvar Variable (getenv "Environment Variable Name"))
@@ -8,30 +6,23 @@
 ; Stack trace on error
 (setq stack-trace-on-error t)
 
-
 ; Default directory
 ;(defvar workspace "D:/workspace")
 ;(setq default-directory workspace)
 ;(cd workspace)
 
-
 ;;;================================= Info =================================
 (setq user-full-name "loptimus")
 (setq user-mail-address "loptimus2510@gmail.com")
-
 
 ;(setq tags-file-name "/root/etags/ERL_LIB_TAGS")
 ;(setq tags-file-name "D:/workspace/etags/FSGJ_TAGS")
 ;(setq tags-file-name "D:/workspace/etags/fs_server")
 ;(setq tags-file-name "D:/workspace/etags/tools_tags")
 
-
 ;;;================================= Emacs base configure =================================
 (add-to-list 'load-path "~/.emacs.d/baseConfig")
 (require 'baseConfig)
-
-
-
 
 ;;;================================= Emacs common IDE configure =================================
 (add-to-list 'load-path "~/.emacs.d/commonIDE")
@@ -42,41 +33,32 @@
 (defvar cscopePath "~/.emacs.d/commonIDE/cscope-15.8a")
 (require 'commonIDE_config)
 
-
+;;;================================= orgMode configure =================================
+(defvar orgModePath "~/.emacs.d/commonIDE/orgMode")
+(add-to-list 'load-path orgModePath)
+(require 'org-install)
 
 ;;;================================= Erlang configure =================================
 (add-to-list 'load-path "~/.emacs.d/erlIDE/")
-
 ;; Erlang
 (defvar erlangPath "/usr/local/lib/erlang")
 (defvar erlangEmacsPath "~/.emacs.d/erlIDE/emacs")
-
 ;; Distel
 (defvar distelPath "~/.emacs.d/erlIDE/distel-4.03/elisp")
-
 ;; Refactorerl
 ;; (defvar refactorerlPath "~/.emacs.d/erlIDE/refactorerl-0.9.12.05")
-
 ;; Wrangler
 ;;(defvar wranglerPath "/usr/local/share/wrangler")
-
 (require 'erlang_config)
-
 
 ;;;================================= C/Cpp configure =================================
 (add-to-list 'load-path "~/.emacs.d/cppIDE/")
 (require 'cpp_config)
 
-
 ;;;================================= PHP configure ======================================
 ;(add-to-list 'load-path "~/.emacs.d/phpIDE/")
 ;(defvar phpPath "~/.emacs.d/phpIDE")
 ;(require 'php_config)
-
-
-
-
-
 
 ;; Only Read default 
 (defun make-some-files-read-only ()
@@ -85,10 +67,7 @@
     (toggle-read-only 1)))
 (add-hook 'find-file-hooks 'make-some-files-read-only)
 
-
-;;
 ;(set-default buffer-file-coding-system 'utf-8-unix)
-;;
 ;(set-default-coding-systems 'utf-8-unix)
 ;;设置默认读入文件编码
 (prefer-coding-system 'utf-8-unix)
@@ -101,13 +80,11 @@
 ; Show/Hide ECB (显示/隐藏 ECB)
 (define-key global-map (kbd "S-<f4>") 'ecb-hide-ecb-windows)
 (define-key global-map (kbd "S-<f3>") 'ecb-show-ecb-windows)
-
 ; Maximize a ECB windows (最大化一个ECB窗口)
 ;(define-key global-map "/C-c1" 'ecb-maximize-window-directories)
 ;(define-key global-map "/C-c2" 'ecb-maximize-window-sources)
 ;(define-key global-map "/C-c3" 'ecb-maximize-window-methods)
 ;(define-key global-map "/C-c4" 'ecb-maximize-window-history)
-
 ; Restore ECB dafault windows layout (恢复ECB窗口默认布局)
 ;(define-key global-map "/C-c`" 'ecb-restore-default-window-sizes)
 
@@ -129,19 +106,14 @@
 (global-set-key [M-up] 'windmove-up)
 (global-set-key [M-down] 'windmove-down)
 
-
 ;; === CEDET ===
 ;; semantic
 ;折叠和打开整个buffer的所有代码
 ;(define-key semantic-tag-folding-mode-map (kbd "C--") 'semantic-tag-folding-fold-all)
 ;(define-key semantic-tag-folding-mode-map (kbd "C-=") 'semantic-tag-folding-show-all)
-
 ;折叠和打开单个buffer的所有代码
 ;(define-key semantic-tag-folding-mode-map (kbd "C-_") 'semantic-tag-folding-fold-block)
 ;(define-key semantic-tag-folding-mode-map (kbd "C-+") 'semantic-tag-folding-fold-block)
-
-
-
 
 ;; 查看man手册
 (global-set-key (kbd "<f1>") 'manual-entry)
