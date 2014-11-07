@@ -85,7 +85,15 @@
     "../../../include"
  )
 )
+(defun  my-erlang-code-dirs () 
+ (list 
+    "../ebin"
+    "../../ebin"
+    "../../../ebin"
+ )
+)
 (setq erlang-flymake-get-include-dirs-function 'my-erlang-include-dirs)
+(setq erlang-flymake-get-code-path-dirs-function 'my-erlang-code-dirs)
 (erlang-flymake-only-on-save)
 
 ;; 另一种方式：http://www.emacswiki.org/emacs/FlymakeErlang

@@ -119,18 +119,16 @@
 (yas/load-directory (concat yasnippetPath "/snippets"))
 ;(yas/snippet-dirs (concat yasnippetPath "/snippets"))
 (yas/global-mode 1)
-
-
-
 ;;; ======================================yasnippet =================================
 
-
-
 ;;; ======================================cscope=================================
-(print cscopePath)
 (add-to-list 'load-path cscopePath)
 (require 'xcscope)
 (setq cscope-do-not-update-database t)
 ;;; ======================================cscope=================================
 
+;;; ======================================undo-tree=================================
+(add-to-list 'load-path ".")
+(require 'undo-tree)
+(global-undo-tree-mode)
 
