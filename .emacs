@@ -34,9 +34,11 @@
 (require 'commonIDE_config)
 
 ;;;================================= orgMode configure =================================
-(defvar orgModePath "~/.emacs.d/commonIDE/orgMode")
-(add-to-list 'load-path orgModePath)
-(require 'org-install)
+(defun org () "Load org-mode"
+  (defvar orgModePath "~/.emacs.d/commonIDE/orgMode")
+  (add-to-list 'load-path orgModePath)
+  (require 'org-install)
+)
 
 ;;;================================= Erlang configure =================================
 (add-to-list 'load-path "~/.emacs.d/erlIDE/")
@@ -56,11 +58,11 @@
 (require 'cpp_config)
 
 ;;;================================= PHP configure ======================================
-;(add-to-list 'load-path "~/.emacs.d/phpIDE/")
-;(defvar phpPath "~/.emacs.d/phpIDE")
-;(require 'php_config)
+(defvar phpPath "~/.emacs.d/phpIDE")
+(add-to-list 'load-path phpPath)
+(require 'php_config)
 
-;; Only Read default 
+;; Only Read default （默认指定为只读模式）
 (defun make-some-files-read-only ()
   "when file opened is of a certain mode, make it read only"
   (when (memq major-mode '(c-mode c++-mode erlang-mode php-mode python-mode shell-script-mode emacs-lisp-mode))
@@ -167,3 +169,30 @@
 
 ;Mark set
 (global-set-key (kbd "M-SPC")  'set-mark-command)
+
+; 加载插件
+(defun load-plugin (plugin)
+      "手动加载指定插件 M-x load-plugin"
+      (interactive "s请输入要加载的插件：")
+      (cond 
+       ((string-equal plugin "ac") (ac))
+       ((string-equal plugin "cedet") (cdt))
+       ((string-equal plugin "ecb") (ecb))
+       ((string-equal plugin "org") (org))
+       ((string-equal plugin "php") (php))
+       ((string-equal plugin "undo-tree") (undo-tree))
+       (t (message "没有找到插件：%s" plugin))
+      )      
+)
+
+
+(defun auto-load-plugin () "启动时自动加载的插件"
+  (ac)
+  (cdt)
+  (ecb)
+  (undo-tree)
+)
+;; 调用自动加载函数
+(auto-load-plugin)
+
+
