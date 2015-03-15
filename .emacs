@@ -11,14 +11,14 @@
 ;(setq default-directory workspace)
 ;(cd workspace)
 
+(setq exec-path (cons "/usr/local/bin" exec-path)) 
+
 ;;;================================= Info =================================
 (setq user-full-name "loptimus")
 (setq user-mail-address "loptimus2510@gmail.com")
 
+;(setenv "PATH" (concat (getenv "PATH") ":~/.emacs.d/commonIDE/cscope/bin"))
 ;(setq tags-file-name "/root/etags/ERL_LIB_TAGS")
-;(setq tags-file-name "D:/workspace/etags/FSGJ_TAGS")
-;(setq tags-file-name "D:/workspace/etags/fs_server")
-;(setq tags-file-name "D:/workspace/etags/tools_tags")
 
 ;;;================================= Emacs base configure =================================
 (add-to-list 'load-path "~/.emacs.d/baseConfig")
@@ -30,7 +30,7 @@
 (defvar cedetPath "~/.emacs.d/commonIDE/cedet-1.1")
 (defvar ecbPath "~/.emacs.d/commonIDE/ecb-2.40")
 (defvar yasnippetPath "~/.emacs.d/commonIDE/yasnippet")
-(defvar cscopePath "~/.emacs.d/commonIDE/cscope-15.8a")
+(defvar cscopePath "~/.emacs.d/commonIDE/cscope")
 (require 'commonIDE_config)
 
 ;;;================================= orgMode configure =================================
@@ -95,8 +95,8 @@
 
 ;; === Tabbar  ===
 ;(global-set-key [(meta j)] 'tabbar-backward)
-(global-set-key (kbd "M-j") 'tabbar-backward)
-(global-set-key (kbd "M-k") 'tabbar-forward)
+(global-set-key (kbd "M-h") 'tabbar-backward)
+(global-set-key (kbd "M-l") 'tabbar-forward)
 ; 分组选择
 (global-set-key (kbd "M-u") 'tabbar-backward-group)
 (global-set-key (kbd "M-i") 'tabbar-forward-group)
@@ -161,6 +161,7 @@
 (global-set-key (kbd "M-\\")  'cscope-pop-mark)
 ;(global-set-key (kbd "M-;") 'cscope-prev-symbol)
 ;(global-set-key (kbd "M-'") 'cscope-next-symbol)
+(global-set-key (kbd "S-<f3>")  'cscope-set-initial-directory)
 
 ;Edit
 (global-set-key (kbd "C-z")  'undo)
@@ -169,6 +170,20 @@
 
 ;Mark set
 (global-set-key (kbd "M-SPC")  'set-mark-command)
+
+;; 行复制
+(defun copy-lines(&optional arg) 
+ (interactive "p") 
+ (save-excursion 
+  (beginning-of-line) 
+  (set-mark (point)) 
+  (if arg 
+   (next-line (- arg 1))) 
+  (end-of-line) 
+  (kill-ring-save (mark) (point)) 
+ ) 
+ ) 
+(global-set-key (kbd "C-c w") 'copy-lines)
 
 ; 加载插件
 (defun load-plugin (plugin)
@@ -180,6 +195,8 @@
        ((string-equal plugin "ecb") (ecb))
        ((string-equal plugin "org") (org))
        ((string-equal plugin "php") (php))
+       ((string-equal plugin "cscope") (cscope))
+       ((string-equal plugin "yas") (yas))
        ((string-equal plugin "undo-tree") (undo-tree))
        (t (message "没有找到插件：%s" plugin))
       )      
