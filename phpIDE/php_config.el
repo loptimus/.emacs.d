@@ -3,11 +3,10 @@
 ;;
 (provide 'php_config)
 
-
-
 ;; ===============================PHP mode====================================
-(add-to-list 'load-path phpPath)
-(require 'php-mode)
+(defun php () "Load php-mode"
+  (add-to-list 'load-path phpPath)
+  (require 'php-mode)
+)
 
-;; ===============================PHP mode====================================
 
