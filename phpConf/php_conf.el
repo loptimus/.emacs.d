@@ -1,13 +1,12 @@
 ;;;=================================loptimus' php_config=================================
 
 ;;
-(provide 'php_config)
-
-
+(provide 'php_conf)
 
 ;; ===============================PHP mode====================================
-(add-to-list 'load-path phpPath)
-(require 'php-mode)
+(defun php () "Load php-mode"
+  (add-to-list 'load-path phpPath)
+  (require 'php-mode)
+)
 
-;; ===============================PHP mode====================================
 
