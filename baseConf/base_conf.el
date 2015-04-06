@@ -1,6 +1,6 @@
 ;;;=================================loptimus' baseConfig=================================
 
-(provide 'baseConfig)
+(provide 'base_conf)
 
 ; Disable Startup display (关闭启动画面)
 ;(setq inhibit-startup-message t)
@@ -126,7 +126,7 @@
 
 
 ;恢复功能
-(add-to-list 'load-path "~/.emacs.d/baseConfig/session/lisp")
+(add-to-list 'load-path "~/.emacs.d/baseConf/session/lisp")
 (require 'session)
 (add-hook 'after-init-book 'session-initialize)
 
@@ -154,7 +154,7 @@
 ; 启用font-lock-mode，在color-theme中会用到 
 (global-font-lock-mode t)
 
-(add-to-list 'load-path "~/.emacs.d/baseConfig/color-theme-6.6.0/")
+(add-to-list 'load-path "~/.emacs.d/baseConf/color-theme-6.6.0/")
 (require 'color-theme)
 (color-theme-initialize)
 
