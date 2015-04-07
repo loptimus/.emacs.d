@@ -1,12 +1,9 @@
 ;;;=================================loptimus' commonIDE_config=================================
 
 ; Provide under compoments (提供以下组件)
-(provide 'commonIDE_config)
-
-
+(provide 'common_conf)
 
 ;;; ======================================ac-complete=================================
-
 (defun ac () "Load Auto complete"
   ;;(add-to-list 'load-path "~/.emacs.d/commonIDE/auto-complete-1.3.1/")
   ;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/commonIDE/auto-complete-1.3.1/ac-dict")
@@ -28,21 +25,13 @@
                 )
 )
 
-;;; ======================================ac-complete=================================
-
-
-
-
 ;;; ====================================flymake=================================
 (autoload 'flymake-find-file-hook "flymake" "" t)
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 (setq flymake-gui-warnings-enabled nil)
 (setq flymake-log-level 0)
-;;; ======================================flymake=================================
-
 
 ;;; ================================cedet==========================================================
-
 (defun cdt () "Load cedet"
   ;; Switch cedet
   ;; (add-to-list 'load-path "~/.emacs.d/commonIDE/cedet-1.0.1/common")
@@ -66,6 +55,7 @@
   ;; Code collapse (代码折叠)
   (require 'semantic-tag-folding nil 'noerror)
   (global-semantic-tag-folding-mode 1)
+  (cedet_keymap)
 )
 
 ;;; =========================== ecb =========================================
@@ -87,6 +77,7 @@
    '(ecb-options-version "2.40")
    '(ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1))
    '(show-paren-mode t))
+  (ecb_keymap)
 )
 
 ;;; ======================================yasnippet=================================
@@ -108,6 +99,7 @@
   (add-to-list 'load-path cscopePath)
   (require 'xcscope)
   (setq cscope-do-not-update-database t)
+  (cscope_keymap)
 )
 
 ;;; ======================================undo-tree=================================

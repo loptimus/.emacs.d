@@ -1,6 +1,6 @@
 ;;;=================================loptimus' cpp_config=================================
 
-(provide 'cpp_config)
+(provide 'cpp_conf)
 
 
 

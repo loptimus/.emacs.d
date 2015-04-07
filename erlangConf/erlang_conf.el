@@ -1,7 +1,7 @@
 ;;;=================================loptimus' erlang_config=================================
 
 ;;
-(provide 'erlang_config)
+(provide 'erlang_conf)
 
 ;(print erlangEmacsPath)
 ;(print distelPath)
