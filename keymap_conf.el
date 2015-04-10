@@ -19,7 +19,7 @@
 ;(global-set-key (kbd "C-Z")  'redo)
 
 ; 只读开关
-(global-set-key (kbd "<f3>")  'toggle-read-only)
+(global-set-key (kbd "<f3>")  'read-only-mode)
 
 ; Mark set
 (global-set-key (kbd "M-SPC")  'set-mark-command)
@@ -31,8 +31,11 @@
 (global-set-key (kbd "M-[") 'find-tag)
 (global-set-key (kbd "M-]") 'pop-tag-mark)
 
-; 设置C-F12快速查看日程安排
+; 书签列表 
 (global-set-key (kbd "M-8") 'list-bookmarks)
+(global-set-key (kbd "<f2>") 'bookmark-set)
+(global-set-key (kbd "S-<f2>") 'bookmark-jump)
+(global-set-key (kbd "M-<f2>") 'bookmark-delete)
 
 ; gdb调试
 (global-set-key (kbd "C-4") 'gdb)

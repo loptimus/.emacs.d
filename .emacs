@@ -22,7 +22,8 @@
 
 ;;;================================= Emacs base configure =================================
 ;;; Custom
-(add-to-list 'load-path "~/.emacs.d/")
+(load-library "~/.emacs.d/utils_conf.el")
+(load-library "~/.emacs.d/keymap_conf.el")
 (require 'utils_conf)  ; 自定义函数
 (require 'keymap_conf)  ; Keymap 快捷键配置
 (add-to-list 'load-path "~/.emacs.d/baseConf")
@@ -65,11 +66,6 @@
 (defvar phpPath "~/.emacs.d/phpConf")
 (add-to-list 'load-path phpPath)
 (require 'php_conf)
-
-;;; Custom
-(add-to-list 'load-path "~/.emacs.d/")
-(require 'utils_conf)  ; 自定义函数
-(require 'keymap_conf)  ; Keymap 快捷键配置
 
 ;; 加载插件
 (defun load-plugin (plugin)
