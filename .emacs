@@ -31,7 +31,7 @@
 
 ;;;================================= Emacs common IDE configure =================================
 (add-to-list 'load-path "~/.emacs.d/commonConf")
-(defvar autoCompletePath "~/.emacs.d/commonConf/auto-complete-1.3.1")
+(defvar autoCompletePath "~/.emacs.d/commonConf/auto-complete")
 (defvar cedetPath "~/.emacs.d/commonConf/cedet-1.1")
 (defvar ecbPath "~/.emacs.d/commonConf/ecb-2.40")
 (defvar yasnippetPath "~/.emacs.d/commonConf/yasnippet")

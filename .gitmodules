@@ -1,0 +1,3 @@
+[submodule "commonConf/auto-compelete"]
+	path = commonConf/auto-compelete
+	url = https://github.com/auto-complete/auto-complete.git
