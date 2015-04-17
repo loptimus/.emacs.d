@@ -38,10 +38,7 @@
 ; Set (页宽)
 ;(setq default-fill-column 60)
 
-; 自动重载改动过的文件 Auto refresh all buffers when files have changed ond disk
-; (global-auto-revert-mode t)
-
-; 匹配(),{},[]
+; 
 (show-paren-mode)
 
 ;; 高亮显示区域
