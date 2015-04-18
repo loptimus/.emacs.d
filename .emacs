@@ -31,7 +31,7 @@
 
 ;;;================================= Emacs common IDE configure =================================
 (add-to-list 'load-path "~/.emacs.d/commonConf")
-(defvar autoCompletePath "~/.emacs.d/commonConf/auto-complete")
+(defvar autoCompletePath "~/.emacs.d/commonConf/auto-complete-1.3.1")
 (defvar cedetPath "~/.emacs.d/commonConf/cedet-1.1")
 (defvar ecbPath "~/.emacs.d/commonConf/ecb-2.40")
 (defvar yasnippetPath "~/.emacs.d/commonConf/yasnippet")
@@ -66,6 +66,11 @@
 (defvar phpPath "~/.emacs.d/phpConf")
 (add-to-list 'load-path phpPath)
 (require 'php_conf)
+
+;;;================================= Lua configure ======================================
+(defvar luaPath "~/.emacs.d/luaConf")
+(add-to-list 'load-path luaPath)
+(require 'lua_conf)
 
 ;; 加载插件
 (defun load-plugin (plugin)
