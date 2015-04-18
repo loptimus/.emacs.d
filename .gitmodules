@@ -4,3 +4,6 @@
 [submodule "commonConf/companyMode"]
 	path = commonConf/companyMode
 	url = https://github.com/company-mode/company-mode.git
+[submodule "webMode/js2"]
+	path = webMode/js2
+	url = https://github.com/mooz/js2-mode.git

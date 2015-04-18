@@ -73,7 +73,12 @@
 (add-to-list 'load-path luaPath)
 (require 'lua_conf)
 
-;; 加载插件
+;;;================================= webMode configure ======================================
+(defvar webModePath "~/.emacs.d/webMode")
+(add-to-list 'load-path webModePath)
+(require 'web_conf)
+
+ ;; 加载插件
 (defun load-plugin (plugin)
       "手动加载指定插件 M-x load-plugin"
       (interactive "s请输入要加载的插件：")
