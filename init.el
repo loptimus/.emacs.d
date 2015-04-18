@@ -74,8 +74,8 @@
 (require 'lua_conf)
 
 ;;;================================= webMode configure ======================================
-(defvar webModePath "~/.emacs.d/webMode")
-(add-to-list 'load-path webModePath)
+(defvar webDevConfPath "~/.emacs.d/webDevConf")
+(add-to-list 'load-path webDevConfPath)
 (require 'web_conf)
 
  ;; 加载插件
