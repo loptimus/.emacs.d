@@ -1,0 +1,12 @@
+.dat
+ebin/*
+doc/*
+tags
+src/dets/*
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+.Spotlight-V100
+.Trashes
