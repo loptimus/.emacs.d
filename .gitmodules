@@ -1,3 +1,0 @@
-[submodule "luaConf"]
-	path = luaConf
-	url = https://github.com/immerrr/lua-mode.git
