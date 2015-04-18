@@ -32,6 +32,7 @@
 ;;;================================= Emacs common IDE configure =================================
 (add-to-list 'load-path "~/.emacs.d/commonConf")
 (defvar autoCompletePath "~/.emacs.d/commonConf/auto-complete-1.3.1")
+;(defvar companyPath "~/.emacs.d/commonConf/companyMode")
 (defvar cedetPath "~/.emacs.d/commonConf/cedet-1.1")
 (defvar ecbPath "~/.emacs.d/commonConf/ecb-2.40")
 (defvar yasnippetPath "~/.emacs.d/commonConf/yasnippet")
@@ -78,6 +79,7 @@
       (interactive "s请输入要加载的插件：")
       (cond 
        ((string-equal plugin "ac") (ac))
+       ((string-equal plugin "company") (company))
        ((string-equal plugin "cedet") (cdt))
        ((string-equal plugin "ecb") (ecb))
        ((string-equal plugin "org") (org))
@@ -92,6 +94,7 @@
 ;; 自动加载插件
 (defun auto-load-plugin () "启动时自动加载的插件"
   (ac)
+  ;(company)
   ;(cdt)
   ;(ecb)
   (undo-tree)

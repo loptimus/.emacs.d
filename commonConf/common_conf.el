@@ -25,6 +25,14 @@
                 )
 )
 
+;;; company-mode
+(defun company () "Load Auto complete"
+    (add-to-list 'load-path companyPath)
+    (require 'company)
+    (add-hook 'after-init-hook 'global-company-mode)
+)
+
+
 ;;; ====================================flymake=================================
 (autoload 'flymake-find-file-hook "flymake" "" t)
 (add-hook 'find-file-hook 'flymake-find-file-hook)
