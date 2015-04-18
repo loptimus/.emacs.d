@@ -1,4 +1,4 @@
-.dat
+*.dat
 ebin/*
 doc/*
 tags
