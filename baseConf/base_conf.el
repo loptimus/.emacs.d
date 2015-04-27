@@ -54,8 +54,12 @@
 ;(setq resize-mini-windows nil)
  
 ;; 判断某个字体是否在系统中是否安装
+;(defun qiang-font-existsp (font)
+; (if(null(x-list-fonts font))
+;  nil t))
+
 (defun qiang-font-existsp (font)
- (if(null(x-list-fonts font))
+ (if(null(find-font (font-spec :name font)))
   nil t))
 
 ;; 用来产生带上font size信息的font描述文本
@@ -89,10 +93,14 @@
   ;; Set Chinese font
   ;; Do not use 'unicode charset, it will cause the english font setting invalid
   (message "Set Chinese Font to %s" zh-font)
-  (dolist(charset '(kana han symbol cjk-misc bopomofo))
-   (set-fontset-font (frame-parameter nil 'font)                        
-    charset                        
-    zh-font)))
+  ;(dolist(charset '(kana han symbol cjk-misc bopomofo))
+  ; (set-fontset-font (frame-parameter nil 'font)                        
+  ;  charset                        
+  ;  zh-font)
+  ; )
+  (set-face-attribute     
+   'default nil :font zh-font)     
+  )
 )
 
 ;; 字体设置
