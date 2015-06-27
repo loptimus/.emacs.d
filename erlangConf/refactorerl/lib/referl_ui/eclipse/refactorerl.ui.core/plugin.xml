@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension-point id="refactors" name="Refactorerl Refactors" schema="schema/refactors.exsd"/>
+	<extension-point id="contextmenudraganddrops" name="Refactorerl Context menu Drag and Drop" schema="schema/contextmenudraganddrops.exsd"/>
+	<extension-point id="converters" name="Erlang to Java converters" schema="schema/converters.exsd"/>
+	<extension-point id="inboxlisteners" name="Inbox Listeners" schema="schema/inboxlisteners.exsd"/>
+	
+	<extension point="refactorerl.ui.core.refactors">
+		/* Rename refactorings */
+		<refactor
+			name="Rename function editor"
+			description="Please, type the new name of the function"
+			commandId="refactorerl.ui.extensions.transform.renamefun"
+			transformName="rename_fun">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="NAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Rename module"
+			description="Please, type the new name of the module"
+			commandId="refactorerl.ui.extensions.transform.renamemod"
+			transformName="rename_mod">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="NAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Rename header"
+			description="Please type the new name of header"
+			commandId="refactorerl.ui.extensions.transform.renameheader"
+			transformName="rename_header">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.ResourceLocator">
+			</ContextTransformParameterClassProvider>
+			
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="FILENAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Rename record"
+			description="Please, type the new name of the record"
+			commandId="refactorerl.ui.extensions.transform.renamerec"
+			transformName="rename_rec">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="NAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>		
+		<refactor
+			name="Rename record field"
+			description="Please, type the new name of the record field"
+			commandId="refactorerl.ui.extensions.transform.renamerecfield"
+			transformName="rename_recfield">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="NAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Rename variable"
+			description="Please, type the new name of the variable"
+			commandId="refactorerl.ui.extensions.transform.renamevar"
+			transformName="rename_var">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="VARNAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Rename macro"
+			description="Please, type the new name of the macro"
+			commandId="refactorerl.ui.extensions.transform.renamemac"
+			transformName="rename_mac">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="MACNAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		
+		/* Move refactorings */
+		<refactor
+			name="Move function"
+			description="Move functions refactoring"
+			commandId="refactorerl.ui.extensions.transform.movefun"
+			transformName="move_fun">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.DragAndDropLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Move record"
+			description="Move records refactring"
+			commandId="refactorerl.ui.extensions.transform.moverec"
+			transformName="move_rec">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.DragAndDropLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Move macro"
+			description="Move records refactring"
+			commandId="refactorerl.ui.extensions.transform.movemac"
+			transformName="move_mac">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.DragAndDropLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		
+		/* Introduce/eliminate */
+		<refactor
+			name="Introduce function"
+			description="Introduce function refactoring"
+			commandId="refactorerl.ui.extensions.transform.introfun"
+			transformName="extract_fun">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionRangeLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="NAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Eliminate function call"
+			commandId="refactorerl.ui.extensions.transform.elimfuncall"
+			transformName="inline_fun">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Eliminate macro substitution"
+			commandId="refactorerl.ui.extensions.transform.elimmac"
+			transformName="inline_mac">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		
+		<refactor
+			name="Introduce import"
+			description="Introduce import"
+			commandId="refactorerl.ui.extensions.transform.introduceimport"
+			transformName="introduce_import">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Introduce function argument"
+			description="Introduce function argument refactoring"
+			commandId="refactorerl.ui.extensions.transform.introfunarg"
+			transformName="gen">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionRangeLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="VARNAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Rename record field"
+			commandId="refactorerl.ui.extensions.transform.renamerecfield"
+			transformName="rename_recfield">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="NAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Eliminate fun expression"
+			commandId="refactorerl.ui.extensions.transform.elimfunexpr"
+			transformName="expand_funexpr">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		
+		<refactor
+			name="Introduce tuple"
+			commandId="refactorerl.ui.extensions.transform.introtuple"
+			transformName="tuple_funpar">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionRangeLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Eliminate variable"
+			commandId="refactorerl.ui.extensions.transform.elimvar"
+			transformName="elim_var">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Reorder function parameters"
+			commandId="refactorerl.ui.extensions.transform.reorderfunpar"
+			transformName="reorder_funpar">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.ReorderWizardPage">
+				<parameter key="ORDER"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Introduce variable"
+			commandId="refactorerl.ui.extensions.transform.introvar"
+			transformName="merge">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionRangeLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="VARNAME"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Upgrade regexp"
+			commandId="refactorerl.ui.extensions.transform.upgraderegexp"
+			transformName="upgrade_regexp">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.NullParameterLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="List comprehension"
+			commandId="refactorerl.ui.extensions.transform.listcomp"
+			transformName="list_comp">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionRangeLocator">
+			</ContextTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Introduce record"
+			description="Change tuple parameter to record"
+			commandId="refactorerl.ui.extensions.transform.introducerec"
+			transformName="introduce_rec">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionRangeLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.TupleToRecordWizardPage">
+				<parameter></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+		<refactor
+			name="Semantic Query"
+			description="Executes a query on the database"
+			commandId="refactorerl.ui.extensions.transform.semanticquery"
+			transformName="refusr_sq">
+			
+			<ContextTransformParameterClassProvider
+				class="refactorerl.ui.extensions.contextparameters.FilePositionLocator">
+			</ContextTransformParameterClassProvider>
+			<ManualTransformParameterClassProvider
+				class="refactorerl.ui.extensions.wizards.RenameWizardPage">
+				<parameter key="QUERYSTR"></parameter>
+			</ManualTransformParameterClassProvider>
+		</refactor>
+	</extension>	
+	
+	<extension point="org.eclipse.ui.commands">
+		<command
+			id="refactorerl.ui.core.fileman"
+			name="fileman"
+			defaultHandler="refactorerl.ui.core.handlers.FilemanHandler">
+			
+			<commandParameter
+				id="refactorerl.ui.core.fileman.cmd"
+				name="cmd"
+				optional="false">
+			</commandParameter>
+		</command>
+		
+		<command
+			id="refactorerl.ui.core.server"
+			name="server"
+			defaultHandler="refactorerl.ui.core.handlers.CommandHandler">
+			
+			<commandParameter
+				id="refactorerl.ui.core.server.cmd"
+				name="cmd"
+				optional="false">
+			</commandParameter>
+		</command>
+		
+		/* Clustering */
+		<command
+			id="refactorerl.ui.extensions.clustering"
+			name="clustering"
+			defaultHandler="refactorerl.ui.core.handlers.ClusteringHandler">
+			
+			<commandParameter
+				id="refactorerl.ui.extensions.clustering.algorithm"
+				name="algorithm">
+			</commandParameter>
+			<commandParameter
+				id="refactorerl.ui.extensions.clustering.entityType"
+				name="entityType">
+			</commandParameter>
+		</command>
+		
+		/* Rename refactorings */
+		<command
+			id="refactorerl.ui.extensions.transform.univrenamer"
+			name="univrenamer"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.renamefun"
+			name="renamefun"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.renameheader"
+			name="renameheader"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.renamemac"
+			name="renamemac"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.renamemod"
+			name="renamemod"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.renamerec"
+			name="renamerec"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.renamerecfield"
+			name="renamerecfield"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.renamevar"
+			name="renamevar"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		
+		/* Introduce/eliminate refactorings */
+		<command
+			id="refactorerl.ui.extensions.transform.introfun"
+			name="introfun"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.introfunarg"
+			name="introfunarg"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.introduceimport"
+			name="introduceimport"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.introtuple"
+			name="introtuple"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.introducerec"
+			name="introducerec"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.introvar"
+			name="introvar"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+					
+		<command
+			id="refactorerl.ui.extensions.transform.elimfuncall"
+			name="elimfuncall"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.elimfunexpr"
+			name="elimfunexpr"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.elimmac"
+			name="elimmac"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.elimvar"
+			name="elimvar"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		
+		/* Move refactorings */
+		<command
+			id="refactorerl.ui.extensions.transform.movefun"
+			name="movefun"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.movemac"
+			name="movemac"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.moverec"
+			name="moverec"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		
+		<command
+			id="refactorerl.ui.extensions.transform.reorderfunpar"
+			name="reorderfunpar"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		
+		<command
+			id="refactorerl.ui.extensions.transform.upgraderegexp"
+			name="upgraderegexp"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		
+		<command
+			id="refactorerl.ui.extensions.transform.listcomp"
+			name="listcomp"
+			defaultHandler="refactorerl.ui.core.handlers.RefactoringHandler">
+		</command>
+		
+		
+		<command
+			id="refactorerl.ui.extensions.transform.semanticquery"
+			name="semanticquery"
+			defaultHandler="refactorerl.ui.core.handlers.SemanticQueryHandler">
+		</command>
+		<command
+			id="refactorerl.ui.extensions.transform.dbcontents"
+			name="dbcontents"
+			defaultHandler="refactorerl.ui.core.handlers.DatabaseContentHandler">
+		</command>
+	</extension>
+	
+	/* locationURI="popup:org.erlide.ui.views.navigator.view#PopupMenu"> */
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="menu:org.eclipse.ui.main.menu">
+			<menu
+				id="refactorerl.ui.core.navigator.contextmenu"
+				label="RefactorErl">
+				
+				<menu
+					id="refactorerl.ui.core.navigator.server"
+					label="Server">
+					
+					<command
+						id="refactorerl.ui.navigator.start"
+						commandId="refactorerl.ui.core.server"
+						label="Start server">
+					</command>
+					
+					<command
+						id="refactorerl.ui.navigator.stop"
+						commandId="refactorerl.ui.core.server"
+						label="Stop server">
+					</command>
+					
+					<command
+						id="refactorerl.ui.navigator.conf"
+						commandId="refactorerl.ui.core.server"
+						label="Configure">
+					</command>
+				</menu>
+				
+				<menu
+					id="refactorerl.ui.core.navigator.files"
+					label="Files">
+					
+					<command
+						id="refactorerl.ui.navigator.add_dir"
+						commandId="refactorerl.ui.core.fileman"
+						label="Load directory">
+						
+						<parameter
+							name="refactorerl.ui.core.fileman.cmd"
+							value="add_dir">
+						</parameter>
+					</command>
+					
+					<command
+						id="refactorerl.ui.navigator.reset"
+						commandId="refactorerl.ui.core.server"
+						label="Reset database">
+						
+						<parameter
+							name="refactorerl.ui.core.server.cmd"
+							value="reset">
+						</parameter>
+					</command>
+					
+					<command
+						id="refactorerl.ui.navigator.dbcontents"
+						commandId="refactorerl.ui.extensions.transform.dbcontents"
+						label="Database contents">
+					</command>
+				</menu>
+				
+				<command
+					id="refactorerl.ui.navigator.referl_ui.add"
+					commandId="refactorerl.ui.core.fileman"
+					label="Add file">
+					
+					<parameter
+						name="refactorerl.ui.core.fileman.cmd"
+						value="add">
+					</parameter>
+				</command>
+				
+				<command
+					id="refactorerl.ui.navigator.referl_ui.drop"
+					commandId="refactorerl.ui.core.fileman"
+					label="Drop file">
+					
+					<parameter
+						name="refactorerl.ui.core.fileman.cmd"
+						value="drop">
+					</parameter>
+				</command>
+				
+				<command
+					id="refactorerl.ui.navigator.referl_ui.undo"
+					commandId="refactorerl.ui.core.server"
+					label="Undo (one step only)">
+					
+					<parameter
+						name="refactorerl.ui.core.server.cmd"
+						value="undo">
+					</parameter>
+				</command>
+				
+				<menu
+					id="refactorerl.ui.navigator.referl_ui.modcli"
+					label="Module clustering">
+					
+					<command
+						id="refactorerl.ui.navigator.referl_ui.aggl"
+						commandId="refactorerl.ui.extensions.clustering"
+						label="Agglomerative">
+						
+						<parameter
+							name="refactorerl.ui.extensions.clustering.algorithm"
+							value="agglom_attr">
+						</parameter>
+						<parameter
+							name="refactorerl.ui.extensions.clustering.entityType"
+							value="module">
+						</parameter>
+					</command>
+					
+					<command
+						id="refactorerl.ui.navigator.referl_ui.gen"
+						commandId="refactorerl.ui.extensions.clustering"
+						label="Genetic">
+						
+						<parameter
+							name="refactorerl.ui.extensions.clustering.algorithm"
+							value="genetic">
+						</parameter>
+						<parameter
+							name="refactorerl.ui.extensions.clustering.entityType"
+							value="module">
+						</parameter>
+					</command>
+				</menu>
+				
+				<command
+					id="refactorerl.ui.navigator.referl_ui.funcli"
+					commandId="refactorerl.ui.extensions.clustering"
+					label="Function clustering">
+					
+					<parameter
+						name="refactorerl.ui.extensions.clustering.algorithm"
+						value="agglom_attr">
+					</parameter>
+					<parameter
+						name="refactorerl.ui.extensions.clustering.entityType"
+						value="function">
+					</parameter>
+				</command>
+				<command
+					id="refactorerl.ui.navigator.referl_ui.query"
+					commandId="refactorerl.ui.extensions.transform.semanticquery"
+					label="Semantic query">
+				</command>
+			</menu>
+		</menuContribution>
+		
+		<menuContribution
+			locationURI="popup:org.erlide.ui.editors.erl.ErlangEditor.EditorContext">
+			<menu
+				id="refactorerl.ui.core.editor.contextmenu"
+				label="RefactorErl refactorings">
+				
+				<command
+					id="refactorerl.ui.editor.referl_ui.add"
+					commandId="refactorerl.ui.core.fileman"
+					label="Add file">
+					
+					<parameter
+						name="refactorerl.ui.core.fileman.cmd"
+						value="add">
+					</parameter>
+				</command>
+				
+				<command
+					id="refactorerl.ui.editor.referl_ui.drop"
+					commandId="refactorerl.ui.core.fileman"
+					label="Drop file">
+					
+					<parameter
+						name="refactorerl.ui.core.fileman.cmd"
+						value="drop">
+					</parameter>
+				</command>
+				
+				<menu
+					id="refactorerl.ui.extensions.function"
+					label="Function">
+					
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.reorderfunpar"
+						commandId="refactorerl.ui.extensions.transform.reorderfunpar"
+						label="Reorder function parameters">
+					</command>
+				</menu>
+		
+				<menu
+					id="refactorerl.ui.extensions.intperell"
+					label="Introduce/eliminate">
+					
+					<command
+						id="refactorerl.ui.extensions.navigator.contextmenu.elimfuncall"
+						commandId="refactorerl.ui.extensions.transform.elimfuncall"
+						label="Eliminate function call">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.elimfunexpr"
+						commandId="refactorerl.ui.extensions.transform.elimfunexpr"
+						label="Eliminate fun expression">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.navigator.contextmenu.elimmac"
+						commandId="refactorerl.ui.extensions.transform.elimmac"
+						label="Eliminate macro substitution">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.elimvar"
+						commandId="refactorerl.ui.extensions.transform.elimvar"
+						label="Eliminate variable">
+					</command>
+					
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.introfun"
+						commandId="refactorerl.ui.extensions.transform.introfun"
+						label="Introduce function">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.navigator.contextmenu.introfunarg"
+						commandId="refactorerl.ui.extensions.transform.introfunarg"
+						label="Introduce function argument">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.introduceimport"
+						label="Introduce import"
+						commandId="refactorerl.ui.extensions.transform.introduceimport">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.navigator.contextmenu.introducerec"
+						commandId="refactorerl.ui.extensions.transform.introducerec"
+						label="Introduce record">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.navigator.contextmenu.introtuple"
+						commandId="refactorerl.ui.extensions.transform.introtuple"
+						label="Introduce tuple">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.introvar"
+						commandId="refactorerl.ui.extensions.transform.introvar"
+						label="Introduce variable">
+					</command>
+					
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.listcomp"
+						label="Transform list comprehension"
+						commandId="refactorerl.ui.extensions.transform.listcomp">
+					</command>
+				</menu>
+				
+				<menu
+					id="refactorerl.ui.extensions.menu."
+					label="Move to another module">
+					
+					<command
+						id="refactorerl.ui.extensions.navigator.contextmenu.movefun"
+						commandId="refactorerl.ui.extensions.transform.movefun"
+						label="Move function">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.navigator.contextmenu.movemac"
+						commandId="refactorerl.ui.extensions.transform.movemac"
+						label="Move macro">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.navigator.contextmenu.moverec"
+						commandId="refactorerl.ui.extensions.transform.moverec"
+						label="Move record">
+					</command>
+				</menu>
+				
+				<menu
+					id="refactorerl.ui.extensions.menu.renames"
+					label="Renames">
+					
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.renamefun"
+						commandId="refactorerl.ui.extensions.transform.univrenamer"
+						label="Universal renamer">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.renamefun"
+						commandId="refactorerl.ui.extensions.transform.renamefun"
+						label="Rename function">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.renameheader"
+						commandId="refactorerl.ui.extensions.transform.renamefun"
+						label="Rename header">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.renamemac"
+						commandId="refactorerl.ui.extensions.transform.renamemac"
+						label="Rename macro">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.navigator.contextmenu.renamemod"
+						commandId="refactorerl.ui.extensions.transform.renamemod"
+						label="Rename module">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.renamerec"
+						commandId="refactorerl.ui.extensions.transform.renamerec"
+						label="Rename record">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.renamerecfield"
+						commandId="refactorerl.ui.extensions.transform.renamerecfield"
+						label="Rename record field">
+					</command>
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.renamevar"
+						commandId="refactorerl.ui.extensions.transform.renamevar"
+						label="Rename variable">
+					</command>
+				</menu>
+				
+				<menu
+					id="refactorerl.ui.extensions.menu.upgrade"
+					label="Upgrade">
+				
+					<command
+						id="refactorerl.ui.extensions.editor.contextmenu.upgraderegexp"
+						commandId="refactorerl.ui.extensions.transform.upgraderegexp"
+						label="Upgrade regexp">
+					</command>
+				</menu>
+				
+				<command
+					id="refactorerl.ui.navigator.referl_ui.query"
+					commandId="refactorerl.ui.extensions.transform.semanticquery"
+					label="Semantic query">
+				</command>
+			</menu>
+		</menuContribution>
+	</extension>
+
+	<extension
+		point="org.eclipse.ui.navigator.navigatorContent">
+		
+		<navigatorContent
+			contentProvider="org.erlide.ui.navigator.ErlangFileContentProvider"
+			id="refactorerl.ui.core.navigator.erlangContent"
+			labelProvider="org.erlide.ui.navigator.ErlangFileLabelProvider"
+			name="Refactorerl content"
+			priority="normal">
+			
+			<dropAssistant
+				class="refactorerl.ui.core.assistants.RefactorerlDropAdapterAssistant"
+				id="refactorerl.ui.core.navigator.dropAssistant">
+				<possibleDropTargets>
+					<or>
+						<and>
+							<instanceof value="org.eclipse.core.resources.IFile"></instanceof>
+							<test
+								forcePluginActivation="true"
+								property="org.eclipse.core.resources.extension"
+								value="erl">
+							</test>
+						</and>
+						
+						<and>
+							<instanceof value="org.eclipse.core.resources.IFile"></instanceof>
+							<test
+								forcePluginActivation="true"
+								property="org.eclipse.core.resources.extension"
+								value="hrl">
+							</test>
+						</and>
+						
+						<and>
+							<instanceof value="org.eclipse.core.resources.IFile"></instanceof>
+							<test
+								forcePluginActivation="true"
+								property="org.eclipse.core.resources.extension"
+								value="yrl">
+							</test>
+						</and>
+						
+						<instanceof value="org.eclipse.core.resources.IFolder"></instanceof>
+					</or>
+				</possibleDropTargets>
+			</dropAssistant>
+			<triggerPoints>
+				<or>
+					<and>
+						<instanceof value="org.eclipse.core.resources.IResource"></instanceof>
+						<test
+							forcePluginActivation="true"
+							property="org.eclipse.core.resources.extension"
+							value="erl">
+						</test>
+					</and>
+					
+					<instanceof value="org.erlide.core.erlang.IErlElement"></instanceof>
+					
+					<and>
+						<instanceof value="org.eclipse.core.resources.IResource"></instanceof>
+						<test
+							forcePluginActivation="true"
+							property="org.eclipse.core.resources.extension"
+							value="hrl">
+						</test>
+					</and>
+					
+					<and>
+						<instanceof value="org.eclipse.core.resources.IResource"></instanceof>
+						<test
+							forcePluginActivation="true"
+							property="org.eclipse.core.resources.extension"
+							value="yrl">
+						</test>
+					</and>
+					
+					<instanceof value="org.eclipse.core.resources.IFolder"></instanceof>
+				</or>
+			</triggerPoints>
+		</navigatorContent>
+	</extension>
+
+	<extension
+		point="org.eclipse.ui.navigator.viewer">
+		
+		<viewerContentBinding
+			viewerId="org.erlide.ui.views.navigator.view">
+			<includes>
+				<contentExtension
+					pattern="refactorerl.ui.core.navigator.erlangContent">
+				</contentExtension>
+			</includes>
+		</viewerContentBinding>
+	</extension>
+	
+	<extension
+		point="org.eclipse.ui.preferencePages">
+		
+		<page
+			class="refactorerl.ui.core.preferences.RefactorerlPreferencePage"
+			id="refactorerl.ui.preferences"
+			name="RefactorErl">
+		</page>
+	</extension>
+	
+	<extension
+		point="org.eclipse.core.expressions.propertyTesters">
+		
+		<propertyTester
+			class="refactorerl.ui.core.propertytesters.TextSelectionPropertyTester"
+			id="refactorerl.ui.selectiontester"
+			namespace="erlang.element"
+			properties="module,function,record,variable,recordfield"
+			type="org.eclipse.jface.text.ITextSelection">
+		</propertyTester>
+	</extension>
+	
+	<extension
+		point="refactorerl.ui.core.converters">
+	</extension>
+	
+	<extension
+		point="refactorerl.ui.core.inboxlisteners">
+	</extension>
+	
+	<extension
+		point="org.eclipse.ui.views">
+		
+		<view
+			id="refactorerl.ui.core.views.semanticquery"
+			class="refactorerl.ui.core.assistants.SemanticQueryView"
+			icon="icon/erlang.png"
+			name="Semantic Query"
+			restorable="true">
+		</view>
+		
+		<view
+			id="refactorerl.ui.core.views.databasecontent"
+			class="refactorerl.ui.core.assistants.DatabaseContentView"
+			name="Database content"
+			restorable="true">
+		</view>
+	</extension>
+</plugin>
