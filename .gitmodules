@@ -10,3 +10,6 @@
 [submodule "webDevConf/webMode"]
 	path = webDevConf/webMode
 	url = https://github.com/fxbois/web-mode.git
+[submodule "erlangConf/wrangler"]
+	path = erlangConf/wrangler
+	url = https://github.com/RefactoringTools/wrangler.git
