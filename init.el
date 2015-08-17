@@ -12,6 +12,8 @@
 ;(cd workspace)
 
 (setq exec-path (cons "/usr/local/bin" exec-path)) 
+;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(defconst *is-a-mac* (eq system-type 'darwin))
 
 ;;;================================= Info =================================
 (setq user-full-name "loptimus")

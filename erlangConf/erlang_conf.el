@@ -25,6 +25,13 @@
 ;(require 'distel)
 ;(distel-setup)
 
+;; Erlang节点名
+(defun erl-set-nodename (name)
+  "设置Erlang节点名"
+  (interactive "s请输入节点名：")
+  (setq inferior-erlang-machine-options (list "-sname" name))
+)
+
 (let ((distel-dir distelPath))
   (unless (member distel-dir load-path)
     (setq load-path (append load-path (list distel-dir)))))
@@ -61,13 +68,13 @@
 ;; A number of the erlang-extended-mode key bindings are useful in the shell too
 ;(defconst distel-shell-keys
 ;  '(("\C-\M-i"   erl-complete)
-;    ("\M-?"      erl-complete) 
+;    ("\M-?"      erl-complete)
 ;    ("\M-."      erl-find-source-under-point)
-;    ("\M-,"      erl-find-source-unwind) 
-;    ("\M-*"      erl-find-source-unwind) 
+;    ("\M-,"      erl-find-source-unwind)
+;    ("\M-*"      erl-find-source-unwind)
 ;    )
 ;  "Additional keys to bind when in Erlang shell.")
-;  
+;
 (add-hook 'erlang-shell-mode-hook
    (lambda ()
      ;; add some Distel bindings to the Erlang shell
@@ -78,8 +85,8 @@
 
 ;; 官方自带的，在erlang安装目录下/lib/tools<版本号>/emacs下
 (require 'erlang-flymake)
-(defun  my-erlang-include-dirs () 
- (list 
+(defun  my-erlang-include-dirs ()
+ (list
     "inc"
     "../inc"
     "../../inc"
@@ -90,8 +97,8 @@
     "../../../include"
  )
 )
-(defun  my-erlang-code-dirs () 
- (list 
+(defun  my-erlang-code-dirs ()
+ (list
     "../ebin"
     "../../ebin"
     "../../../ebin"
@@ -144,5 +151,5 @@
 
 ;; ====================================== wrangler ============================
 (add-to-list 'load-path (concat wranglerPath "/elisp"))
-;(setq exec-path (cons (concat wranglerPath "/bin") exec-path))
+(setq exec-path (cons (concat wranglerPath "/bin") exec-path))
 (require 'wrangler)
