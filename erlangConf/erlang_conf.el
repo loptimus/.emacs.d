@@ -141,10 +141,7 @@
 ;; =====================================refactorerl ============================
 ;(add-to-list 'load-path (concat refactorerlPath "/lib/referl_ui/emacs"))
 ;(require 'refactorerl)
-
 ;(custom-set-variables '(refactorerl-base-path refactorerlPath))
-
-
 ;(add-hook 'erlang-mode-hook 'refactorerl-mode)
 ;; ======================================refactorerl ============================
 
