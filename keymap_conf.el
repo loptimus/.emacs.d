@@ -3,7 +3,7 @@
 
 (provide 'keymap_conf)
 
-;;; Default keymap 
+;;; Default keymap
 (defun default_keymap () "Defaule keymap"
 ; 查看man手册
 (global-set-key (kbd "<f1>") 'manual-entry)
@@ -15,7 +15,8 @@
 (global-set-key (kbd "C-6") 'grep-find)
 
 ; 撤销
-(global-set-key (kbd "C-z")  'undo)
+(global-set-key (kbd "C-z")  'undo-tree-undo)
+(global-set-key (kbd "C-M-z")  'undo-tree-redo)
 ;(global-set-key (kbd "C-Z")  'redo)
 
 ; 只读开关
@@ -31,7 +32,7 @@
 (global-set-key (kbd "M-[") 'find-tag)
 (global-set-key (kbd "M-]") 'pop-tag-mark)
 
-; 书签列表 
+; 书签列表
 (global-set-key (kbd "M-8") 'list-bookmarks)
 (global-set-key (kbd "<f2>") 'bookmark-set)
 (global-set-key (kbd "S-<f2>") 'bookmark-jump)
@@ -100,7 +101,7 @@
 
 ;; Cscope
 (defun cscope_keymap () "Cscope Keymap"
-;cscope 
+;cscope
 (global-set-key (kbd "M-;") 'cscope-find-this-symbol)
 (global-set-key (kbd "M-'")  'cscope-find-global-definition)
 (global-set-key (kbd "M-\\")  'cscope-pop-mark)
