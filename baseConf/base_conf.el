@@ -24,7 +24,7 @@
 (display-time)
 
 ; Display line number (显示行号)
-(require 'linum) 
+(require 'linum)
 (global-linum-mode t)
 
 ; Display line number (使用web-line显示行号)
@@ -38,7 +38,7 @@
 ; Set (页宽)
 ;(setq default-fill-column 60)
 
-; 
+;
 (show-paren-mode)
 
 ;; 高亮显示区域
@@ -52,7 +52,7 @@
 
 ;; 锁定行高
 ;(setq resize-mini-windows nil)
- 
+
 ;; 判断某个字体是否在系统中是否安装
 ;(defun qiang-font-existsp (font)
 ; (if(null(x-list-fonts font))
@@ -71,45 +71,45 @@
 
 ;; 自动设置字体函数
 (defun qiang-set-font (english-fonts
-                       english-font-size                       
-                       chinese-fonts                       
+                       english-font-size
+                       chinese-fonts
                        &optional chinese-font-size)
  "english-font-size could be set to \":pixelsize=18\" or a integer.If set/leave chinese-font-size to nil, it will follow english-font-size"
  (require 'cl) ;; for find if
- (let((en-font (qiang-make-font-string                  
-                (find-if #'qiang-font-existsp english-fonts)                  
+ (let((en-font (qiang-make-font-string
+                (find-if #'qiang-font-existsp english-fonts)
                 english-font-size))
       (zh-font (font-spec :family (find-if #'qiang-font-existsp chinese-fonts)
-                :size chinese-font-size)))     
-  ;; Set the default English font 
+                :size chinese-font-size)))
+  ;; Set the default English font
   ;; The following 2 method cannot make the font settig work in new frames.
   ;; (set-default-font "Consolas:pixelsize=18")
   ;; (add-to-list 'default-frame-alist '(font . "Consolas:pixelsize=18"))
   ;; We have to use set-face-attribute
   (message "Set English Font to %s" en-font)
-  (set-face-attribute     
-   'default nil :font en-font)     
-  
+  (set-face-attribute
+   'default nil :font en-font)
+
   ;; Set Chinese font
   ;; Do not use 'unicode charset, it will cause the english font setting invalid
   (message "Set Chinese Font to %s" zh-font)
-  ;(dolist(charset '(kana han symbol cjk-misc bopomofo))
-  ; (set-fontset-font (frame-parameter nil 'font)                        
-  ;  charset                        
-  ;  zh-font)
-  ; )
-  (set-face-attribute     
-   'default nil :font zh-font)     
+  (dolist(charset '(kana han symbol cjk-misc bopomofo))
+   (set-fontset-font (frame-parameter nil 'font)
+    charset
+    zh-font)
+   )
+  ;(set-face-attribute
+  ; 'default nil :font zh-font)
   )
 )
 
 ;; 字体设置
-(qiang-set-font 
- '("Consolas" "Monaco" "DejaVu Sans Mono" "Monospace" "Courier New") 14 '("Microsoft Yahei" "Kaiti SC" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体"))
+(qiang-set-font
+ '("Monaco" "DejaVu Sans Mono" "Consolas" "Monospace" "Courier New") 18 '("Microsoft Yahei" "Kaiti SC" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体"))
 
 ;; tabbar
 (require 'tabbar)
-(tabbar-mode t) 
+(tabbar-mode t)
 ; set tabbar
 ;(set-face-attribute 'tabbar-default-face nil
 ;                    :family "DejaVu Sans Mono"
@@ -145,21 +145,21 @@
 ;(global-set-key [(f12)] 'loop-alpha)
 
 ;; 半透明设置
-(setq alpha-list '((75 55) (100 100)))  
-(defun loop-alpha ()  
-  (interactive)  
-  (let ((h (car alpha-list)))                  
-	((lambda (a ab)  
-	   (set-frame-parameter (selected-frame) 'alpha (list a ab))  
-	   (add-to-list 'default-frame-alist (cons 'alpha (list a ab)))  
-	   ) (car h) (car (cdr h)))  
-	(setq alpha-list (cdr (append alpha-list (list h))))  
-	)  
-) 
+(setq alpha-list '((75 55) (100 100)))
+(defun loop-alpha ()
+  (interactive)
+  (let ((h (car alpha-list)))
+	((lambda (a ab)
+	   (set-frame-parameter (selected-frame) 'alpha (list a ab))
+	   (add-to-list 'default-frame-alist (cons 'alpha (list a ab)))
+	   ) (car h) (car (cdr h)))
+	(setq alpha-list (cdr (append alpha-list (list h))))
+	)
+)
 
 ;;; ==================== Color Theme =========================
 
-; 启用font-lock-mode，在color-theme中会用到 
+; 启用font-lock-mode，在color-theme中会用到
 (global-font-lock-mode t)
 
 (add-to-list 'load-path "~/.emacs.d/baseConf/color-theme-6.6.0/")
@@ -173,3 +173,5 @@
 ;(color-theme-ahei)
 (color-theme-molokai)
 
+;; 保存时，删除行尾空格
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
