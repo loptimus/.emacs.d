@@ -34,8 +34,13 @@
 ;; ===================Erlang customizations=========================================
 (add-hook 'erlang-mode-hook
   (lambda ()
-  ;; when starting an Erlang shell in Emacs, default in the node name
-    (setq inferior-erlang-machine-options '("-sname" "emacs"))
+    ;; when starting an Erlang shell in Emacs, default in the node name
+    ; (message "**************************************************")
+    ; (if (nil (boundp 'inferior-erlang-machine-options))
+    ;    (message "true")
+    ;  ((message (buffer-file-name)))
+    ;  )
+    ;;(setq inferior-erlang-machine-options '("-sname" "emacs"))
     ;; add Erlang functions to an imenu menu
     (imenu-add-to-menubar "imenu")))
 
@@ -138,5 +143,6 @@
 
 
 ;; ====================================== wrangler ============================
-;(add-to-list 'load-path (concat wranglerPath "/elisp")) 
-;(require 'wrangler)
+(add-to-list 'load-path (concat wranglerPath "/elisp"))
+;(setq exec-path (cons (concat wranglerPath "/bin") exec-path))
+(require 'wrangler)
