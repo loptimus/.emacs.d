@@ -74,7 +74,14 @@
   ;; Auto activate ECB and cancel ECB Daily Tips (ECB 自动启动，取消ECB的每日提示)
   ;;(setq ecb-auto-activate t ecb-tip-of-the-day nil)
   ;; Cancel ECB Daily Tips (取消ECB的每日提示)
-  (setq ecb-tip-of-the-day nil)
+  (setq ecb-tip-of-the-day nil
+   ecb-tree-indent 4
+   ecb-windows-height 0.5
+   ecb-windows-width 0.18
+   ecb-auto-compatibility-check nil
+   ecb-version-check nil
+   inhibit-startup-message t
+  )
   ;; Support mouse action (ECB 支持鼠标动作)
   (custom-set-variables
    ;; custom-set-variables was added by Custom.
