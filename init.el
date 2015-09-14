@@ -33,13 +33,16 @@
 (require 'base_conf)
 
 ;;;================================= Emacs common IDE configure =================================
-(add-to-list 'load-path "~/.emacs.d/commonConf")
-(defvar autoCompletePath "~/.emacs.d/commonConf/auto-complete-1.3.1")
-;(defvar companyPath "~/.emacs.d/commonConf/companyMode")
-(defvar cedetPath "~/.emacs.d/commonConf/cedet-1.1")
-(defvar ecbPath "~/.emacs.d/commonConf/ecb-2.40")
-(defvar yasnippetPath "~/.emacs.d/commonConf/yasnippet")
+(defvar commonConfPath "~/.emacs.d/commonConf")
+(add-to-list 'load-path commonConfPath)
+(defvar autoCompletePath (concat commonConfPath "/auto-complete-1.3.1"))
+(defvar companyPath "~/.emacs.d/commonConf/companyMode")
+(defvar cedetPath (concat commonConfPath "/cedet-1.1"))
+(defvar ecbPath (concat commonConfPath "/ecb-2.40"))
+(defvar yasnippetPath (concat commonConfPath "/yasnippet"))
 (defvar cscopePath "~/.emacs.d/commonConf/cscope")
+(defvar helmPath "~/.emacs.d/commonConf/helm")
+(defvar powerlinePath "~/.emacs.d/commonConf/powerline")
 (require 'common_conf)
 
 ;;;================================= orgMode configure =================================
