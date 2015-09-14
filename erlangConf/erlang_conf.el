@@ -132,9 +132,10 @@
 
 
 ;; =====================================esense 配置=================================================
-;(add-to-list 'load-path "~/.emacs.d/erlIDE/esense-1.12")
+;(add-to-list 'load-path esensePath)
 ;(require 'esense-start)
-;(setq esense-indexer-program "~/.emacs.d/erlIDE/esense-1.12/esense.sh")
+;(message esensePath)
+;(setq esense-indexer-program (concat esensePath "/esense.sh"))
 ;; =====================================esense=====================================================
 
 

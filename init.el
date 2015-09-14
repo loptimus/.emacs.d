@@ -14,6 +14,7 @@
 ;(setq exec-path (cons "/usr/local/bin" exec-path)) 
 ;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (defconst *is-a-mac* (eq system-type 'darwin))
+(defconst *is-a-nt*  (eq system-type 'windows-nt))
 
 ;;;================================= Info =================================
 (setq user-full-name "liwl")
@@ -32,13 +33,16 @@
 (require 'base_conf)
 
 ;;;================================= Emacs common IDE configure =================================
-(add-to-list 'load-path "~/.emacs.d/commonConf")
-(defvar autoCompletePath "~/.emacs.d/commonConf/auto-complete-1.3.1")
-;(defvar companyPath "~/.emacs.d/commonConf/companyMode")
-(defvar cedetPath "~/.emacs.d/commonConf/cedet-1.1")
-(defvar ecbPath "~/.emacs.d/commonConf/ecb-2.40")
-(defvar yasnippetPath "~/.emacs.d/commonConf/yasnippet")
+(defvar commonConfPath "~/.emacs.d/commonConf")
+(add-to-list 'load-path commonConfPath)
+(defvar autoCompletePath (concat commonConfPath "/auto-complete-1.3.1"))
+(defvar companyPath "~/.emacs.d/commonConf/companyMode")
+(defvar cedetPath (concat commonConfPath "/cedet-1.1"))
+(defvar ecbPath (concat commonConfPath "/ecb-2.40"))
+(defvar yasnippetPath (concat commonConfPath "/yasnippet"))
 (defvar cscopePath "~/.emacs.d/commonConf/cscope")
+(defvar helmPath "~/.emacs.d/commonConf/helm")
+(defvar powerlinePath "~/.emacs.d/commonConf/powerline")
 (require 'common_conf)
 
 ;;;================================= orgMode configure =================================
@@ -55,6 +59,8 @@
 (defvar erlangEmacsPath "~/.emacs.d/erlangConf/emacs")
 ;; Distel
 (defvar distelPath "~/.emacs.d/erlangConf/distel-4.03/elisp")
+;; Esense
+;;(defvar esensePath "~/.emacs.d/erlangConf/esense-1.12")
 ;; Refactorerl
 ;(defvar refactorerlPath "~/.emacs.d/erlangConf/refactorerl-0.9.12.05")
 ;; Wrangler
@@ -92,7 +98,7 @@
 (defun load-plugin (plugin)
       "手动加载指定插件 M-x load-plugin"
       (interactive "s请输入要加载的插件：")
-      (cond 
+      (cond
        ((string-equal plugin "ac") (ac))
        ((string-equal plugin "company") (company))
        ((string-equal plugin "cedet") (cdt))
@@ -103,7 +109,7 @@
        ((string-equal plugin "yas") (yas))
        ((string-equal plugin "undo-tree") (undo-tree))
        (t (message "没有找到插件：%s" plugin))
-      )      
+      )
 )
 
 ;; 自动加载插件

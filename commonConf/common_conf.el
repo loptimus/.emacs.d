@@ -123,3 +123,18 @@
   (require 'undo-tree)
   (global-undo-tree-mode)
 )
+
+;; Powerline
+(defun powerline () "启用Powerline"
+    (add-to-list 'load-path powerlinePath)
+    (require 'powerline)
+)
+
+;(add-to-list 'load-path "~/.emacs.d/commonConf/smex")
+;(require 'smex)
+
+;(require 'ido)
+;(ido-mode t)
+
+;(add-to-list 'load-path helmPath)
+;(require 'helm-mode)
