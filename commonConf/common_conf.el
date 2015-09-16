@@ -123,3 +123,7 @@
   (require 'undo-tree)
   (global-undo-tree-mode)
 )
+
+(add-to-list 'load-path indentPath)
+(message indentPath)
+(require 'highlight-indentation)
