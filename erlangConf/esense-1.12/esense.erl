@@ -50,7 +50,7 @@
           spec,
           %% HTML documentation reference
           docref,
-          line, doc, params = [], 
+          line, doc, params = [],
           %% in case of the erlang module all functions are
           %% considered exported and the exported flag indicates
           %% if the function is auto-imported
@@ -77,7 +77,7 @@ parse_html({'div', _, Text},  {module_name, Content}) ->
     ModuleName = string:strip(remove_newlines(string:substr(Text, 2, length(Text) - 2))),
     %% some module names contain soft hyphen characters (ASCII 173)
     %% these are removed before storing the module name
-    {next_function, 
+    {next_function,
      Content#content{module_name = [ C || C <- ModuleName, C /= 173 ]}};
 
 parse_html({a, Attrs, Body}, {State, Content})
@@ -87,27 +87,18 @@ parse_html({a, Attrs, Body}, {State, Content})
             % skip this anchor
             {next_function, Content};
         {value, {name, DocRef}} ->
-            case string:rchr(DocRef, $/) of
-                0 ->
-                    Name = undefined,
-                    Arity = undefined;
-                Pos ->
-                    Name = string:left(DocRef, Pos - 1),
-                    Arity = string:substr(DocRef, Pos + 1)
-            end,
-
-            {Functions, NextState} = 
-                case Name of
-                    undefined ->
+            {Functions, NextState} =
+                case string:rchr(DocRef, $/) of
+                    0 ->
                         %% if the function has no name then it is generated from
                         %% a link which is not a function header, so skip it
                         {Content#content.functions, next_function};
-                    _ ->
-                        {[#function{name = Name, arity = Arity, docref = DocRef} 
-                          | Content#content.functions],
-                         function_strong}
+                    Pos ->
+                        Name = string:left(DocRef, Pos - 1),
+                        Arity = string:substr(DocRef, Pos + 1),
+                        {[#function{name = Name, arity = Arity, docref = DocRef}
+                          | Content#content.functions], function_strong}
                 end,
-
             parse_html(Body, {NextState, Content#content{functions = Functions}})
     end;
 
@@ -115,29 +106,28 @@ parse_html({strong, _, Body}, {function_strong, Content}) ->
     parse_html(Body, {function_code, Content});
 
 parse_html({code, _, Text}, {function_code, Content}) ->
-    Header = resolve_character_entities(
-               %% remove module name from function name (in module Erlang)
+    %% remove module name from function name (in module Erlang)
                %% and determined exported status of function
                %% In module Erlang all functions are considered exported
-               %% and the exported flag indicates if the function is auto-imported.
+    %% and the exported flag indicates if the function is auto-imported.
+    {Exported, NewText} =
                case string:str(Text, ":") of
                    0 ->
-                       Exported = true,
-                       Text;
+                       {true, Text};
                    Colon ->
                        %% if we matched a colon after a paren then
                        %% it wasn't a module name
                        case string:str(string:substr(Text, 1, Colon - 1), "(") of
                            0 ->
-                               Exported = not (Content#content.module_name == "erlang"),
-                               string:substr(Text, Colon + 1);
+                               TmpExported = not (Content#content.module_name == "erlang"),
+                               TmpText = string:substr(Text, Colon + 1),
+                               {TmpExported, TmpText};
                            _ ->
-                               Exported = true,
-                               Text
+                               {true, Text}
                        end
-                       
-               end),
 
+               end,
+    Header = resolve_character_entities(NewText),
     [Function | Rest] = Content#content.functions,
 
     FuncWithSpec = Function#function{spec = normalize_string(Header),
@@ -152,18 +142,19 @@ parse_html(_, {function_code, Content}) ->
 parse_html({'div', Attrs, Body}, {next_function_or_doc, Content}) ->
     case lists:keysearch(class, 1, Attrs) of
         {value, {class, "REFBODY"}} ->
-            {NewState, NewContent} = 
+            {NewState, NewContent} =
                 parse_html_body(Body, {function_doc_paragraph, Content}),
 
             [LastFunc | Rest] = NewContent#content.functions,
-            case  LastFunc#function.spec of
-                undefined ->
-                    %% if the latest function has no specification then it is generated from
-                    %% a link which is not a function header, so remove it
-                    FixedFunctions = Rest;
-                _ ->
-                    FixedFunctions = copy_common_doc(NewContent#content.functions)
-            end,
+            FixedFunctions =
+                case  LastFunc#function.spec of
+                    undefined ->
+                        %% if the latest function has no specification then it is generated from
+                        %% a link which is not a function header, so remove it
+                        Rest;
+                    _ ->
+                        copy_common_doc(NewContent#content.functions)
+                end,
 
             FixedContent = Content#content{functions = FixedFunctions},
 
@@ -186,8 +177,8 @@ parse_html({p, _}, {function_doc_text, Content}) ->
 
 parse_html({code, _, Text}, {function_doc_text, Content}) ->
     [LastFunc | Rest] = Content#content.functions,
-    NewFunc = doc_append(LastFunc, 
-                         string:concat(string:concat("<CODE>", 
+    NewFunc = doc_append(LastFunc,
+                         string:concat(string:concat("<CODE>",
                                                      Text),
                                        "</CODE>")),
     {function_doc_text, Content#content{functions = [NewFunc | Rest]}};
@@ -208,7 +199,7 @@ parse_html(Text, {function_doc_text, Content}) ->
             NewFunc = doc_append(LastFunc, Text),
             {function_doc_text, Content#content{functions = [NewFunc | Rest]}};
         _ ->
-            
+
             {function_doc_params, Content}
     end;
 
@@ -244,18 +235,19 @@ parse_html_body(Body, {State, Content}) ->
         _ ->
             parse_html(Body, {State, Content})
     end.
-    
+
 %----------------------------------------------------------------------
 %
 % Append Text to the documentation of function
 %
 doc_append(Func, Text) ->
-    case Func#function.doc of
-        undefined ->
-            OldDoc = "";
-        Doc ->
-            OldDoc = Doc
-    end,
+    OldDoc =
+        case Func#function.doc of
+            undefined ->
+                "";
+            Doc ->
+                Doc
+        end,
 
     NewDoc = normalize_string(string:concat(string:concat(OldDoc, "\n"),
                                             normalize_string(Text))),
@@ -265,9 +257,9 @@ doc_append(Func, Text) ->
 %----------------------------------------------------------------------
 %
 % Copy documentation of latest function to all previous functions which
-% has no documentation. These are functions which are documented 
+% has no documentation. These are functions which are documented
 % together.
-% 
+%
 copy_common_doc(Content) ->
     [LastFunc | Previous ] = Content,
 
@@ -277,7 +269,7 @@ copy_common_doc(Content) ->
         Doc ->
             Params = LastFunc#function.params,
 
-            %% add the same doc and params to all previous functions 
+            %% add the same doc and params to all previous functions
             %% which has no documentation
             FixedFunctions =
                 lists:map(fun (Function) ->
@@ -323,14 +315,14 @@ parse_erlang(Node, {Exports, PrevComments, Content}) ->
                         "module" ->
                             [Attribute] = erl_syntax:attribute_arguments(Node),
                             ModuleName = erl_syntax:atom_value(Attribute),
-                            
+
                             %% module names having more than one
                             %% component are skipped for now
                             case is_list(ModuleName) of
                                 true ->
                                     throw(skip_module);
                                 _ ->
-                                    {Exports, [], 
+                                    {Exports, [],
                                      Content#content{module_name = ModuleName}}
                             end;
                         "compile" ->
@@ -343,7 +335,7 @@ parse_erlang(Node, {Exports, PrevComments, Content}) ->
                             end;
                         "import" ->
                             Imports = Content#content.imports ++ [parse_import(Node)],
-                            {Exports, PrevComments, 
+                            {Exports, PrevComments,
                              Content#content{imports = Imports}};
                         "record" ->
                             Record = parse_erlang_record(Node, PrevComments, Content),
@@ -373,13 +365,13 @@ parse_erlang(Node, {Exports, PrevComments, Content}) ->
             NameInfo = erl_syntax:function_name(Node),
             Name = erl_syntax:atom_value(NameInfo),
             Arity = erl_syntax:function_arity(Node),
-
-            case Exports of
-                all ->
-                    Exported = true;
-                _ ->
-                    Exported = lists:member({Name, Arity}, Exports)
-            end,
+            Exported =
+                case Exports of
+                    all ->
+                        true;
+                    _ ->
+                        lists:member({Name, Arity}, Exports)
+                end,
 
             Functions = Content#content.functions ++
                 [Function#function{exported = Exported}],
@@ -400,23 +392,24 @@ parse_erlang_function(Node, PrevComments) ->
     Line = erl_syntax:get_pos(NameInfo),
     Arity = erl_syntax:function_arity(Node),
 
-    case erl_syntax:get_precomments(Node) of
-        [Comment] ->
-            Doc = format_comments(Comment);
-        _ ->
-            case PrevComments of
-                [] ->
-                    Doc = undefined;
-                _ ->
-                    Doc = PrevComments
-            end
-    end,
+    Doc =
+        case erl_syntax:get_precomments(Node) of
+            [Comment] ->
+                format_comments(Comment);
+            _ ->
+                case PrevComments of
+                    [] ->
+                        undefined;
+                    _ ->
+                        PrevComments
+                end
+        end,
 
     #function{name = Name,
               arity = Arity,
               line = Line,
               doc = Doc}.
-    
+
 
 parse_export(Export) ->
     {erl_syntax:atom_value(erl_syntax:arity_qualifier_body(Export)),
@@ -426,10 +419,10 @@ parse_export(Export) ->
 parse_import(Node) ->
     [Module, Imports] = erl_syntax:attribute_arguments(Node),
 
-    Functions = [#imported_function{name = 
+    Functions = [#imported_function{name =
                                     erl_syntax:atom_literal(
                                       erl_syntax:arity_qualifier_body(Import)),
-                                    arity = 
+                                    arity =
                                     erl_syntax:integer_value(
                                       erl_syntax:arity_qualifier_argument(Import))}
                  || Import <- erl_syntax:list_elements(Imports)],
@@ -438,17 +431,18 @@ parse_import(Node) ->
 
 
 parse_erlang_record(Node, PrevComments, Content) ->
-    case erl_syntax:get_precomments(Node) of
-        [] ->
-            case PrevComments of
-                "" ->
-                    Doc = undefined;
-                _ ->
-                    Doc = PrevComments
-            end;
-        [Comment] ->
-            Doc = format_comments(Comment)
-    end,
+    Doc =
+        case erl_syntax:get_precomments(Node) of
+            [] ->
+                case PrevComments of
+                    "" ->
+                        undefined;
+                    _ ->
+                        PrevComments
+                end;
+            [Comment] ->
+                format_comments(Comment)
+        end,
 
     Record = lists:foldl(
                fun (Arg, InnerRecord) ->
@@ -462,21 +456,20 @@ parse_erlang_record(Node, PrevComments, Content) ->
                                  InnerRecord);
                            macro ->
                                MacroName = erl_syntax:variable_literal(
-                                             erl_syntax:macro_name(Arg)), 
+                                             erl_syntax:macro_name(Arg)),
 
-                               Result = lists:filter(fun(Macro) -> 
+                               Result = lists:filter(fun(Macro) ->
                                                              Macro#macro.name == MacroName
                                                      end,
                                                      Content#content.macros),
-
-                               case Result of 
-                                   [] -> 
-                                       Name = "name_cannot_be_resolved"; 
-                                   [Macro] -> 
-                                       Name = Macro#macro.value 
-                               end,
-
-                               InnerRecord #record{name = Name}
+                               Name =
+                                   case Result of
+                                       [] ->
+                                           "name_cannot_be_resolved";
+                                       [Macro] ->
+                                           Macro#macro.value
+                                   end,
+                               InnerRecord#record{name = Name}
                        end
                end,
                #record{},
@@ -498,28 +491,30 @@ parse_erlang_record_fields(Fields, Record) ->
                              "Resolving_macro_record_fields_is_not_implemented"
                      end,
 
-              case erl_syntax:get_postcomments(Field) of
-                  [] ->
-                      case erl_syntax:get_precomments(Field) of
-                          [] ->
-                              Comment = none;
-                          [Comment|_] ->
-                              ok
-                      end;
-                  [Comment] ->
-                      ok
-              end,
+              Comment =
+                  case erl_syntax:get_postcomments(Field) of
+                      [] ->
+                          case erl_syntax:get_precomments(Field) of
+                              [] ->
+                                  none;
+                              [_Comment|_] ->
+                                  ok
+                          end;
+                      [_Comment] ->
+                          ok
+                  end,
 
-              case Comment of
-                  none ->
-                      Doc = undefined;
-                  _ ->
-                      Doc = join_with_newlines(                              
-                              collapse_whitespace(
-                                [string:strip(Line) ||
-                                    Line <-
-                                        erl_syntax:comment_text(Comment)]))
-              end,
+              Doc =
+                  case Comment of
+                      none ->
+                          undefined;
+                      _ ->
+                          join_with_newlines(
+                            collapse_whitespace(
+                              [string:strip(Line) ||
+                                  Line <-
+                                      erl_syntax:comment_text(Comment)]))
+                  end,
 
               InnerRecord#record{fields = InnerRecord#record.fields ++
                                  [#field{name = Name, doc = Doc}]}
@@ -530,74 +525,80 @@ parse_erlang_record_fields(Fields, Record) ->
 
 parse_erlang_macro(Node) ->
     [Define | Definition] = erl_syntax:attribute_arguments(Node),
-    case erl_syntax:type(Define) of
-        variable ->
-            Macro = atom_to_list(erl_syntax:variable_name(Define)),
-            Value = parse_erlang_macro_value(Definition);
+    {Marco, Value} =
+        case erl_syntax:type(Define) of
+            variable ->
+                TmpMarco = atom_to_list(erl_syntax:variable_name(Define)),
+                TmpVal = parse_erlang_macro_value(Definition),
+                {TmpMarco, TmpVal};
 
-        application ->
-            Arguments = erl_syntax:application_arguments(Define),
+            application ->
+                Arguments = erl_syntax:application_arguments(Define),
 
-            case Arguments of
-                [OneArg] ->
-                    case erl_syntax:type(OneArg) of
-                        macro ->
-                            %% it's a macro defined as an other
-                            %% macro
-                            ProcessArgs = false;
+                ProcessArgs =
+                    case Arguments of
+                        [OneArg] ->
+                            case erl_syntax:type(OneArg) of
+                                macro ->
+                                    %% it's a macro defined as an other
+                                    %% macro
+                                    false;
+                                _ ->
+                                    true
+                            end;
                         _ ->
-                            ProcessArgs = true
-                    end;
-                _ ->
-                    ProcessArgs = true
-            end,
+                            true
+                    end,
 
-            case ProcessArgs of
-                true ->
-                    Args = lists:foldl(
-                             fun (Arg, Acc) ->
-                                     case Acc of
-                                         "" ->
-                                             NewAcc = Acc;
-                                         _ ->
-                                             NewAcc = Acc ++ ", "
-                                     end,
-                                     NewAcc ++ atom_to_list(erl_syntax:variable_name(Arg))
-                             end,
-                             "",
-                             Arguments);
-                _ ->
-                    Args = undefined
-            end,
+                Args =
+                    case ProcessArgs of
+                        true ->
+                            lists:foldl(
+                              fun (Arg, Acc) ->
+                                      NewAcc =
+                                          case Acc of
+                                              "" ->
+                                                  Acc;
+                                              _ ->
+                                                  Acc ++ ", "
+                                          end,
+                                      NewAcc ++ atom_to_list(erl_syntax:variable_name(Arg))
+                              end,
+                              "",
+                              Arguments);
+                        _ ->
+                            undefined
+                    end,
 
-            Operator = erl_syntax:application_operator(Define),
-            case erl_syntax:type(Operator) of
-                variable ->
-                    MacroName = atom_to_list(erl_syntax:variable_name(Operator));
-                atom ->
-                    MacroName = erl_syntax:atom_literal(Operator)
-            end,
-            
+                Operator = erl_syntax:application_operator(Define),
+                MacroName =
+                    case erl_syntax:type(Operator) of
+                        variable ->
+                            atom_to_list(erl_syntax:variable_name(Operator));
+                        atom ->
+                            erl_syntax:atom_literal(Operator)
+                    end,
 
-            Macro = MacroName ++
-                case Args of
-                    undefined ->
-                        "";
-                    _ ->
-                        "(" ++ Args ++ ")"
-                end,
+                TmpMarco = MacroName ++
+                    case Args of
+                        undefined ->
+                            "";
+                        _ ->
+                            "(" ++ Args ++ ")"
+                    end,
 
-            Value = undefined;
+                {TmpMarco, undefined};
 
-        atom ->
-            % possible single quotes are stripped from the
-            % beginning and end of macro name
-            Macro = string:strip(erl_syntax:atom_literal(Define),
-                                 both, 39),
-            Value = parse_erlang_macro_value(Definition)
+            atom ->
+                %% possible single quotes are stripped from the
+                %% beginning and end of macro name
+                TmpMarco = string:strip(erl_syntax:atom_literal(Define),
+                                     both, 39),
+                TmpVal = parse_erlang_macro_value(Definition),
+                {TmpMarco, TmpVal}
 
-    end,
-    #macro{name = Macro, value = Value}.
+        end,
+    #macro{name = Marco, value = Value}.
 
 
 parse_erlang_macro_value([Definition]) ->
@@ -614,7 +615,7 @@ parse_erlang_macro_value([Definition]) ->
             erl_syntax:char_literal(Definition);
        macro ->
             Name = erl_syntax:macro_name(Definition),
-            "?" ++ 
+            "?" ++
                 case erl_syntax:type(Name) of
                     atom ->
                         erl_syntax:atom_name(Name);
@@ -690,7 +691,7 @@ parse_file(Path) ->
             case parse_module_file(Path) of
                 skip_module ->
                     io:format("Skipping module: ~s~n", [Path]),
-                    0;                
+                    0;
                 Content ->
                     generate_module(Content, Path),
                     0                   % exit status
@@ -723,15 +724,15 @@ parse_header_file(Path) ->
     {_, _, Content} = parse_erlang(erl_recomment:
                                    recomment_forms(Source, Comments),
                                    {[], [], #content{}}),
-    Content.    
+    Content.
 
 get_errors(Path) ->
     {ok, Forms} = epp_dodger:parse_file(Path),
     [begin
          {ErrorLine, Module, ErrorDescriptor} =
              erl_syntax:error_marker_info(Form),
-         ErrStr = lists:flatten(io_lib:fwrite("~s", [apply(Module, 
-                                                           format_error, 
+         ErrStr = lists:flatten(io_lib:fwrite("~s", [apply(Module,
+                                                           format_error,
                                                            [ErrorDescriptor])])),
          {ErrorLine, ErrStr}
      end
@@ -743,69 +744,69 @@ generate_module(Content, Path) ->
     ModuleName = Content#content.module_name,
     case Content#content.functions of
         [] ->
-            io:format("Module doesn't have any functions. Skipping: ~s~n", 
+            io:format("Module doesn't have any functions. Skipping: ~s~n",
                       [Path]);
         _ ->
-            case get(dump_to_stdout) of
-                undefined ->
-                    io:format("Generating index for module ~s~n", [ModuleName]),
+            Fd =
+                case get(dump_to_stdout) of
+                    undefined ->
+                        io:format("Generating index for module ~s~n", [ModuleName]),
 
-                    ModuleDir = filename:join(get(cache_dir),
-                                              "modules"),
-                    ensure_dir(ModuleDir),
+                        ModuleDir = filename:join(get(cache_dir),
+                                                  "modules"),
+                        ensure_dir(ModuleDir),
 
-                    {ok, File} = file:open(filename:join(ModuleDir, ModuleName),
-                                           [write]),
+                        {ok, File} = file:open(filename:join(ModuleDir, ModuleName),
+                                               [write]),
+                        io:format(File, "~s~n", [Path]),
+                        File;
+                    _ ->
+                        io:format("~s~n", [Path]),
+                        undefined
+                end,
 
-                    io:format(File, "~s~n", [Path]);
-                _ ->
-                    File = undefined,
-                    io:format("~s~n", [Path])
-            end,
-
-            generate_index(Content, File)
+            generate_index(Content, Fd)
     end.
 
 
 generate_header(Content, Path) ->
     BaseName = filename:basename(Path),
+    Fd =
+        case get(dump_to_stdout) of
+            undefined ->
+                io:format("Generating index for header file ~s~n", [BaseName]),
 
-    case get(dump_to_stdout) of
-        undefined ->
-            io:format("Generating index for header file ~s~n", [BaseName]),
+                HeaderDir = filename:join(get(cache_dir), "includes"),
+                ensure_dir(HeaderDir),
 
-            HeaderDir = filename:join(get(cache_dir), "includes"),
-            ensure_dir(HeaderDir),
+                AllComponents = filename:split(Path),
+                %% assert it's absolute
+                [First | Components] = AllComponents,
+                case filename:pathtype(First) of
+                    absolute ->
+                        ok
+                end,
 
-            AllComponents = filename:split(Path),
-            %% assert it's absolute
-            [First | Components] = AllComponents,
-            case filename:pathtype(First) of
-                absolute ->
-                    ok
-            end,
+                IndexFileName =
+                    case os:type() of
+                        {win32, _} ->
+                            [Drive, $:|Rest] = First,
+                            join_with_char(lists:reverse([[Drive, $_|Rest]|Components]),
+                                           ?FILENAME_COMPONENT_SEPARATOR);
+                        _ ->
+                            join_with_char(lists:reverse(Components),
+                                           ?FILENAME_COMPONENT_SEPARATOR)
+                    end,
+                {ok, File} = file:open(filename:join(HeaderDir, IndexFileName),
+                                       [write]),
+                io:format(File, "~s~n", [Path]),
+                File;
+            _ ->
+                io:format("~s~n", [Path]),
+                undefined
+        end,
 
-            case os:type() of
-                {win32, _} ->
-                    [Drive, $:|Rest] = First,
-                    IndexFileName =
-                        join_with_char(lists:reverse([[Drive, $_|Rest]|Components]),
-                                       ?FILENAME_COMPONENT_SEPARATOR);
-                _ ->
-                    IndexFileName =
-                        join_with_char(lists:reverse(Components),
-                                       ?FILENAME_COMPONENT_SEPARATOR)
-            end,
-
-            {ok, File} = file:open(filename:join(HeaderDir, IndexFileName),
-                                   [write]),
-            io:format(File, "~s~n", [Path]);
-        _ ->
-            File = undefined,
-            io:format("~s~n", [Path])            
-    end,
-
-    generate_index(Content, File).
+    generate_index(Content, Fd).
 
 
 generate_index(Content, File) ->
@@ -828,7 +829,7 @@ generate_index(Content, File) ->
                           end,
                           Content#content.include_libs),
 
-            lists:foreach(fun(Function) -> 
+            lists:foreach(fun(Function) ->
                                   generate_function(Function, File)
                           end,
                           Content#content.functions),
@@ -881,7 +882,7 @@ generate_function(Function, File) ->
         _ ->
             skip
     end.
-    
+
 
 generate_record(Record, File) ->
     write_data("record", Record#record.name, File),
@@ -902,7 +903,7 @@ generate_macro(Macro, File) ->
         _ ->
             write_data("value", Macro#macro.value, File)
     end.
-            
+
 
 write_data(_, undefined, _) ->
     skip;
@@ -912,19 +913,20 @@ write_data(Name, Value, File) when is_integer(Value) ->
 
 write_data(Name, Value, File) ->
     %% if doc string has newlines in it then add
-    %% special terminator char around the string    
-    case string:chr(Value, 10) of
-        0 ->
-            FinalValue = Value;
-        _ ->
-            FinalValue = lists:concat([[30], Value, [30]])
-    end,
+    %% special terminator char around the string
+    FinalValue =
+        case string:chr(Value, 10) of
+            0 ->
+                Value;
+            _ ->
+                lists:concat([[30], Value, [30]])
+        end,
 
     case File of
         undefined ->
-            io:format("~s:~s~n", [Name, FinalValue]);
+            io:format("~ts:~ts~n", [Name, FinalValue]);
         _ ->
-            io:format(File, "~s:~s~n", [Name, FinalValue])
+            io:format(File, "~ts:~ts~n", [Name, FinalValue])
     end.
 
 %----------------------------------------------------------------------
@@ -1042,12 +1044,12 @@ start() ->
                                       _ ->
                                           halt(Result)
                                   end
-                          
+
                           end,
                           Inputs),
             halt(0)
     end.
-        
+
 %----------------------------------------------------------------------
 
 normalize_string(Str) ->
@@ -1083,16 +1085,16 @@ join_with_newlines(L) ->
 %----------------------------------------------------------------------
 
 %% change newlines to one space or omit it if no space is needed
-remove_newlines([], _) -> 
+remove_newlines([], _) ->
     [];
-remove_newlines([10 | T], PrevChar) -> 
+remove_newlines([10 | T], PrevChar) ->
     case PrevChar of
         $( ->
-                 remove_newlines(T, $();                                 
+                 remove_newlines(T, $();
          _ ->
                  case T  of
                      [NextChar | _] ->
-                         if 
+                         if
                              NextChar == $. ; NextChar == $) ; NextChar == $, ->
                                   remove_newlines(T, PrevChar);
                              true ->
@@ -1102,11 +1104,11 @@ remove_newlines([10 | T], PrevChar) ->
                          remove_newlines(T, 32)
                   end
          end;
-remove_newlines([H|T], _) -> 
+remove_newlines([H|T], _) ->
     [H|remove_newlines(T, H)].
 
 
-remove_newlines(Str) -> 
+remove_newlines(Str) ->
     remove_newlines(Str, a).
 
 %----------------------------------------------------------------------
@@ -1130,27 +1132,27 @@ ensure_dir(Dir) ->
 
 absname(File) ->
     Components = filename:split(filename:absname(File)),
-    Filtered = lists:foldl(fun("..", [RootDir]) -> 
+    Filtered = lists:foldl(fun("..", [RootDir]) ->
                                    [RootDir];
                               ("..", [_PrevDir|Rest]) ->
-                                   Rest; 
-                              (Component, PathSoFar) -> 
+                                   Rest;
+                              (Component, PathSoFar) ->
                                    [Component|PathSoFar]
                            end, [], Components),
     filename:join(lists:reverse(Filtered)).
 
 %----------------------------------------------------------------------
 
-remove_percent_chars([$% | Cs]) -> 
+remove_percent_chars([$% | Cs]) ->
     [$\s | remove_percent_chars(Cs)];
 
-remove_percent_chars(Cs) -> 
+remove_percent_chars(Cs) ->
     Cs.
 
 %----------------------------------------------------------------------
 
 format_comments(Node) ->
-    join_with_newlines([remove_percent_chars(S) || 
+    join_with_newlines([remove_percent_chars(S) ||
                            S <- erl_syntax:comment_text(Node)]).
 
 %----------------------------------------------------------------------
@@ -1198,7 +1200,7 @@ parse_erlang_with_edoc(Source, Comments, Filename) ->
             %% FIXME: The definition of macro @vsn added to ensure that edoc
             %% itself will be processed
             %%    case catch edoc:get_doc(FileToParse, [{def, {'vsn', "current"}}]) of
-            case catch edoc_extract:source(ParseTree, Filename, 
+            case catch edoc_extract:source(ParseTree, Filename,
                                             edoc_lib:get_doc_env([{def, {'vsn', "current"}}]),
                                             [{def, {'vsn', "current"}}]) of
                 {'EXIT', _Reason} ->
@@ -1217,12 +1219,12 @@ parse_erlang_with_edoc(Source, Comments, Filename) ->
 
 guard_nonascii_comments(Comments) ->
     lists:map(fun({Line, Column, Indentation, Text}) ->
-                      {Line, Column, Indentation, 
+                      {Line, Column, Indentation,
                        lists:map(fun to_nonascii_bypass/1, Text)}
               end, Comments).
 
 %% Home-grown encoding scheme to make edoc not to fail on non-ascii
-%% symbols. 
+%% symbols.
 to_nonascii_bypass(S) ->
     lists:flatten(
       lists:map(fun(Ch) ->
@@ -1238,8 +1240,8 @@ to_nonascii_bypass(S) ->
                         end
                 end,
                 S)).
-                        
-from_nonascii_bypass([]) ->                
+
+from_nonascii_bypass([]) ->
     [];
 from_nonascii_bypass([?CHAR_TOGGLING_NON_ASCII, ?CHAR_TOGGLING_NON_ASCII|Rest]) ->
     [?CHAR_TOGGLING_NON_ASCII|from_nonascii_bypass(Rest)];
@@ -1258,4 +1260,4 @@ get_int_part([C|Rest], L) ->
             get_int_part(Rest, [C|L]);
         C == ?CHAR_TOGGLING_NON_ASCII ->
             {lists:reverse(L), Rest}
-    end. 
+    end.

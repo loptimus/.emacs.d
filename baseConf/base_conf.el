@@ -5,6 +5,14 @@
 ; Disable Startup display (关闭启动画面)
 ;(setq inhibit-startup-message t)
 
+;; 最近访问过的文件和最近 修改过的文件
+(add-hook 'after-init-hook 'session-initialize)
+
+;; 保存上次打开的文件记录
+(load "desktop")
+(desktop-load-default)
+(desktop-read)
+
 ; (使用4个空格代替Tab)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -36,10 +44,14 @@
 ;(setq defaule-line-spaceing 4)
 
 ; Set (页宽)
-;(setq default-fill-column 60)
+(setq default-fill-column 60)
 
-;
+;括号匹配时显示另外一边的括号，而不是烦人的跳到另一个括号
 (show-paren-mode)
+(setq show-paren-style 'parentheses)
+
+;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线
+(mouse-avoidance-mode 'animate)
 
 ;; 高亮显示区域
 ;(transient-mark-mode t)
@@ -49,6 +61,9 @@
 
 ;; 取消提示音
 (setq ring-bell-function 'ignore)
+
+;; 直接打开和显示图片
+(auto-image-file-mode)
 
 ;; 锁定行高
 ;(setq resize-mini-windows nil)

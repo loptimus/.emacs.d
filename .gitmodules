@@ -13,3 +13,12 @@
 [submodule "erlangConf/wrangler"]
 	path = erlangConf/wrangler
 	url = https://github.com/RefactoringTools/wrangler.git
+[submodule "commonConf/helm"]
+	path = commonConf/helm
+	url = https://github.com/emacs-helm/helm.git
+[submodule "commonConf/powerline"]
+	path = commonConf/powerline
+	url = git://github.com/jonathanchu/emacs-powerline.git
+[submodule "commonConf/smex"]
+	path = commonConf/smex
+	url = https://github.com/nonsequitur/smex.git
