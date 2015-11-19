@@ -2,8 +2,6 @@
 
 (provide 'cpp_conf)
 
-
-
 ;; CC mode
 (require 'cc-mode)
 (c-set-offset 'inline-open 0)
@@ -11,7 +9,7 @@
 (c-set-offset 'substatement-open 0)
 
 
-;; C 
+;; C
 (defun my-c-mode-hook()
   "C 语言配置"
   (setq tab-width 4 indent-tabs-mode nil)
@@ -40,6 +38,10 @@
   (setq c-macro-prompt-flag t)
   (setq hs-minor-mode t)
   (setq abbrev-mode t)
+  ;; gdb-UI设置
+  (setq gdb-many-windows t)
+  (load-library "multi-gud.el")
+  (load-library "multi-gdb-ui.el")
 )
 (add-hook 'c-mode-hook 'my-c-mode-hook)
 
@@ -72,14 +74,13 @@
   (setq hs-minor-mode t)
   (setq abbrev-mode t)
   ;;  (define-key c++-mode-map [f3] 'replace-regexp)
+  ;; gdb-UI设置
+  (setq gdb-many-windows t)
+  (load-library "multi-gud.el")
+  (load-library "multi-gdb-ui.el")
 )
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
 					;'(compile-command "make")
-
-;; gdb-UI设置
-(setq gdb-many-windows t)
-(load-library "multi-gud.el")
-(load-library "multi-gdb-ui.el")
 
 ;;设置semantic搜索范围
 (setq semanticdb-project-roots (list (expand-file-name "/")))
@@ -112,4 +113,3 @@
 	try-expand-whole-kill
 	)
 )
-
