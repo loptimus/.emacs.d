@@ -94,6 +94,7 @@
       (cond
        ((string-equal plugin "ac") (ac))
        ((string-equal plugin "company") (company))
+       ((string-equal plugin "pl") (powerline))
        ((string-equal plugin "cedet") (cdt))
        ((string-equal plugin "ecb") (ecb))
        ((string-equal plugin "org") (org))
@@ -112,6 +113,7 @@
   ;(cdt)
   ;(ecb)
   (undo-tree)
+  ;(powerline)
 )
 
 ;; 调用自动加载函数
@@ -120,4 +122,3 @@
 ;; 启用自定义快捷键
 (default_keymap)
 (utils_keymap)
-(set-face-background 'highlight-indentation-face "#e3e3d3")
