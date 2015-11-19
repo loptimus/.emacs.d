@@ -124,9 +124,12 @@
   (global-undo-tree-mode)
 )
 
-(add-to-list 'load-path indentPath)
-(message indentPath)
-(require 'highlight-indentation)
+;; Highlight-indentation
+(defun indent-line
+  (add-to-list 'load-path indentPath)
+  (require 'highlight-indentation)
+  (set-face-background 'highlight-indentation-face "#e3e3d3")
+)
 
 ;; Powerline
 (defun powerline () "启用Powerline"
