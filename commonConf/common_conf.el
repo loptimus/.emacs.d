@@ -133,6 +133,7 @@
 (defun powerline () "启用Powerline"
     (add-to-list 'load-path powerlinePath)
     (require 'powerline)
+    (powerline-default-theme)
 )
 
 ;(add-to-list 'load-path "~/.emacs.d/commonConf/smex")

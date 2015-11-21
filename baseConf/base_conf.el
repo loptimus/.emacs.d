@@ -3,7 +3,7 @@
 (provide 'base_conf)
 
 ; Disable Startup display (关闭启动画面)
-;(setq inhibit-startup-message t)
+(setq inhibit-startup-message t)
 
 ;; 最近访问过的文件和最近 修改过的文件
 (add-hook 'after-init-hook 'session-initialize)
