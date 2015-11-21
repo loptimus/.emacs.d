@@ -16,9 +16,6 @@
 [submodule "commonConf/helm"]
 	path = commonConf/helm
 	url = https://github.com/emacs-helm/helm.git
-[submodule "commonConf/powerline"]
-	path = commonConf/powerline
-	url = https://github.com/milkypostman/powerline.git
 [submodule "commonConf/smex"]
 	path = commonConf/smex
 	url = https://github.com/nonsequitur/smex.git
