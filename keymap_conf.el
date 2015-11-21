@@ -41,6 +41,9 @@
 ; gdb调试
 (global-set-key (kbd "C-4") 'gdb)
 
+;; company
+(global-set-key (kbd "C-<tab>") 'company-complete-common)
+
 ; Switch windows
 (global-set-key [M-left] 'windmove-left)
 (global-set-key [M-right] 'windmove-right)
