@@ -29,6 +29,7 @@
 (defun company () "Load Auto complete"
     (add-to-list 'load-path companyPath)
     (require 'company)
+    (setq company-idle-delay nil)
     (add-hook 'after-init-hook 'global-company-mode)
 )
 
@@ -133,8 +134,8 @@
 ;(add-to-list 'load-path "~/.emacs.d/commonConf/smex")
 ;(require 'smex)
 
-;(require 'ido)
-;(ido-mode t)
+(require 'ido)
+(ido-mode t)
 
 ;(add-to-list 'load-path helmPath)
 ;(require 'helm-mode)
