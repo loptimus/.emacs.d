@@ -3,10 +3,6 @@
 %%% File    : wrangler.hrl
 %%%-------------------------------------------------------------------
 
-%% Will be edited by Makefile 
-
--define(WRANGLER_DIR, "D:/PROGRA~1/Wrangler").
-
 -record(options, {search_paths=[],
 		  include_dirs=[],
 		  plt_libs= [kernel,stdlib]

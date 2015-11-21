@@ -1,6 +1,6 @@
 #!/usr/bin/env escript
 %% -*- erlang -*-
-main([File]) ->
+main([]) ->
     try
         MenuItems1=gen_composite_refac_menu_items(),
         MenuItems2=gen_refac_menu_items(),
@@ -10,13 +10,9 @@ main([File]) ->
         MenuCmds2=gen_refac_menu_cmds(),
         MenuCmds3=my_gen_refac_menu_cmds(),
         MenuCmds4=my_gen_composite_refac_menu_cmds(),
-        MenuItems="\n\n" ++ MenuItems1 ++ MenuItems2 ++ MenuItems3++MenuItems4
+        MenuItems=MenuItems1 ++ MenuItems2 ++ MenuItems3++MenuItems4
             ++MenuCmds1++MenuCmds2++MenuCmds3++MenuCmds4,
-        case file:read_file_info(File) of
-            {ok, _} ->
-                file:write_file(File, MenuItems, [append]);
-            _ -> ok
-        end
+        io:format("\n~s", [MenuItems])
     catch
         E1:E2 ->
             io:format("Error:\n~p\n", [{E1, E2}]),

@@ -237,7 +237,7 @@ load_callback_mod_eclipse(Module, Path) ->
     code:add_patha(Path),
     code:purge(list_to_atom(Module)),
     case code:load_file(list_to_atom(Module)) of
-        {module, Module} ->
+        {module, _} ->
             ok;
         Error ->
             Error	
@@ -1521,8 +1521,14 @@ add_op_arg(FileName, OpName, Arity, NewArgName, Index, NewArgGen, SearchPaths, E
 %%</p>
 add_op(FileName, OpName, Args,SearchPaths, Editor, TabWidth) ->
     try_refac(refac_add_op, add_op, 
-              [FileName, OpName, Args, SearchPaths, Editor, TabWidth]).
+              [FileName, OpName, concat_args(Args), SearchPaths, Editor, TabWidth]).
 
+concat_args([]) ->
+    "";
+concat_args([A]) ->
+    A;
+concat_args([A|As]) ->
+    A++","++concat_args(As).
 
 %%@doc Remove an operation.
 %%<p>
