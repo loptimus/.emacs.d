@@ -19,3 +19,6 @@
 [submodule "commonConf/smex"]
 	path = commonConf/smex
 	url = https://github.com/nonsequitur/smex.git
+[submodule "commonConf/powerline"]
+	path = commonConf/powerline
+	url = https://github.com/milkypostman/powerline.git
