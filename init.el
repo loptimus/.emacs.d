@@ -41,6 +41,7 @@
 (defvar ecbPath (concat commonConfPath "/ecb-2.40"))
 (defvar yasnippetPath (concat commonConfPath "/yasnippet"))
 (defvar cscopePath "~/.emacs.d/commonConf/cscope")
+(defvar indentPath "~/.emacs.d/commonConf/Indent")
 (defvar helmPath "~/.emacs.d/commonConf/helm")
 (defvar powerlinePath "~/.emacs.d/commonConf/powerline")
 (require 'common_conf)
@@ -127,3 +128,4 @@
 ;; 启用自定义快捷键
 (default_keymap)
 (utils_keymap)
+(set-face-background 'highlight-indentation-face "#e3e3d3")
