@@ -1472,7 +1472,8 @@ package not be present, this function does nothing."
 
 ;; Functions used inside the skeleton descriptions.
 (defun erlang-skel-skip-blank ()
-  (skip-chars-backward " \t")
+  ;; (skip-chars-backward " \t")
+  (skip-chars-backward "    ")
   nil)
 
 (defun erlang-skel-include (&rest args)

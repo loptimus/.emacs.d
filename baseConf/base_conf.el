@@ -3,7 +3,7 @@
 (provide 'base_conf)
 
 ; Disable Startup display (关闭启动画面)
-;(setq inhibit-startup-message t)
+(setq inhibit-startup-message t)
 
 ;; 最近访问过的文件和最近 修改过的文件
 (add-hook 'after-init-hook 'session-initialize)
@@ -69,13 +69,13 @@
 ;(setq resize-mini-windows nil)
 
 ;; 判断某个字体是否在系统中是否安装
-;(defun qiang-font-existsp (font)
-; (if(null(x-list-fonts font))
-;  nil t))
-
 (defun qiang-font-existsp (font)
- (if(null(find-font (font-spec :name font)))
+ (if(null(x-list-fonts font))
   nil t))
+
+;(defun qiang-font-existsp (font)
+; (if(null(find-font (font-spec :name font)))
+;  nil t))
 
 ;; 用来产生带上font size信息的font描述文本
 (defun qiang-make-font-string (font-name font-size)
@@ -112,15 +112,15 @@
    (set-fontset-font (frame-parameter nil 'font)
     charset
     zh-font)
-   )
+  ))
   ;(set-face-attribute
   ; 'default nil :font zh-font)
-  )
+  ;)
 )
 
 ;; 字体设置
 (qiang-set-font
- '("Monaco" "DejaVu Sans Mono" "Consolas" "Monospace" "Courier New") 18 '("Microsoft Yahei" "Kaiti SC" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体"))
+ '("Consolas" "Monaco" "DejaVu Sans Mono" "Monospace" "Courier New") 14 '("Microsoft Yahei" "Kaiti SC" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体"))
 
 ;; tabbar
 (require 'tabbar)
@@ -190,7 +190,6 @@
 
 ;; 保存时，删除行尾空格
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 
 (when (equal system-type 'windows-nt)
   ;; 设置Cygwin路径

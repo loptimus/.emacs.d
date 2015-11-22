@@ -41,12 +41,17 @@
 ;; ===================Erlang customizations=========================================
 (add-hook 'erlang-mode-hook
   (lambda ()
-  ;; when starting an Erlang shell in Emacs, default in the node name
+    ;; when starting an Erlang shell in Emacs, default in the node name
+    ; (message "**************************************************")
+    ; (if (nil (boundp 'inferior-erlang-machine-options))
+    ;    (message "true")
+    ;  ((message (buffer-file-name)))
+    ;  )
     ;;(setq inferior-erlang-machine-options '("-sname" "emacs"))
     ;; add Erlang functions to an imenu menu
     (imenu-add-to-menubar "imenu")))
 
-
+;(add-hook 'erlang-mode-hook '(lambda() (setq indent-tabs-mode nil)))
 ;; prevent annoying hang-on-compile
 ;(defvar inferior-erlang-prompt-timeout t)
 
@@ -61,14 +66,14 @@
         (car (split-string (shell-command-to-string "hostname"))))))
 
 ;; A number of the erlang-extended-mode key bindings are useful in the shell too
-;(defconst distel-shell-keys
-;  '(("\C-\M-i"   erl-complete)
-;    ("\M-?"      erl-complete)
-;    ("\M-."      erl-find-source-under-point)
-;    ("\M-,"      erl-find-source-unwind)
-;    ("\M-*"      erl-find-source-unwind)
-;    )
-;  "Additional keys to bind when in Erlang shell.")
+(defconst distel-shell-keys
+  '(("\C-\M-i"   erl-complete)
+    ("\M-?"      erl-complete)
+    ("\M-."      erl-find-source-under-point)
+    ("\M-,"      erl-find-source-unwind)
+    ("\M-*"      erl-find-source-unwind)
+    )
+  "Additional keys to bind when in Erlang shell.")
 ;
 (add-hook 'erlang-shell-mode-hook
    (lambda ()
@@ -136,15 +141,13 @@
 
 ;; =====================================refactorerl ============================
 ;(add-to-list 'load-path (concat refactorerlPath "/lib/referl_ui/emacs"))
-;(require 'refactorerl)
-
 ;(custom-set-variables '(refactorerl-base-path refactorerlPath))
-
-
+;(require 'refactorerl)
 ;(add-hook 'erlang-mode-hook 'refactorerl-mode)
 ;; ======================================refactorerl ============================
 
 
 ;; ====================================== wrangler ============================
 ;(add-to-list 'load-path (concat wranglerPath "/elisp"))
+;(setq exec-path (cons (concat wranglerPath "/bin") exec-path))
 ;(require 'wrangler)

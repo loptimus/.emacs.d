@@ -29,6 +29,7 @@
 (defun company () "Load Auto complete"
     (add-to-list 'load-path companyPath)
     (require 'company)
+    (setq company-idle-delay nil)
     (add-hook 'after-init-hook 'global-company-mode)
 )
 
@@ -135,6 +136,7 @@
 (defun powerline () "启用Powerline"
     (add-to-list 'load-path powerlinePath)
     (require 'powerline)
+    (powerline-default-theme)
 )
 
 ;(add-to-list 'load-path "~/.emacs.d/commonConf/smex")

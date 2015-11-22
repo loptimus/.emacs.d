@@ -11,14 +11,14 @@
 ;(setq default-directory workspace)
 ;(cd workspace)
 
-(setq exec-path (cons "/usr/local/bin" exec-path))
+;(setq exec-path (cons "/usr/local/bin" exec-path)) 
 ;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (defconst *is-a-mac* (eq system-type 'darwin))
 (defconst *is-a-nt*  (eq system-type 'windows-nt))
 
 ;;;================================= Info =================================
-(setq user-full-name "loptimus")
-(setq user-mail-address "loptimus2510@gmail.com")
+(setq user-full-name "liwl")
+(setq user-mail-address "liwl@syg.com")
 
 ;(setenv "PATH" (concat (getenv "PATH") ":~/.emacs.d/commonIDE/cscope/bin"))
 ;(setq tags-file-name "/root/etags/ERL_LIB_TAGS")
@@ -56,16 +56,16 @@
 ;;;================================= Erlang configure =================================
 (add-to-list 'load-path "~/.emacs.d/erlangConf/")
 ;; Erlang
-(defvar erlangPath "/usr/local/lib/erlang")
+(defvar erlangPath "D:/Program Files/erl6.0")
 (defvar erlangEmacsPath "~/.emacs.d/erlangConf/emacs")
 ;; Distel
 (defvar distelPath "~/.emacs.d/erlangConf/distel-4.03/elisp")
 ;; Esense
 ;;(defvar esensePath "~/.emacs.d/erlangConf/esense-1.12")
 ;; Refactorerl
-;; (defvar refactorerlPath "~/.emacs.d/erlIDE/refactorerl-0.9.12.05")
+;(defvar refactorerlPath "~/.emacs.d/erlangConf/refactorerl-0.9.12.05")
 ;; Wrangler
-;;(defvar wranglerPath "/usr/local/share/wrangler")
+(defvar wranglerPath "~/.emacs.d/erlangConf/Wrangler")
 (require 'erlang_conf)
 
 ;;;================================= C/Cpp configure =================================
@@ -86,6 +86,14 @@
 (defvar webDevConfPath "~/.emacs.d/webDevConf")
 (add-to-list 'load-path webDevConfPath)
 (require 'web_conf)
+
+
+ ;; Erlang节点名
+(defun erl-set-nodename (name)
+      "设置Erlang节点名"
+      (interactive "s请输入节点名：")
+      (setq inferior-erlang-machine-options (list "-sname" name))
+)
 
  ;; 加载插件
 (defun load-plugin (plugin)
