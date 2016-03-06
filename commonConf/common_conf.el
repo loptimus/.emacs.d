@@ -9,7 +9,7 @@
   ;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/commonIDE/auto-complete-1.3.1/ac-dict")
   (add-to-list 'load-path autoCompletePath)
   (require 'auto-complete-config)
-  (add-to-list 'ac-dictionary-directories (concat autoCompletePath "/ac-dict"))
+  (add-to-list 'ac-dictionary-directories (concat autoCompletePath "/dict"))
   (ac-config-default)
 
   (setq-default ac-sources

@@ -22,3 +22,12 @@
 [submodule "commonConf/powerline"]
 	path = commonConf/powerline
 	url = https://github.com/milkypostman/powerline.git
+[submodule "commonConf/auto-complete"]
+	path = commonConf/auto-complete
+	url = https://github.com/auto-complete/auto-complete.git
+[submodule "commonConf/popup-el"]
+	path = commonConf/popup-el
+	url = https://github.com/auto-complete/popup-el.git
+[submodule "commonConf/fuzzy-el"]
+	path = commonConf/fuzzy-el
+	url = https://github.com/auto-complete/fuzzy-el.git
