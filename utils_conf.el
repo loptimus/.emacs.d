@@ -11,16 +11,16 @@
 (setq default-buffer-file-coding-system 'utf-8-unix)
 
 ;;; 行复制
-(defun copy-lines(&optional arg) 
-  (interactive "p") 
-  (save-excursion 
-    (beginning-of-line) 
-    (set-mark (point)) 
-    (if arg 
-        (next-line (- arg 1))) 
-    (end-of-line) 
-    (kill-ring-save (mark) (point)) 
-    ) 
+(defun copy-lines(&optional arg)
+  (interactive "p")
+  (save-excursion
+    (beginning-of-line)
+    (set-mark (point))
+    (if arg
+        (next-line (- arg 1)))
+    (end-of-line)
+    (kill-ring-save (mark) (point))
+    )
   )
 
 ;;; Default only Read （默认指定为只读模式）
@@ -29,4 +29,3 @@
   (when (memq major-mode '(c-mode c++-mode erlang-mode php-mode python-mode shell-script-mode emacs-lisp-mode))
     (toggle-read-only 1)))
 (add-hook 'find-file-hooks 'make-some-files-read-only)
-
