@@ -34,3 +34,6 @@
 [submodule "phpConf/flymake-php"]
 	path = phpConf/flymake-php
 	url = https://github.com/purcell/flymake-php.git
+[submodule "commonConf/flycheck"]
+	path = commonConf/flycheck
+	url = https://github.com/flycheck/flycheck.git
