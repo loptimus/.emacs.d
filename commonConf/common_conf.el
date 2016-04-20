@@ -147,3 +147,8 @@
 
 ;(add-to-list 'load-path helmPath)
 ;(require 'helm-mode)
+
+;; flycheck
+;(add-to-list 'load-path flycheckPath)
+;(require 'flycheck)
+;(add-hook 'after-init-hook #'global-flycheck-mode)
