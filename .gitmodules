@@ -34,3 +34,6 @@
 [submodule "commonConf/flycheck"]
 	path = commonConf/flycheck
 	url = https://github.com/flycheck/flycheck.git
+[submodule "commonConf/auto-complete"]
+	path = commonConf/auto-complete
+	url = https://github.com/loptimus/auto-complete.git
