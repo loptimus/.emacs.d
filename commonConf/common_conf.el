@@ -7,6 +7,8 @@
 (defun ac () "Load Auto complete"
   ;;(add-to-list 'load-path "~/.emacs.d/commonIDE/auto-complete-1.3.1/")
   ;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/commonIDE/auto-complete-1.3.1/ac-dict")
+  (add-to-list 'load-path fuzzyPath)
+  (add-to-list 'load-path popupPath)
   (add-to-list 'load-path autoCompletePath)
   (require 'auto-complete-config)
   (add-to-list 'ac-dictionary-directories (concat autoCompletePath "/dict"))

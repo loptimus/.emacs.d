@@ -11,7 +11,7 @@
 ;(setq default-directory workspace)
 ;(cd workspace)
 
-;(setq exec-path (cons "/usr/local/bin" exec-path)) 
+;(setq exec-path (cons "/usr/local/bin" exec-path))
 ;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (defconst *is-a-mac* (eq system-type 'darwin))
 (defconst *is-a-nt*  (eq system-type 'windows-nt))
@@ -35,7 +35,9 @@
 ;;;================================= Emacs common IDE configure =================================
 (defvar commonConfPath "~/.emacs.d/commonConf")
 (add-to-list 'load-path commonConfPath)
-(defvar autoCompletePath (concat commonConfPath "/auto-complete-1.3.1"))
+(defvar fuzzyPath (concat commonConfPath "/fuzzy"))
+(defvar popupPath (concat commonConfPath "/popup"))
+(defvar autoCompletePath (concat commonConfPath "/auto-complete"))
 (defvar companyPath "~/.emacs.d/commonConf/companyMode")
 (defvar cedetPath (concat commonConfPath "/cedet-1.1"))
 (defvar ecbPath (concat commonConfPath "/ecb-2.40"))
@@ -44,9 +46,10 @@
 (defvar indentPath "~/.emacs.d/commonConf/Indent")
 (defvar helmPath "~/.emacs.d/commonConf/helm")
 (defvar powerlinePath "~/.emacs.d/commonConf/powerline")
+(defvar flycheckPath "~/.emacs.d/commonConf/flycheck")
 (require 'common_conf)
 
-;;;================================= orgMode configure =================================
+;;;================================= orgmode configure =================================
 (defun org () "Load org-mode"
   (defvar orgModePath "~/.emacs.d/orgMode")
   (add-to-list 'load-path orgModePath)
@@ -56,7 +59,7 @@
 ;;;================================= Erlang configure =================================
 (add-to-list 'load-path "~/.emacs.d/erlangConf/")
 ;; Erlang
-(defvar erlangPath "D:/Program Files/erl6.0")
+(defvar erlangPath "/usr/local/lib/erlang")
 (defvar erlangEmacsPath "~/.emacs.d/erlangConf/emacs")
 ;; Distel
 (defvar distelPath "~/.emacs.d/erlangConf/distel-4.03/elisp")
@@ -109,6 +112,7 @@
        ((string-equal plugin "php") (php))
        ((string-equal plugin "cscope") (cscope))
        ((string-equal plugin "yas") (yas))
+       ((string-equal plugin "pl") (powerline))
        ((string-equal plugin "undo-tree") (undo-tree))
        (t (message "没有找到插件：%s" plugin))
       )
@@ -120,8 +124,9 @@
   ;(company)
   ;(cdt)
   ;(ecb)
+  (php)
+  (powerline)
   (undo-tree)
-  ;(powerline)
 )
 
 ;; 调用自动加载函数
