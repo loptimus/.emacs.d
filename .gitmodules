@@ -37,6 +37,6 @@
 [submodule "commonConf/popup"]
 	path = commonConf/popup
 	url = https://github.com/loptimus/popup-el.git
-[submodule "themes/themes/monokai-emacs"]
-	path = themes/themes/monokai-emacs
+[submodule "themes/monokai-emacs"]
+	path = themes/monokai-emacs
 	url = https://github.com/loptimus/monokai-emacs.git
