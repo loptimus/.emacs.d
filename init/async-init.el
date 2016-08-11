@@ -1,0 +1,3 @@
+;;; async
+
+(provide 'async-init)

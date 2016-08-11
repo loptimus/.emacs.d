@@ -1,137 +1,92 @@
-;;;================================= loptimus' .emacs =================================
-; Environment variable
-;(setenv "Environment Variable Name" "Environment Variable Value")
-;(defvar Variable (getenv "Environment Variable Name"))
+;;; package --- Emacs Config
+;;; Commentary:
+;;; Emacs Config
+
+;;; Code:
+;;;================================= Info =================================
+(setq user-full-name "username")
+(setq user-mail-address "email")
 
 ; Stack trace on error
 (setq stack-trace-on-error t)
 
-; Default directory
-;(defvar workspace "D:/workspace")
-;(setq default-directory workspace)
-;(cd workspace)
+(add-to-list 'load-path (expand-file-name "init" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'custom-theme-load-path (expand-file-name "themes/monokai-emacs" user-emacs-directory))
+(require 'benchmarking-init)
 
-;(setq exec-path (cons "/usr/local/bin" exec-path))
-;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))
 (defconst *is-a-nt*  (eq system-type 'windows-nt))
 
-;;;================================= Info =================================
-(setq user-full-name "liwl")
-(setq user-mail-address "liwl@syg.com")
-
-;(setenv "PATH" (concat (getenv "PATH") ":~/.emacs.d/commonIDE/cscope/bin"))
-;(setq tags-file-name "/root/etags/ERL_LIB_TAGS")
+;;----------------------------------------------------------------------------
+;; Temporarily reduce garbage collection during startup
+;;----------------------------------------------------------------------------
+(defconst sanityinc/initial-gc-cons-threshold gc-cons-threshold
+  "Initial value of `gc-cons-threshold' at start-up time.")
+(setq gc-cons-threshold (* 128 1024 1024))
+(add-hook 'after-init-hook
+          (lambda () (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
 
 ;;;================================= Emacs base configure =================================
 ;;; Custom
-(load-library "~/.emacs.d/utils_conf.el")
-(load-library "~/.emacs.d/keymap_conf.el")
-(require 'utils_conf)  ; 自定义函数
-(require 'keymap_conf)  ; Keymap 快捷键配置
-(add-to-list 'load-path "~/.emacs.d/baseConf")
-(require 'base_conf)
-
-;;;================================= Emacs common IDE configure =================================
-(defvar commonConfPath "~/.emacs.d/commonConf")
-(add-to-list 'load-path commonConfPath)
-(defvar fuzzyPath (concat commonConfPath "/fuzzy"))
-(defvar popupPath (concat commonConfPath "/popup"))
-(defvar autoCompletePath (concat commonConfPath "/auto-complete"))
-(defvar companyPath "~/.emacs.d/commonConf/companyMode")
-(defvar cedetPath (concat commonConfPath "/cedet-1.1"))
-(defvar ecbPath (concat commonConfPath "/ecb-2.40"))
-(defvar yasnippetPath (concat commonConfPath "/yasnippet"))
-(defvar cscopePath "~/.emacs.d/commonConf/cscope")
-(defvar indentPath "~/.emacs.d/commonConf/Indent")
-(defvar helmPath "~/.emacs.d/commonConf/helm")
-(defvar powerlinePath "~/.emacs.d/commonConf/powerline")
-(defvar flycheckPath "~/.emacs.d/commonConf/flycheck")
-(require 'common_conf)
-
-;;;================================= orgmode configure =================================
-(defun org () "Load org-mode"
-  (defvar orgModePath "~/.emacs.d/orgMode")
-  (add-to-list 'load-path orgModePath)
-  (require 'org-install)
-)
-
-;;;================================= Erlang configure =================================
-(add-to-list 'load-path "~/.emacs.d/erlangConf/")
-;; Erlang
-(defvar erlangPath "/usr/local/lib/erlang")
-(defvar erlangEmacsPath "~/.emacs.d/erlangConf/emacs")
-;; Distel
-(defvar distelPath "~/.emacs.d/erlangConf/distel-4.03/elisp")
-;; Esense
-;;(defvar esensePath "~/.emacs.d/erlangConf/esense-1.12")
-;; Refactorerl
-;(defvar refactorerlPath "~/.emacs.d/erlangConf/refactorerl-0.9.12.05")
-;; Wrangler
-(defvar wranglerPath "~/.emacs.d/erlangConf/Wrangler")
-(require 'erlang_conf)
-
-;;;================================= C/Cpp configure =================================
-(add-to-list 'load-path "~/.emacs.d/cppConf/")
-(require 'cpp_conf)
-
-;;;================================= PHP configure ======================================
-(defvar phpPath "~/.emacs.d/phpConf")
-(add-to-list 'load-path phpPath)
-(require 'php_conf)
-
-;;;================================= Lua configure ======================================
-(defvar luaPath "~/.emacs.d/luaConf")
-(add-to-list 'load-path luaPath)
-(require 'lua_conf)
-
-;;;================================= webMode configure ======================================
-(defvar webDevConfPath "~/.emacs.d/webDevConf")
-(add-to-list 'load-path webDevConfPath)
-(require 'web_conf)
+(require 'utils-init)  ; 自定义函数
+(require 'base-init)
+(require 'keymap-init)  ; Keymap 快捷键配置
+(require 'site-lisp-init) ;; Must come before elpa, as it may provide package.el
+;; Calls (package-initialize)
+(require 'elpa-init)      ;;
 
 
- ;; Erlang节点名
-(defun erl-set-nodename (name)
-      "设置Erlang节点名"
-      (interactive "s请输入节点名：")
-      (setq inferior-erlang-machine-options (list "-sname" name))
-)
+(sanityinc/add-subdirs-to-load-path
+ (expand-file-name "lisp/" user-emacs-directory))
+(require 'themes-init)
+(require 'tarbar-init)
+(require 'fonts-init)
+(require 'powerline-init)
+(require 'undo-tree-init)
+(require 'auto-complete-init)
+(require 'company-init)
+(require 'yasnippet-init)
+(require 'cscope-init)
+(require 'cedet-init)
+(require 'ecb-init)
+(require 'indent-init)
+(require 'ido-init)
+(require 'helm-init)
+(require 'async-init)
+(require 'flymake-init)
+(require 'flycheck-init)
+(require 'evil-init)
 
- ;; 加载插件
-(defun load-plugin (plugin)
-      "手动加载指定插件 M-x load-plugin"
-      (interactive "s请输入要加载的插件：")
-      (cond
-       ((string-equal plugin "ac") (ac))
-       ((string-equal plugin "company") (company))
-       ((string-equal plugin "pl") (powerline))
-       ((string-equal plugin "cedet") (cdt))
-       ((string-equal plugin "ecb") (ecb))
-       ((string-equal plugin "org") (org))
-       ((string-equal plugin "php") (php))
-       ((string-equal plugin "cscope") (cscope))
-       ((string-equal plugin "yas") (yas))
-       ((string-equal plugin "pl") (powerline))
-       ((string-equal plugin "undo-tree") (undo-tree))
-       (t (message "没有找到插件：%s" plugin))
-      )
-)
+;; Program
+(require 'c-init)
+(require 'erlang-init)
+(require 'php-init)
+(require 'lua-init)
+(require 'golang-init)
+(require 'web-init)
 
-;; 自动加载插件
-(defun auto-load-plugin () "启动时自动加载的插件"
-  (ac)
-  ;(company)
-  ;(cdt)
-  ;(ecb)
-  (php)
-  (powerline)
-  (undo-tree)
-)
-
-;; 调用自动加载函数
-(auto-load-plugin)
+(themes-init)
+(tarbar-init)
+(powerline-init)
+(undo-tree-init)
+(ido-init)
+;(evil-init)
+(auto-complete-init)
+(company-init)
+;(flymake-init)
+(flycheck-init)
+(erlang-init)
 
 ;; 启用自定义快捷键
 (default_keymap)
 (utils_keymap)
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (message "init completed in %.2fms"
+                     (sanityinc/time-subtract-millis after-init-time before-init-time))))
+
+(provide 'init)
+;;; init.el ends here

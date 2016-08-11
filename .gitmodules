@@ -1,41 +1,41 @@
-[submodule "luaConf/luaMode"]
-	path = luaConf/luaMode
+[submodule "lisp/lua"]
+	path = lisp/lua
 	url = https://github.com/immerrr/lua-mode.git
-[submodule "commonConf/companyMode"]
-	path = commonConf/companyMode
+[submodule "lisp/company"]
+	path = lisp/company
 	url = https://github.com/company-mode/company-mode.git
-[submodule "webDevConf/js2"]
-	path = webDevConf/js2
+[submodule "lisp/js2"]
+	path = lisp/js2
 	url = https://github.com/mooz/js2-mode.git
-[submodule "webDevConf/webMode"]
-	path = webDevConf/webMode
+[submodule "lisp/web"]
+	path = lisp/web
 	url = https://github.com/fxbois/web-mode.git
-[submodule "erlangConf/wrangler"]
-	path = erlangConf/wrangler
+[submodule "lisp/wrangler"]
+	path = lisp/wrangler
 	url = https://github.com/RefactoringTools/wrangler.git
-[submodule "commonConf/helm"]
-	path = commonConf/helm
+[submodule "lisp/helm"]
+	path = lisp/helm
 	url = https://github.com/emacs-helm/helm.git
-[submodule "commonConf/smex"]
-	path = commonConf/smex
+[submodule "lisp/smex"]
+	path = lisp/smex
 	url = https://github.com/nonsequitur/smex.git
-[submodule "commonConf/powerline"]
-	path = commonConf/powerline
+[submodule "lisp/powerline"]
+	path = lisp/powerline
 	url = https://github.com/milkypostman/powerline.git
-[submodule "phpConf/flymake-php"]
-	path = phpConf/flymake-php
+[submodule "lisp/flymake-php"]
+	path = lisp/flymake-php
 	url = https://github.com/purcell/flymake-php.git
-[submodule "commonConf/flycheck"]
-	path = commonConf/flycheck
+[submodule "lisp/flycheck"]
+	path = lisp/flycheck
 	url = https://github.com/flycheck/flycheck.git
-[submodule "commonConf/fuzzy"]
-	path = commonConf/fuzzy
+[submodule "lisp/fuzzy"]
+	path = lisp/fuzzy
 	url = https://github.com/loptimus/fuzzy-el.git
-[submodule "commonConf/popup"]
-	path = commonConf/popup
+[submodule "lisp/popup"]
+	path = lisp/popup
 	url = https://github.com/loptimus/popup-el.git
-[submodule "commonConf/auto-complete"]
-	path = commonConf/auto-complete
+[submodule "lisp/auto-complete"]
+	path = lisp/auto-complete
 	url = https://github.com/loptimus/auto-complete.git
 [submodule "themes/monokai-emacs"]
 	path = themes/monokai-emacs
