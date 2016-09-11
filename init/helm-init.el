@@ -1,8 +1,5 @@
 
 (defun helm ()
-(add-to-list 'load-path helmPath)
-(add-to-list 'load-path asyncPath)
-(require 'async)
 ;(require-package 'helm)
 ;(require 'helm)
 (require 'helm-config)
@@ -16,7 +13,7 @@
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+;(global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-s") 'helm-occur)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 

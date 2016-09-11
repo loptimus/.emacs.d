@@ -1,7 +1,10 @@
+;;; package --- Summary
+;;; Commentary:
+
+;;; Code:
 ;; ===============================PHP mode====================================
 
-(defun php () "Load php-mode"
-  (add-to-list 'load-path phpPath)
+(defun php () "Load php-mode."
   (require 'php-mode)
 )
 
@@ -10,3 +13,4 @@
 )
 
 (provide 'php-init)
+;;; php-init ends here

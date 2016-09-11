@@ -103,15 +103,13 @@
 ;	 (local-file (file-relative-name temp-file
 ;		(file-name-directory buffer-file-name))))
 ;    (list "~/.emacs.d/erlIDE/eflymake/eflymake_linux" (list local-file))))
-
 ;(add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
 ;;That's all, and you can either enable flymake globally, with the file open hook
 ;(add-hook 'find-file-hook 'flymake-find-file-hook)
 
 ;;or you can enable flymake mode only for some modes with corresponding hooks:
-;(defun my-erlang-mode-hook ()
-;       (flymake-mode 1))
+;(defun my-erlang-mode-hook () (flymake-mode 1))
 ;(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 
 ;; =====================================esense 配置=================================================
@@ -143,27 +141,11 @@
   ;; (defvar refactorerlPath "~/.emacs.d/erlangConf/refactorerl-0.9.12.05")
   ;; Wrangler
   ;; (defvar wranglerPath "~/.emacs.d/erlangConf/Wrangler")
-
-  (setq flycheck-erlang-include-path (list
-    "inc"
-    "../inc"
-    "../../inc"
-    "../../../inc"
-    "include"
-    "../include"
-    "../../include"
-    "../../../include"
- ))
-  (setq flycheck-erlang-library-path (list
-    "../ebin"
-    "../../ebin"
-    "../../../ebin"
- ))
   (set-erlang)
-  ;(require 'erlang-flymake)
-  ;(setq erlang-flymake-get-include-dirs-function 'my-erlang-include-dirs)
-  ;(setq erlang-flymake-get-code-path-dirs-function 'my-erlang-code-dirs)
-  ;(erlang-flymake-only-on-save)
+  (require 'erlang-flymake)
+  (setq erlang-flymake-get-include-dirs-function 'my-erlang-include-dirs)
+  (setq erlang-flymake-get-code-path-dirs-function 'my-erlang-code-dirs)
+  (erlang-flymake-only-on-save)
 )
 
 (provide 'erlang-init)

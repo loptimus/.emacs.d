@@ -37,3 +37,6 @@
 [submodule "lisp/lua/lua-mode"]
 	path = lisp/lua/lua-mode
 	url = https://github.com/immerrr/lua-mode.git
+[submodule "lisp/async"]
+	path = lisp/async
+	url = https://github.com/jwiegley/emacs-async.git

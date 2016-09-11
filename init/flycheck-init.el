@@ -1,11 +1,8 @@
 ;; flycheck
-(defun flycheck()
-  (require 'flycheck)
-  (add-hook 'after-init-hook #'global-flycheck-mode)
-)
 
 (defun flycheck-init ()
-  (flycheck)
+  (require 'flycheck)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
   (setq flycheck-check-syntax-automatically '(save))
 )
 

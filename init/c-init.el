@@ -10,9 +10,10 @@
 ;; C
 (defun my-c-mode-hook()
   "C 语言配置"
-  (setq tab-width 4 indent-tabs-mode nil)
   ;; Code style
-  (c-set-style "k&r")
+  ;; (c-set-style "gnu")
+  ;; (setq tab-width 4 indent-tabs-mode nil)
+  (setq c-default-style "k&r" c-basic-offset 4)
   ;; 自动模式，在此种模式下当你键入{时，会自动根据你设置的对齐风格对齐
   (c-toggle-auto-state)
   ;; hungry-delete and auto-newline
