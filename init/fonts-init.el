@@ -51,7 +51,7 @@
   )
 
 ;; 字体设置
-(defun fonts-init
+(defun fonts-init ()
     (qiang-set-font
      '("Consolas" "Monaco" "DejaVu Sans Mono" "Monospace" "Courier New") 14 '("Microsoft Yahei" "Kaiti SC" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体")
      )

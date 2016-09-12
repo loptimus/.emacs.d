@@ -68,6 +68,7 @@
 (require 'web-init)
 
 (themes-init)
+(fonts-init)
 (tarbar-init)
 (powerline-init)
 (undo-tree-init)
