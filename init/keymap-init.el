@@ -120,4 +120,8 @@
 (global-set-key (kbd "C-s") 'helm-occur)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 
+;; Flamake
+(global-set-key (kbd "C-x p") 'flymake-goto-prev-error)
+(global-set-key (kbd "C-x n") 'flymake-goto-next-error)
+
 (provide 'keymap-init)
