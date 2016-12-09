@@ -1,5 +1,7 @@
 ;;; ======================================ac-complete=================================
-(defun ac () "Load Auto complete"
+
+(defun auto-complete-init ()
+  ""
   (require 'auto-complete-config)
   (add-to-list 'ac-dictionary-directories "dict")
   (ac-config-default)
@@ -15,10 +17,6 @@
                   ac-source-words-in-same-mode-buffers
                   ac-source-dictionary)
                 )
-)
-
-(defun auto-complete-init ()
-  (ac)
 )
 
 (provide 'auto-complete-init)

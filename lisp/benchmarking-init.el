@@ -18,6 +18,9 @@ LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
                        (cons feature time)
                        t))))))
 
-
+(add-hook 'after-init-hook
+          (lambda ()
+            (message "init completed in %.2fms"
+                     (sanityinc/time-subtract-millis after-init-time before-init-time))))
 
 (provide 'benchmarking-init)

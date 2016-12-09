@@ -1,8 +1,5 @@
 *.dat
-ebin/*
-doc/*
-tags
-src/dets/*
+*.elc
 .DS_Store
 .DS_Store?
 ._*
@@ -10,4 +7,16 @@ Thumbs.db
 ehthumbs.db
 .Spotlight-V100
 .Trashes
-.emacs
+.svn
+ebin/*
+doc/*
+tags
+src/dets/*
+/custom.el
+init/local-init.el
+/elpa
+site-lisp/package/
+/url/cache
+/.emacs.desktop
+/ido.last
+/recentf

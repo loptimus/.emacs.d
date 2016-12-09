@@ -1,11 +1,8 @@
 
-(defun ido ()
+(defun ido-init ()
+  ""
   (require 'ido)
   (ido-mode t)
-)
-
-(defun ido-init()
-  (ido)
 )
 
 (provide 'ido-init)

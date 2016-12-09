@@ -4,15 +4,16 @@
 
 ;;; Code:
 ;;;================================= Info =================================
-(setq user-full-name "username")
-(setq user-mail-address "email")
 
 ; Stack trace on error
 (setq stack-trace-on-error t)
 
-(add-to-list 'load-path (expand-file-name "init" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'custom-theme-load-path (expand-file-name "themes/monokai-emacs" user-emacs-directory))
+(defvar init-path (expand-file-name "init" user-emacs-directory))
+(defvar lisp-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path init-path)
+(add-to-list 'load-path lisp-path)
+(defvar theme-path (expand-file-name "themes/monokai-emacs" user-emacs-directory))
+(add-to-list 'custom-theme-load-path theme-path)
 (require 'benchmarking-init)
 
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
@@ -24,24 +25,23 @@
 ;;----------------------------------------------------------------------------
 (defconst sanityinc/initial-gc-cons-threshold gc-cons-threshold
   "Initial value of `gc-cons-threshold' at start-up time.")
-(setq gc-cons-threshold (* 128 1024 1024))
+(setq gc-cons-threshold (* 256 1024 1024))
 (add-hook 'after-init-hook
           (lambda () (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
 
 ;;;================================= Emacs base configure =================================
 ;;; Custom
-(require 'utils-init)  ; 自定义函数
+(setq keymap-init-file (expand-file-name "keymap-init.el" user-emacs-directory))
 (require 'base-init)
-(require 'keymap-init)  ; Keymap 快捷键配置
+(when (file-exists-p keymap-init-file)
+  (load keymap-init-file))
+(require 'utils-init)  ; 自定义函数
 (require 'site-lisp-init) ;; Must come before elpa, as it may provide package.el
-;; Calls (package-initialize)
 (require 'elpa-init)      ;;
 
-
-(sanityinc/add-subdirs-to-load-path
- (expand-file-name "lisp/" user-emacs-directory))
+(sanityinc/add-subdirs-to-load-path lisp-path)
 (require 'themes-init)
-(require 'tarbar-init)
+(require 'tabbar-init)
 (require 'fonts-init)
 (require 'powerline-init)
 (require 'undo-tree-init)
@@ -67,31 +67,14 @@
 (require 'golang-init)
 (require 'web-init)
 
-(themes-init)
-(fonts-init)
-(tarbar-init)
-(powerline-init)
-(undo-tree-init)
-(ido-init)
-(async-init)
-(helm-init)
-;(evil-init)
-;(auto-complete-init)
-(company-init)
-(flymake-init)
-;(flycheck-init)
-(erlang-init)
-(lua-init)
-(php-init)
+;;----------------------------------------------------------------------------
+;; Allow users to provide an optional "init-local" containing personal settings
+;;----------------------------------------------------------------------------
+(require 'local-init nil t)
 
-;; 启用自定义快捷键
-(default_keymap)
-(utils_keymap)
-
-(add-hook 'after-init-hook
-          (lambda ()
-            (message "init completed in %.2fms"
-                     (sanityinc/time-subtract-millis after-init-time before-init-time))))
+(after-load 'keymap-init
+	(default-keymap) 
+)
 
 (provide 'init)
 ;;; init.el ends here

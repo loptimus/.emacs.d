@@ -1,19 +1,26 @@
 ;; ===============================Erlang mode====================================
 
-(defun set-erlang()
-(setq load-path (cons erlangEmacsPath load-path))
-(setq erlang-root-dir erlangPath)
-(setq exec-path (cons (concat erlangPath "/bin") exec-path))
-(setq erlang-man-root-dir (concat erlangPath "/man"))
-(require 'erlang-start)
-(set-distel)
+(defun my-erlang-hook () 
+  ""
+  ;; when starting an Erlang shell in Emacs, default in the node name
+  ; (if (nil (boundp 'inferior-erlang-machine-options))
+  ;    (message "true")
+  ;  ((message (buffer-file-name)))
+  ;  )
+  ;;(setq inferior-erlang-machine-options '("-sname" "emacs"))
+
+  ;; add Erlang functions to an imenu menu
+  ;(imenu-add-to-menubar "imenu")
+  (set-distel)
+  (when (featurep 'flymake)    
+      (require 'erlang-flymake)
+      (erlang-flymake-only-on-save)
+    )
 )
 
-;; ==============================Distel===========================================
+(add-hook 'erlang-mode-hook 'my-erlang-hook)
 
-;(add-to-list 'load-path "~/.emacs.d/erlIDE/distel-4.03/elisp")
-;(require 'distel)
-;(distel-setup)
+;; ==============================Distel===========================================
 
 ;; Erlang节点名
 (defun erl-set-nodename (name)
@@ -23,7 +30,7 @@
 )
 
 (defun set-distel()
-(let ((distel-dir distelPath))
+(let ((distel-dir erlang-distel-path))
   (unless (member distel-dir load-path)
     (setq load-path (append load-path (list distel-dir)))))
 (require 'distel)
@@ -31,18 +38,7 @@
 )
 
 ;; ===================Erlang customizations=========================================
-(add-hook 'erlang-mode-hook
-  (lambda ()
-    ;; when starting an Erlang shell in Emacs, default in the node name
-    ; (if (nil (boundp 'inferior-erlang-machine-options))
-    ;    (message "true")
-    ;  ((message (buffer-file-name)))
-    ;  )
-    ;;(setq inferior-erlang-machine-options '("-sname" "emacs"))
-    ;; add Erlang functions to an imenu menu
-    (imenu-add-to-menubar "imenu")))
 
-;(add-hook 'erlang-mode-hook '(lambda() (setq indent-tabs-mode nil)))
 ;; prevent annoying hang-on-compile
 ;(defvar inferior-erlang-prompt-timeout t)
 
@@ -74,28 +70,7 @@
 
 ;;========================= FlymakeErlang语法检查 =========================
 
-;; 官方自带的，在erlang安装目录下/lib/tools<版本号>/emacs下
-(defun  my-erlang-include-dirs ()
- (list
-    "inc"
-    "../inc"
-    "../../inc"
-    "../../../inc"
-    "include"
-    "../include"
-    "../../include"
-    "../../../include"
- )
-)
-(defun  my-erlang-code-dirs ()
- (list
-    "../ebin"
-    "../../ebin"
-    "../../../ebin"
- )
-)
-
-;; 另一种方式：http://www.emacswiki.org/emacs/FlymakeErlang
+;; Flymake http://www.emacswiki.org/emacs/FlymakeErlang
 ;(require 'flymake)
 ;(defun flymake-erlang-init ()
 ;  (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -107,10 +82,6 @@
 
 ;;That's all, and you can either enable flymake globally, with the file open hook
 ;(add-hook 'find-file-hook 'flymake-find-file-hook)
-
-;;or you can enable flymake mode only for some modes with corresponding hooks:
-;(defun my-erlang-mode-hook () (flymake-mode 1))
-;(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 
 ;; =====================================esense 配置=================================================
 ;(add-to-list 'load-path esensePath)
@@ -129,23 +100,21 @@
 ;(setq exec-path (cons (concat wranglerPath "/bin") exec-path))
 ;(require 'wrangler)
 
-(defun erlang-init ()
-  ;; Erlang
-  (defvar erlangPath "/usr/local/Cellar/erlang/17.5")
-  (defvar erlangEmacsPath "~/.emacs.d/lisp/erlang/emacs")
-  ;; Distel
-  (defvar distelPath "~/.emacs.d/lisp/erlang/distel-4.03/elisp")
-  ;; Esense
-  ;;(defvar esensePath "~/.emacs.d/erlangConf/esense-1.12")
-  ;; Refactorerl
-  ;; (defvar refactorerlPath "~/.emacs.d/erlangConf/refactorerl-0.9.12.05")
-  ;; Wrangler
-  ;; (defvar wranglerPath "~/.emacs.d/erlangConf/Wrangler")
-  (set-erlang)
-  (require 'erlang-flymake)
-  (setq erlang-flymake-get-include-dirs-function 'my-erlang-include-dirs)
-  (setq erlang-flymake-get-code-path-dirs-function 'my-erlang-code-dirs)
-  (erlang-flymake-only-on-save)
-)
+;; Erlang
+(setq erlang-root-path "/usr/local/Cellar/erlang/17.5")
+(setq erlang-emacs-path "~/.emacs.d/lisp/erlang/emacs")
+;; Distel
+(setq erlang-distel-path "~/.emacs.d/lisp/erlang/distel-4.03/elisp")
+;; Esense
+;;(defvar esensePath "~/.emacs.d/listp/erlang/esense-1.12")
+;; Refactorerl
+;; (defvar refactorerlPath "~/.emacs.d/lisp/erlang/refactorerl-0.9.12.05")
+;; Wrangler
+;; (defvar wranglerPath "~/.emacs.d/lisp/erlang/Wrangler")
+(add-to-list 'load-path erlang-emacs-path)
+(setq erlang-root-dir erlang-root-path)
+(setq exec-path (cons (concat erlang-root-path "/bin") exec-path))
+(setq erlang-man-root-dir (concat erlang-root-path "/man"))
+(require 'erlang-start)
 
 (provide 'erlang-init)

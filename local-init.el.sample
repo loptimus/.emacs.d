@@ -1,0 +1,75 @@
+;;; package --- Emacs local config
+;;; Commentary:
+;;; Emacs local config
+
+;;; Code:
+;;;================================= Info =================================
+(setq user-full-name "user-name")
+(setq user-mail-address "user-email")
+
+;;;================================= Enable =================================
+(themes-init)
+(fonts-init)
+(tabbar-init)
+(powerline-init)
+(undo-tree-init)
+(ido-init)
+(async-init)
+(helm-init)
+;(auto-complete-init)
+(company-init)
+;(yasnippet-init)
+;(cedet-init)
+;(ecb-init)
+;(cscope-init)
+;(indent-init)
+;(flymake-init)
+(flycheck-init)
+;(evil-init)
+
+;; Program
+;(c-init)
+;(php-init)
+;(golang-init)
+;(web-init)
+
+;;;================================= Erlang =================================
+(setq erlang-root-path "/usr/local/Cellar/erlang/17.5")
+(setq erlang-emacs-path (concat erlang-root-path "/lib/erlang/lib/tools-2.7.2/emacs"))
+;; Distel
+(setq erlang-distel-path "~/.emacs.d/lisp/erlang/distel-4.03/elisp")
+;; Esense
+;;(defvar esense-path "~/.emacs.d/listp/erlang/esense-1.12")
+;; Refactorerl
+;; (defvar refactorerl-path "~/.emacs.d/lisp/erlang/refactorerl-0.9.12.05")
+;; Wrangler
+;; (defvar wrangler-path "~/.emacs.d/lisp/erlang/Wrangler")
+
+(defun my-erlang-include-dirs-function ()
+ ""
+ (list
+  "inc" "../inc" "../../inc" "../../../inc"
+  "include" "../include" "../../include" "../../../include"
+ )
+)
+(defun my-erlang-code-dirs-function () "" (list "../ebin" "../../ebin" "../../../ebin"))
+(setq erlang-flymake-get-include-dirs-function 'my-erlang-include-dirs-function)
+(setq erlang-flymake-get-code-path-dirs-function 'my-erlang-code-dirs-function)
+
+(eval-when-compile (require 'flycheck))
+(setq flycheck-erlang-include-path
+      (append flycheck-erlang-include-path
+       '("inc" "../inc" "../../inc" "../../../inc"
+         "include" "../include" "../../include" "../../../include")
+       ))
+
+(setq flycheck-erlang-library-path
+      (append flycheck-erlang-library-path
+       '("../ebin" "../../ebin" "../../../ebin")
+       ))
+
+;;;================================= yasnippet =================================
+
+
+
+(provide 'local-init)

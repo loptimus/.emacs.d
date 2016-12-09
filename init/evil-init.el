@@ -1,11 +1,9 @@
 ;; Evil
-(defun evil () "启用evil"
-    (require 'evil)
-    (evil-mode 1)
-)
 
-(defun evil-init()
-  (evil)
+(defun evil-init ()
+	""
+	(require 'evil)
+    (evil-mode 1)
 )
 
 (provide 'evil-init)

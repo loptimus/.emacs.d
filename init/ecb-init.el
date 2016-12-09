@@ -1,7 +1,16 @@
 ;;; =========================== ecb =========================================
-(defun ecb () "Load ECB"
-  ;; Load ECB
-  (add-to-list 'load-path ecbPath)
+
+;; 快捷键初始化
+(defun ecb-keymap-init () 
+  ""
+  (if (fboundp 'ecb-keymap)
+    (ecb-keymap)
+    )
+)
+
+(defun ecb-init () "Load ECB"
+  (setq ecb-path "~/.emacs.d/lisp/ecb-2.40")
+  (add-to-list 'load-path ecb-path)
   (require 'ecb)
   ;; Auto activate ECB and cancel ECB Daily Tips (ECB 自动启动，取消ECB的每日提示)
   ;;(setq ecb-auto-activate t ecb-tip-of-the-day nil)
@@ -14,21 +23,8 @@
    ecb-version-check nil
    inhibit-startup-message t
   )
-  ;; Support mouse action (ECB 支持鼠标动作)
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(display-time-mode t)
-   '(ecb-options-version "2.40")
-   '(ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1))
-   '(show-paren-mode t))
-  (ecb_keymap)
-)
-
-(defun ecb-init ()
-  (ecb)
+  (ecb-keymap-init)
+  ;(ecb-options-version "2.40")
 )
 
 (provide 'ecb-init)

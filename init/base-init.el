@@ -9,17 +9,25 @@
 ; y/n instead of yes/no (用y/n代替yes/no)
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;;; 编码
+;(set-default buffer-file-coding-system 'utf-8-unix)
+;(set-default-coding-systems 'utf-8-unix)
+;;设置默认读入文件编码
+(prefer-coding-system 'utf-8-unix)
+;;设置写入文件编码
+(setq default-buffer-file-coding-system 'utf-8-unix)
+
 ; Display date and time (显示时间)
-(display-time-mode 1)
+(display-time-mode t)
 (setq display-time-24hr-format  t)
 (setq display-time-day-and-date  t)
 (setq display-time-format  "%a(%V) %m.%d/%H:%M")
 (display-time)
 
 ;; 保存上次打开的文件记录
-(load "desktop")
-(desktop-load-default)
-(desktop-read)
+;(load "desktop")
+;(desktop-load-default)
+;(desktop-read)
 
 ; (使用4个空格代替Tab)
 (setq-default indent-tabs-mode nil)
@@ -42,10 +50,10 @@
 ;(setq defaule-line-spaceing 4)
 
 ; Set (页宽)
-(setq default-fill-column 60)
+(setq default-fill-column 80)
 
 ;括号匹配时显示另外一边的括号，而不是烦人的跳到另一个括号
-(show-paren-mode)
+(show-paren-mode t)
 (setq show-paren-style 'parentheses)
 
 ;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线
@@ -64,7 +72,7 @@
 (auto-image-file-mode)
 
 ;; 隐藏滚动条
-(scroll-bar-mode 0)
+(scroll-bar-mode nil)
 
 ;; 锁定行高
 ;(setq resize-mini-windows nil)
@@ -74,25 +82,7 @@
 ;(require 'session)
 ;(add-hook 'after-init-book 'session-initialize)
 
-;(require 'glasses)
-;;glass
-;(global-set-key [(f12)] 'loop-alpha)
-
-;; 半透明设置
-(setq alpha-list '((75 55) (100 100)))
-(defun loop-alpha ()
-  (interactive)
-  (let ((h (car alpha-list)))
-	((lambda (a ab)
-	   (set-frame-parameter (selected-frame) 'alpha (list a ab))
-	   (add-to-list 'default-frame-alist (cons 'alpha (list a ab)))
-	   ) (car h) (car (cdr h)))
-	(setq alpha-list (cdr (append alpha-list (list h))))
-	)
-)
-
 ;; 保存时，删除行尾空格
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 
 (provide 'base-init)

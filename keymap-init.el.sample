@@ -2,7 +2,7 @@
 ;;; 快捷键配置
 
 ;;; Default keymap
-(defun default_keymap () "Defaule keymap"
+(defun default-keymap () "Defaule keymap"
 ; 查看man手册
 (global-set-key (kbd "<f1>") 'manual-entry)
 
@@ -11,11 +11,6 @@
 
 ; f3为查找字符串
 (global-set-key (kbd "C-6") 'grep-find)
-
-; 撤销
-(global-set-key (kbd "C-z")  'undo-tree-undo)
-(global-set-key (kbd "C-M-z")  'undo-tree-redo)
-;(global-set-key (kbd "C-Z")  'redo)
 
 ; 只读开关
 (global-set-key (kbd "<f3>")  'read-only-mode)
@@ -39,35 +34,34 @@
 ; gdb调试
 (global-set-key (kbd "C-4") 'gdb)
 
-;; company
-(global-set-key (kbd "C-<tab>") 'company-complete-common)
-
 ; Switch windows
 (global-set-key [M-left] 'windmove-left)
 (global-set-key [M-right] 'windmove-right)
 (global-set-key [M-up] 'windmove-up)
 (global-set-key [M-down] 'windmove-down)
 
-; Tabbar
-;(global-set-key [(meta j)] 'tabbar-backward)
-(global-set-key (kbd "M-h") 'tabbar-backward)
-(global-set-key (kbd "M-l") 'tabbar-forward)
-; 分组选择
-(global-set-key (kbd "M-u") 'tabbar-backward-group)
-(global-set-key (kbd "M-i") 'tabbar-forward-group)
-)
-
-(defun utils_keymap () "Utils Keymap"
 ;; === Toggle transparency  ===
 ;(global-set-key (kbd "C-c t") 'toggle-transparency)
 ; (启用透明背景)
 (global-set-key (kbd "M-9") 'loop-alpha)
 ;;显示/隐藏工具栏，方便调试
 (global-set-key (kbd "C-9") 'tool-bar-mode)
+
+)
+
+; Tabbar
+(defun tabbar-keymap () 
+	""
+	;(global-set-key [(meta j)] 'tabbar-backward)
+	(global-set-key (kbd "M-h") 'tabbar-backward)	
+	(global-set-key (kbd "M-l") 'tabbar-forward)
+	; 分组选择
+	(global-set-key (kbd "M-u") 'tabbar-backward-group)
+	(global-set-key (kbd "M-i") 'tabbar-forward-group)
 )
 
 ;;; CEDET
-(defun cedet_keymap () "Cedet Keymap"
+(defun cedet-keymap () "Cedet Keymap"
 ; speedbar快捷键
 (global-set-key (kbd "C-0") 'speedbar-get-focus)
 
@@ -85,7 +79,9 @@
 )
 
 ;; ECB
-(defun ecb_keymap () "Ecb Keymap"
+(defun ecb-keymap () 
+	"Ecb Keymap"
+;(ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1)) ; Support mouse action (ECB 支持鼠标动作)
 ; Show/Hide ECB (显示/隐藏 ECB)
 (define-key global-map (kbd "S-<f4>") 'ecb-hide-ecb-windows)
 (define-key global-map (kbd "S-<f3>") 'ecb-show-ecb-windows)
@@ -101,7 +97,7 @@
 )
 
 ;; Cscope
-(defun cscope_keymap () "Cscope Keymap"
+(defun cscope-keymap () "Cscope Keymap"
 ;cscope
 (global-set-key (kbd "M-;") 'cscope-find-this-symbol)
 (global-set-key (kbd "M-'")  'cscope-find-global-definition)
@@ -111,17 +107,34 @@
 (global-set-key (kbd "S-<f3>")  'cscope-set-initial-directory)
 )
 
+; Company
+(defun company-keymap () ""
+	(global-set-key (kbd "C-<tab>") 'company-complete-common)
+)
+
+; undo-tree
+(defun undo-tree-keymap () ""
+	(global-set-key (kbd "C-z")  'undo-tree-undo)
+	(global-set-key (kbd "C-M-z")  'undo-tree-redo)
+)
+
 ;; Helm
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-set-key (kbd "C-x b") 'helm-mini)
-;(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-s") 'helm-occur)
-(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+(defun helm-keymap () 
+	""
+	(global-set-key (kbd "M-x") 'helm-M-x)
+	(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+	(global-set-key (kbd "C-c h") 'helm-command-prefix)
+	(global-set-key (kbd "C-x b") 'helm-mini)
+	;(global-set-key (kbd "C-x C-f") 'helm-find-files)
+	(global-set-key (kbd "C-s") 'helm-occur)
+	(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+)
 
 ;; Flamake
-(global-set-key (kbd "C-x p") 'flymake-goto-prev-error)
-(global-set-key (kbd "C-x n") 'flymake-goto-next-error)
+(defun flymake-keymap () 
+	""
+	(global-set-key (kbd "C-x p") 'flymake-goto-prev-error)
+	(global-set-key (kbd "C-x n") 'flymake-goto-next-error)
+)
 
 (provide 'keymap-init)

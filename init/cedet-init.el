@@ -1,10 +1,17 @@
 
 ;;; ================================cedet==========================================================
-(defun cdt () "Load cedet"
-  ;; Switch cedet
-  ;; (add-to-list 'load-path "~/.emacs.d/commonIDE/cedet-1.0.1/common")
-  (add-to-list 'load-path (concat cedetPath "/common"))
-  ;;(load-file "~/.emacs.d/commonIDE/cedet-1.0.1/common/cedet.el")
+
+;; 快捷键初始化
+(defun cedet-keymap-init () 
+  ""
+  (if (fboundp 'cedet-keymap)
+    (cedet-keymap)
+    )
+)
+
+(defun cedet-init ()
+  (setq cedet-path "~/.emacs.d/lisp/cedet-1.1")
+  (add-to-list 'load-path (concat cedet-path "/common"))
   ;;Currently CEDET issues a warning “Warning: cedet-called-interactively-p called with 0 arguments, but requires 1”, which can be suppressed by adding (setq byte-compile-warnings nil) in your .emacs file before CEDET is loaded
   (setq byte-compile-warnings nil)
   (require 'cedet)
@@ -23,11 +30,7 @@
   ;; Code collapse (代码折叠)
   (require 'semantic-tag-folding nil 'noerror)
   (global-semantic-tag-folding-mode 1)
-  (cedet_keymap)
-)
-
-(defun cedet-init ()
-  (cdt)
+  (cedet-keymap-init)
 )
 
 (provide 'cedet-init)

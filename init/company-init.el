@@ -1,15 +1,19 @@
 
-;;; company-mode
-(defun company () "Load company"
-    (require 'company)
-    (setq company-idle-delay nil)
-    (add-hook 'after-init-hook 'global-company-mode)
-    (setq company-idle-delay 0)
-    (setq company-minimun-prefix-length 2)
+;; 快捷键初始化
+(defun company-keymap-init () 
+  ""
+  (if (fboundp 'company-keymap)
+    (company-keymap)
+    )
 )
 
+;;; company-mode
 (defun company-init ()
-  (company)
-)
+  "Load company"
+  (require 'company)
+  (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-idle-delay nil)
+  (setq company-minimun-prefix-length 2)
+  )
 
 (provide 'company-init)
