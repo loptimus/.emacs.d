@@ -14,6 +14,7 @@ tags
 src/dets/*
 /custom.el
 init/local-init.el
+init/keymap-init.el
 /elpa
 site-lisp/package/
 /url/cache
