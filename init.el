@@ -31,10 +31,8 @@
 
 ;;;================================= Emacs base configure =================================
 ;;; Custom
-(setq keymap-init-file (expand-file-name "keymap-init.el" user-emacs-directory))
 (require 'base-init)
-(when (file-exists-p keymap-init-file)
-  (load keymap-init-file))
+(require 'keymap-init nil t)
 (require 'utils-init)  ; 自定义函数
 (require 'site-lisp-init) ;; Must come before elpa, as it may provide package.el
 (require 'elpa-init)      ;;
@@ -67,9 +65,7 @@
 (require 'golang-init)
 (require 'web-init)
 
-;;----------------------------------------------------------------------------
-;; Allow users to provide an optional "init-local" containing personal settings
-;;----------------------------------------------------------------------------
+;; local
 (require 'local-init nil t)
 
 (after-load 'keymap-init
