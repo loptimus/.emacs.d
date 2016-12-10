@@ -11,7 +11,6 @@
 
   ;; add Erlang functions to an imenu menu
   ;(imenu-add-to-menubar "imenu")
-  (set-distel)
   (when (featurep 'flymake)    
       (require 'erlang-flymake)
       (erlang-flymake-only-on-save)
@@ -29,7 +28,8 @@
   (setq inferior-erlang-machine-options (list "-sname" name))
 )
 
-(defun set-distel()
+(defun set-distel () 
+  ""
 (let ((distel-dir erlang-distel-path))
   (unless (member distel-dir load-path)
     (setq load-path (append load-path (list distel-dir)))))
@@ -80,9 +80,6 @@
 ;    (list "~/.emacs.d/erlIDE/eflymake/eflymake_linux" (list local-file))))
 ;(add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
-;;That's all, and you can either enable flymake globally, with the file open hook
-;(add-hook 'find-file-hook 'flymake-find-file-hook)
-
 ;; =====================================esense 配置=================================================
 ;(add-to-list 'load-path esensePath)
 ;(require 'esense-start)
@@ -116,5 +113,6 @@
 (setq exec-path (cons (concat erlang-root-path "/bin") exec-path))
 (setq erlang-man-root-dir (concat erlang-root-path "/man"))
 (require 'erlang-start)
+(set-distel)
 
 (provide 'erlang-init)
