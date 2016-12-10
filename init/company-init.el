@@ -12,8 +12,9 @@
   "Load company"
   (require 'company)
   (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-idle-delay nil)
+  (setq company-idle-delay 0)
   (setq company-minimun-prefix-length 2)
+  (company-keymap-init)
   )
 
 (provide 'company-init)
