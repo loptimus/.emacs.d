@@ -32,7 +32,7 @@
 (defun load-require (feature)
       "手动加载指定插件 M-x load-require"
       (interactive "s请输入要加载的插件：")
-      (if (featurep feature)
+      (if (featurep 'feature)
         (message "%s:require done" feature)
        (require 'feature)
       )
