@@ -3,7 +3,7 @@
 (defun evil-init ()
 	""
 	(require 'evil)
-    (evil-mode 1)
+    (evil-mode 0)
 )
 
 (provide 'evil-init)
