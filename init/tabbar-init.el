@@ -24,7 +24,7 @@
 )
 
 ;; 快捷键初始化
-(defun tabbar-keymap-init () 
+(defun tabbar-keymap-init ()
   ""
   (if (fboundp 'tabbar-keymap)
     (tabbar-keymap)
@@ -36,6 +36,7 @@
     (require 'tabbar)
     (tabbar-mode t)
     (tabbar-keymap-init)
+    (set-tarbar)
 )
 
 (provide 'tabbar-init)
